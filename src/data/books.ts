@@ -1,4 +1,9 @@
 import { Book } from "@/lib/types";
+import cover5eme from "@/assets/covers/cover-5eme.jpg";
+import cover6eme from "@/assets/covers/cover-6eme.jpg";
+import cover7eme from "@/assets/covers/cover-7eme.jpg";
+import cover8eme from "@/assets/covers/cover-8eme.jpg";
+import cover9eme from "@/assets/covers/cover-9eme.jpg";
 
 export const books: Book[] = [
   {
@@ -8,7 +13,7 @@ export const books: Book[] = [
     subtitle: "Les bases solides pour démarrer l'anglais",
     grade: 5,
     gradeLabelFr: "5ème année",
-    coverImage: "/placeholder.svg",
+    coverImage: cover5eme,
     galleryImages: [],
     descriptionShort: "Un guide complet pour maîtriser les fondamentaux de l'anglais en 5ème année. Grammaire, vocabulaire et exercices pratiques.",
     descriptionLong: "Ce livre accompagne les élèves de 5ème année dans leur découverte de l'anglais. Avec des leçons progressives, des exercices variés et des activités ludiques, il pose les bases solides nécessaires pour la suite du parcours scolaire. Chaque chapitre est conçu pour développer les quatre compétences linguistiques : compréhension orale, expression orale, lecture et écriture.",
@@ -23,7 +28,7 @@ export const books: Book[] = [
     whatsappInquiryTemplate: "Bonjour, je souhaite commander English Essentials — 5ème. Merci !",
     seoTitle: "English Essentials 5ème — Anglais pour débutants",
     seoDescription: "Livre d'anglais pour les élèves de 5ème année en Tunisie. Grammaire, vocabulaire et exercices pratiques pour maîtriser les bases.",
-    ogImage: "/placeholder.svg",
+    ogImage: cover5eme,
   },
   {
     id: "book-6-1",
@@ -32,7 +37,7 @@ export const books: Book[] = [
     subtitle: "Progresser avec confiance en anglais",
     grade: 6,
     gradeLabelFr: "6ème année",
-    coverImage: "/placeholder.svg",
+    coverImage: cover6eme,
     galleryImages: [],
     descriptionShort: "Renforcez vos compétences en anglais avec des exercices progressifs adaptés au programme de 6ème année.",
     descriptionLong: "English Progress est conçu pour les élèves de 6ème année qui souhaitent consolider et approfondir leurs connaissances en anglais. Le livre propose des textes de lecture adaptés, des exercices de grammaire ciblés et des activités d'expression écrite et orale qui suivent le programme officiel tunisien.",
@@ -47,7 +52,7 @@ export const books: Book[] = [
     whatsappInquiryTemplate: "Bonjour, je souhaite commander English Progress — 6ème. Merci !",
     seoTitle: "English Progress 6ème — Renforcer son anglais",
     seoDescription: "Livre d'anglais 6ème année Tunisie. Exercices de grammaire, vocabulaire et expression pour progresser avec confiance.",
-    ogImage: "/placeholder.svg",
+    ogImage: cover6eme,
   },
   {
     id: "book-7-1",
@@ -56,7 +61,7 @@ export const books: Book[] = [
     subtitle: "Explorer la langue anglaise en profondeur",
     grade: 7,
     gradeLabelFr: "7ème année",
-    coverImage: "/placeholder.svg",
+    coverImage: cover7eme,
     galleryImages: [],
     descriptionShort: "Explorez l'anglais à travers des textes authentiques et des exercices stimulants pour la 7ème année.",
     descriptionLong: "English Explorer invite les élèves de 7ème année à découvrir l'anglais à travers des thèmes captivants et des textes authentiques. Ce livre développe la compréhension écrite, l'expression orale et les compétences grammaticales nécessaires pour le niveau intermédiaire.",
@@ -71,7 +76,7 @@ export const books: Book[] = [
     whatsappInquiryTemplate: "Bonjour, je souhaite commander English Explorer — 7ème. Merci !",
     seoTitle: "English Explorer 7ème — Anglais intermédiaire",
     seoDescription: "Livre d'anglais 7ème année Tunisie. Textes authentiques, grammaire intermédiaire et exercices pour explorer la langue.",
-    ogImage: "/placeholder.svg",
+    ogImage: cover7eme,
   },
   {
     id: "book-8-1",
@@ -80,7 +85,7 @@ export const books: Book[] = [
     subtitle: "Maîtriser l'anglais pour le brevet",
     grade: 8,
     gradeLabelFr: "8ème année",
-    coverImage: "/placeholder.svg",
+    coverImage: cover8eme,
     galleryImages: [],
     descriptionShort: "Préparez-vous au brevet avec une maîtrise approfondie de la grammaire, du vocabulaire et de la rédaction.",
     descriptionLong: "English Mastery prépare les élèves de 8ème année aux exigences du brevet. Avec des exercices de rédaction structurés, des textes de compréhension avancés et une grammaire approfondie, ce livre est l'outil idéal pour atteindre l'excellence en anglais.",
@@ -95,7 +100,7 @@ export const books: Book[] = [
     whatsappInquiryTemplate: "Bonjour, je souhaite commander English Mastery — 8ème. Merci !",
     seoTitle: "English Mastery 8ème — Préparation brevet anglais",
     seoDescription: "Livre d'anglais 8ème année Tunisie. Préparation au brevet avec grammaire avancée, rédaction et compréhension.",
-    ogImage: "/placeholder.svg",
+    ogImage: cover8eme,
   },
   {
     id: "book-9-1",
@@ -104,7 +109,7 @@ export const books: Book[] = [
     subtitle: "L'excellence en anglais pour réussir le brevet",
     grade: 9,
     gradeLabelFr: "9ème année",
-    coverImage: "/placeholder.svg",
+    coverImage: cover9eme,
     galleryImages: [],
     descriptionShort: "Le guide ultime pour exceller en anglais au brevet. Exercices intensifs et méthodologie de rédaction.",
     descriptionLong: "English Excellence est le compagnon indispensable des élèves de 9ème année. Ce livre propose une révision complète du programme, des exercices intensifs type brevet et une méthodologie de rédaction éprouvée pour maximiser les notes à l'examen final.",
@@ -119,7 +124,7 @@ export const books: Book[] = [
     whatsappInquiryTemplate: "Bonjour, je souhaite commander English Excellence — 9ème. Merci !",
     seoTitle: "English Excellence 9ème — Réussir le brevet anglais",
     seoDescription: "Livre d'anglais 9ème année Tunisie. Exercices intensifs type brevet, méthodologie de rédaction et révision complète.",
-    ogImage: "/placeholder.svg",
+    ogImage: cover9eme,
   },
 ];
 
