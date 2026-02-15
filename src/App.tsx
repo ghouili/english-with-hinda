@@ -10,6 +10,7 @@ import GradeHub from "./pages/GradeHub";
 import BookDetail from "./pages/BookDetail";
 import WhereToBuy from "./pages/WhereToBuy";
 import ResourcesIndex from "./pages/ResourcesIndex";
+import ResourceDetail from "./pages/ResourceDetail";
 import BlogIndex from "./pages/BlogIndex";
 import BlogPost from "./pages/BlogPost";
 import About from "./pages/About";
@@ -33,6 +34,7 @@ const App = () => (
             <Route path="/livre/:slug" element={<BookDetail />} />
             <Route path="/ou-acheter" element={<WhereToBuy />} />
             <Route path="/ressources" element={<ResourcesIndex />} />
+            <Route path="/ressources/:slug" element={<ResourceDetail />} />
             <Route path="/blog" element={<BlogIndex />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/a-propos" element={<About />} />

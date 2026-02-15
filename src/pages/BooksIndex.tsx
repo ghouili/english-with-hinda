@@ -1,5 +1,4 @@
 import { useState, useMemo } from "react";
-import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { SEOHead } from "@/components/SEOHead";
 import { GradeCard } from "@/components/GradeCard";
@@ -10,18 +9,31 @@ import { Grade } from "@/lib/types";
 import { Search } from "lucide-react";
 
 const GRADES: Grade[] = [5, 6, 7, 8, 9];
+const SKILLS = ["grammar", "vocabulary", "reading", "writing", "listening"] as const;
+const SKILL_LABELS: Record<string, string> = {
+  grammar: "Grammaire",
+  vocabulary: "Vocabulaire",
+  reading: "Lecture",
+  writing: "Rédaction",
+  listening: "Écoute",
+};
 
 export default function BooksIndex() {
   const [search, setSearch] = useState("");
   const [gradeFilter, setGradeFilter] = useState<Grade | null>(null);
+  const [skillFilter, setSkillFilter] = useState<string | null>(null);
 
   const filtered = useMemo(() => {
     return books.filter((b) => {
       if (gradeFilter && b.grade !== gradeFilter) return false;
+      if (skillFilter && !b.skills.includes(skillFilter)) return false;
       if (search && !b.title.toLowerCase().includes(search.toLowerCase()) && !b.descriptionShort.toLowerCase().includes(search.toLowerCase())) return false;
       return true;
     });
-  }, [search, gradeFilter]);
+  }, [search, gradeFilter, skillFilter]);
+
+  const chipClass = (active: boolean) =>
+    `rounded-full px-3 py-1 text-sm font-medium transition-colors cursor-pointer ${active ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:bg-accent"}`;
 
   return (
     <Layout>
@@ -40,39 +52,29 @@ export default function BooksIndex() {
           ))}
         </div>
 
-        {/* Search and filter */}
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center mb-8">
-          <div className="relative flex-1">
+        {/* Search and filters */}
+        <div className="space-y-4 mb-8">
+          <div className="relative">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input
-              placeholder="Rechercher un livre…"
-              className="pl-10"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
+            <Input placeholder="Rechercher un livre…" className="pl-10" value={search} onChange={(e) => setSearch(e.target.value)} />
           </div>
           <div className="flex gap-2 flex-wrap">
-            <button
-              onClick={() => setGradeFilter(null)}
-              className={`rounded-full px-3 py-1 text-sm font-medium transition-colors ${!gradeFilter ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:bg-accent"}`}
-            >
-              Tous
-            </button>
+            <button onClick={() => setGradeFilter(null)} className={chipClass(!gradeFilter)}>Tous niveaux</button>
             {GRADES.map((g) => (
-              <button
-                key={g}
-                onClick={() => setGradeFilter(g)}
-                className={`rounded-full px-3 py-1 text-sm font-medium transition-colors ${gradeFilter === g ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:bg-accent"}`}
-              >
-                {g}ème
-              </button>
+              <button key={g} onClick={() => setGradeFilter(g)} className={chipClass(gradeFilter === g)}>{g}ème</button>
+            ))}
+          </div>
+          <div className="flex gap-2 flex-wrap">
+            <button onClick={() => setSkillFilter(null)} className={chipClass(!skillFilter)}>Toutes compétences</button>
+            {SKILLS.map((s) => (
+              <button key={s} onClick={() => setSkillFilter(s)} className={chipClass(skillFilter === s)}>{SKILL_LABELS[s]}</button>
             ))}
           </div>
         </div>
 
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
           {filtered.map((book) => (
-            <BookCard key={book.id} book={book} />
+            <BookCard key={book.id} book={book} showActions />
           ))}
         </div>
         {filtered.length === 0 && (

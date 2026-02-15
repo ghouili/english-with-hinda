@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { books } from "@/data/books";
 import { stockists } from "@/data/stockists";
 import { Grade } from "@/lib/types";
-import { ArrowRight, BookOpen, Download, Star, MapPin, MessageCircle } from "lucide-react";
+import { ArrowRight, BookOpen, Download, Star, MapPin, MessageCircle, CheckCircle } from "lucide-react";
 
 const GRADES: Grade[] = [5, 6, 7, 8, 9];
 
@@ -16,6 +16,13 @@ const TESTIMONIALS = [
   { name: "Sana M.", role: "Mère d'élève, Tunis", text: "Mon fils a beaucoup progressé grâce aux livres de Hinda. Les exercices sont clairs et adaptés au programme tunisien." },
   { name: "Ahmed B.", role: "Enseignant, Sfax", text: "J'utilise ces livres en classe. Mes élèves sont plus motivés et leurs résultats se sont nettement améliorés." },
   { name: "Fatma K.", role: "Élève de 9ème, Sousse", text: "Les sujets type brevet m'ont vraiment aidée à me préparer. J'ai eu 18/20 au brevet d'anglais !" },
+];
+
+const TRUST_ITEMS = [
+  "Aligné programme officiel",
+  "Exercices corrigés",
+  "Méthode progressive",
+  "Ressources gratuites",
 ];
 
 const ORGANIZATION_SCHEMA = {
@@ -30,6 +37,7 @@ const ORGANIZATION_SCHEMA = {
 export default function HomePage() {
   const featuredBooks = books.slice(0, 4);
   const topCities = [...new Set(stockists.map((s) => s.city))].slice(0, 5);
+  const stockistCount = stockists.length;
 
   return (
     <Layout>
@@ -47,7 +55,7 @@ export default function HomePage() {
               L'anglais, simplifié pour chaque élève tunisien
             </h1>
             <p className="mt-4 text-lg opacity-90 md:text-xl">
-              Des livres conçus par des enseignants, adaptés au programme officiel, de la 5ème à la 9ème année.
+              Livres conçus par des enseignants, adaptés au programme officiel tunisien, de la 5ème à la 9ème.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Button asChild size="lg" variant="secondary" className="font-semibold">
@@ -65,9 +73,22 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-        {/* Subtle decorative element */}
         <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-primary-foreground/5" />
         <div className="absolute -bottom-10 -right-10 h-40 w-40 rounded-full bg-primary-foreground/5" />
+      </section>
+
+      {/* Trust strip */}
+      <section className="border-b bg-card">
+        <div className="container py-4">
+          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2">
+            {TRUST_ITEMS.map((item) => (
+              <span key={item} className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+                <CheckCircle className="h-4 w-4 text-grade-6" />
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* Grade cards */}
@@ -94,7 +115,7 @@ export default function HomePage() {
           </div>
           <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
             {featuredBooks.map((book) => (
-              <BookCard key={book.id} book={book} />
+              <BookCard key={book.id} book={book} showActions />
             ))}
           </div>
         </div>
@@ -138,8 +159,10 @@ export default function HomePage() {
       {/* Where to buy preview */}
       <section className="container py-16">
         <h2 className="font-serif text-3xl font-bold text-center mb-2">Où acheter nos livres</h2>
-        <p className="text-center text-muted-foreground mb-8">Disponibles dans les librairies à travers la Tunisie</p>
-        <div className="flex flex-wrap justify-center gap-3 mb-6">
+        <p className="text-center text-muted-foreground mb-8">
+          Disponibles dans {stockistCount} librairies à travers la Tunisie
+        </p>
+        <div className="flex flex-wrap justify-center gap-3 mb-8">
           {topCities.map((city) => (
             <span key={city} className="flex items-center gap-1 rounded-full bg-muted px-4 py-2 text-sm font-medium">
               <MapPin className="h-3.5 w-3.5 text-muted-foreground" />
@@ -147,11 +170,16 @@ export default function HomePage() {
             </span>
           ))}
         </div>
-        <div className="text-center">
-          <Button asChild variant="outline">
+        <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+          <Button asChild variant="default">
             <Link to="/ou-acheter">
               Voir tous les points de vente <ArrowRight className="ml-1 h-4 w-4" />
             </Link>
+          </Button>
+          <Button asChild variant="outline">
+            <a href="https://wa.me/21600000000?text=Bonjour%2C%20je%20souhaite%20commander%20un%20livre.%20Merci%20!" target="_blank" rel="noopener noreferrer">
+              <MessageCircle className="mr-2 h-4 w-4" /> Commander via WhatsApp
+            </a>
           </Button>
         </div>
       </section>
