@@ -3,19 +3,18 @@ import { BookOpen, Mail, Phone, MessageCircle } from "lucide-react";
 
 const FOOTER_LINKS = {
   navigation: [
-    { label: "Accueil", to: "/" },
-    { label: "Livres", to: "/livres" },
-    { label: "Ressources", to: "/ressources" },
-    { label: "Blog", to: "/blog" },
-    { label: "Où acheter", to: "/ou-acheter" },
+    { label: "Home", to: "/" },
+    { label: "Books", to: "/books" },
+    { label: "Free Resources", to: "/resources" },
+    { label: "How to Order", to: "/how-to-order" },
   ],
   legal: [
-    { label: "Confidentialité", to: "/confidentialite" },
-    { label: "Conditions", to: "/conditions" },
+    { label: "Privacy Policy", to: "/privacy" },
+    { label: "Terms of Use", to: "/terms" },
     { label: "Cookies", to: "/cookies" },
   ],
   about: [
-    { label: "À propos", to: "/a-propos" },
+    { label: "About", to: "/about" },
     { label: "Contact", to: "/contact" },
   ],
 };
@@ -32,14 +31,14 @@ export function Footer() {
               English With Hinda
             </Link>
             <p className="mt-3 text-sm opacity-80">
-              Des livres d'anglais conçus pour les élèves tunisiens de la 5ème à la 9ème année.
+              English textbooks designed for Tunisian students from 4th to 9th year.
             </p>
             <div className="mt-4 flex flex-col gap-2 text-sm opacity-80">
               <a href="mailto:contact@englishwithhinda.com" className="flex items-center gap-2 hover:opacity-100">
                 <Mail className="h-4 w-4" /> contact@englishwithhinda.com
               </a>
-              <a href="tel:+21600000000" className="flex items-center gap-2 hover:opacity-100">
-                <Phone className="h-4 w-4" /> +216 00 000 000
+              <a href="https://wa.me/21600000000" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:opacity-100">
+                <MessageCircle className="h-4 w-4" /> WhatsApp
               </a>
             </div>
           </div>
@@ -56,9 +55,9 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* À propos */}
+          {/* About */}
           <div>
-            <h3 className="font-serif text-sm font-semibold uppercase tracking-wider opacity-70">À propos</h3>
+            <h3 className="font-serif text-sm font-semibold uppercase tracking-wider opacity-70">About</h3>
             <ul className="mt-3 space-y-2">
               {FOOTER_LINKS.about.map((l) => (
                 <li key={l.to}>
@@ -70,7 +69,7 @@ export function Footer() {
 
           {/* Legal */}
           <div>
-            <h3 className="font-serif text-sm font-semibold uppercase tracking-wider opacity-70">Légal</h3>
+            <h3 className="font-serif text-sm font-semibold uppercase tracking-wider opacity-70">Legal</h3>
             <ul className="mt-3 space-y-2">
               {FOOTER_LINKS.legal.map((l) => (
                 <li key={l.to}>
@@ -82,7 +81,7 @@ export function Footer() {
         </div>
 
         <div className="mt-10 border-t border-primary-foreground/20 pt-6 text-center text-xs opacity-60">
-          © {new Date().getFullYear()} English With Hinda. Tous droits réservés.
+          © {new Date().getFullYear()} English With Hinda. All rights reserved.
         </div>
       </div>
     </footer>
