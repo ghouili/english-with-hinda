@@ -2,9 +2,10 @@ import { Link } from "react-router-dom";
 import { Book, Grade, GRADE_CONFIG } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { MapPin } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 
 const GRADE_BADGE_CLASSES: Record<Grade, string> = {
+  4: "bg-grade-4 text-grade-4-foreground hover:bg-grade-4/90",
   5: "bg-grade-5 text-grade-5-foreground hover:bg-grade-5/90",
   6: "bg-grade-6 text-grade-6-foreground hover:bg-grade-6/90",
   7: "bg-grade-7 text-grade-7-foreground hover:bg-grade-7/90",
@@ -13,11 +14,11 @@ const GRADE_BADGE_CLASSES: Record<Grade, string> = {
 };
 
 const SKILL_LABELS: Record<string, string> = {
-  grammar: "Grammaire",
-  vocabulary: "Vocabulaire",
-  reading: "Lecture",
-  writing: "Rédaction",
-  listening: "Écoute",
+  grammar: "Grammar",
+  vocabulary: "Vocabulary",
+  reading: "Reading",
+  writing: "Writing",
+  listening: "Listening",
 };
 
 export function BookCard({ book, showActions = false }: { book: Book; showActions?: boolean }) {
@@ -25,20 +26,20 @@ export function BookCard({ book, showActions = false }: { book: Book; showAction
 
   return (
     <div className="group flex flex-col overflow-hidden rounded-xl border bg-card shadow-sm transition-all hover:shadow-lg hover:-translate-y-1">
-      <Link to={`/livre/${book.slug}`} className="aspect-[3/4] bg-muted flex items-center justify-center overflow-hidden">
+      <Link to={`/book/${book.slug}`} className="flex items-center justify-center p-4 bg-muted/30">
         <img
           src={book.coverImage}
-          alt={`Couverture ${book.title}`}
-          className="h-full w-full object-cover transition-transform group-hover:scale-105"
+          alt={`${book.title} book cover`}
+          className="h-48 w-auto object-contain transition-transform group-hover:scale-105"
           loading="lazy"
         />
       </Link>
       <div className="flex flex-1 flex-col p-4">
         <Badge className={`w-fit mb-2 ${GRADE_BADGE_CLASSES[book.grade]}`}>
-          {config.label}
+          {config.shortLabel}
         </Badge>
-        <h3 className="font-serif text-lg font-semibold text-card-foreground">
-          <Link to={`/livre/${book.slug}`} className="hover:text-primary transition-colors">{book.title}</Link>
+        <h3 className="font-serif text-base font-semibold text-card-foreground leading-tight">
+          <Link to={`/book/${book.slug}`} className="hover:text-primary transition-colors">{book.title}</Link>
         </h3>
         <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{book.descriptionShort}</p>
 
@@ -58,10 +59,12 @@ export function BookCard({ book, showActions = false }: { book: Book; showAction
         {showActions && (
           <div className="mt-3 flex gap-2">
             <Button asChild size="sm" className="flex-1 text-xs">
-              <Link to={`/livre/${book.slug}`}>Voir le livre</Link>
+              <Link to={`/book/${book.slug}`}>View book</Link>
             </Button>
             <Button asChild size="sm" variant="outline" className="text-xs">
-              <Link to="/ou-acheter"><MapPin className="h-3 w-3" /></Link>
+              <a href={`https://wa.me/21600000000?text=${encodeURIComponent(book.whatsappInquiryTemplate)}`} target="_blank" rel="noopener noreferrer">
+                <MessageCircle className="h-3 w-3" />
+              </a>
             </Button>
           </div>
         )}
