@@ -37,7 +37,7 @@
     --radius: 0.5rem;
 
     /* Grade color tokens — matched to book covers */
-    --grade-4: 90 50% 48%;
+    --grade-4: 90 53% 48%;
     --grade-4-foreground: 0 0% 100%;
 
     --grade-5: 49 87% 62%;
@@ -49,7 +49,7 @@
     --grade-7: 207 50% 82%;
     --grade-7-foreground: 210 60% 10%;
 
-    --grade-8: 1 72% 82%;
+    --grade-8: 1 60% 82%;
     --grade-8-foreground: 210 60% 10%;
 
     --grade-9: 220 72% 20%;

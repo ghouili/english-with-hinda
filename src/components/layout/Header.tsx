@@ -40,7 +40,7 @@ export function Header() {
         <div className="container flex h-16 items-center justify-between">
           <Link to="/" className="flex items-center gap-2 font-serif text-lg font-bold text-primary sm:text-xl">
             <BookOpen className="h-5 w-5 sm:h-6 sm:w-6" />
-            <span>English With Henda</span>
+            <span>English With Hinda</span>
           </Link>
 
           {/* Desktop nav */}

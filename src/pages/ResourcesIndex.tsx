@@ -59,7 +59,7 @@ export default function ResourcesIndex() {
   return (
     <Layout>
       <SEOHead
-        title="Free Resources — English With Henda"
+        title="Free Resources — English With Hinda"
         description="Free worksheets, exercises and audio to practice English. From 4th to 9th year."
       />
 

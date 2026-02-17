@@ -16,7 +16,7 @@ import cover9th from "@/assets/covers/9th_year.png";
 const GRADES: Grade[] = [4, 5, 6, 7, 8, 9];
 
 const TESTIMONIALS = [
-  { name: "Sana M.", role: "Parent, Tunis", text: "My son has improved so much thanks to Henda's books. The exercises are clear and perfectly aligned with the Tunisian curriculum." },
+  { name: "Sana M.", role: "Parent, Tunis", text: "My son has improved so much thanks to Hinda's books. The exercises are clear and perfectly aligned with the Tunisian curriculum." },
   { name: "Ahmed B.", role: "Teacher, Sfax", text: "I use these books in class. My students are more motivated and their results have noticeably improved." },
   { name: "Fatma K.", role: "9th Year Student, Sousse", text: "The exam practice sections really helped me prepare. I scored 18/20 on my English exam!" },
 ];
@@ -31,10 +31,10 @@ const TRUST_ITEMS = [
 const ORGANIZATION_SCHEMA = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "English With Henda",
+  name: "English With Hinda",
   description: "Publisher of English workbooks for Tunisian students from 4th to 9th year.",
-  url: "https://englishwithhenda.com",
-  contactPoint: { "@type": "ContactPoint", contactType: "customer service", availableLanguage: ["French", "English"] },
+  url: "https://englishwithhinda.com",
+  contactPoint: { "@type": "ContactPoint", contactType: "customer service", availableLanguage: ["English"] },
 };
 
 export default function HomePage() {
@@ -43,7 +43,7 @@ export default function HomePage() {
   return (
     <Layout>
       <SEOHead
-        title="English With Henda — English Books for Tunisian Students"
+        title="English With Hinda — English Books for Tunisian Students"
         description="English workbooks designed for Tunisian students from 4th to 9th year. Grammar, vocabulary and exam preparation."
         jsonLd={ORGANIZATION_SCHEMA}
       />
