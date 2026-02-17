@@ -7,12 +7,9 @@ export default {
   theme: {
     container: {
       center: true,
-      padding: "1rem",
+      padding: "2rem",
       screens: {
-        sm: "640px",
-        md: "768px",
-        lg: "1024px",
-        xl: "1120px",
+        "2xl": "1400px",
       },
     },
     extend: {
@@ -59,8 +56,6 @@ export default {
           foreground: "hsl(var(--brand-foreground))",
         },
         grade: {
-          4: "hsl(var(--grade-4))",
-          "4-foreground": "hsl(var(--grade-4-foreground))",
           5: "hsl(var(--grade-5))",
           "5-foreground": "hsl(var(--grade-5-foreground))",
           6: "hsl(var(--grade-6))",

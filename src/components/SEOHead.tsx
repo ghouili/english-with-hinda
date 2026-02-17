@@ -22,7 +22,7 @@ export function SEOHead({ title, description, canonical, ogImage, noindex, jsonL
       <meta property="og:description" content={description} />
       {ogImage && <meta property="og:image" content={ogImage} />}
       <meta property="og:type" content="website" />
-      <meta property="og:locale" content="en" />
+      <meta property="og:locale" content="fr_TN" />
       {schemas.map((schema, i) => (
         <script key={i} type="application/ld+json">
           {JSON.stringify(schema)}

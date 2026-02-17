@@ -1,4 +1,4 @@
-export type Grade = 4 | 5 | 6 | 7 | 8 | 9;
+export type Grade = 5 | 6 | 7 | 8 | 9;
 
 export interface Book {
   id: string;
@@ -6,7 +6,7 @@ export interface Book {
   title: string;
   subtitle: string;
   grade: Grade;
-  gradeLabel: string;
+  gradeLabelFr: string;
   coverImage: string;
   galleryImages: string[];
   descriptionShort: string;
@@ -19,10 +19,22 @@ export interface Book {
   isbn?: string;
   priceTnd?: number;
   availability?: string;
+  stockistIds: string[];
   whatsappInquiryTemplate: string;
   seoTitle: string;
   seoDescription: string;
   ogImage: string;
+}
+
+export interface Stockist {
+  id: string;
+  name: string;
+  city: string;
+  address: string;
+  phone: string;
+  mapUrl: string;
+  hours: string;
+  notes: string;
 }
 
 export interface Resource {
@@ -39,11 +51,24 @@ export interface Resource {
   seoDescription: string;
 }
 
-export const GRADE_CONFIG: Record<Grade, { label: string; shortLabel: string; color: string; slug: string }> = {
-  4: { label: "4th Year Primary Education", shortLabel: "4th Year", color: "grade-4", slug: "4th" },
-  5: { label: "5th Year Primary Education", shortLabel: "5th Year", color: "grade-5", slug: "5th" },
-  6: { label: "6th Year Primary Education", shortLabel: "6th Year", color: "grade-6", slug: "6th" },
-  7: { label: "7th Form Basic Education", shortLabel: "7th Form", color: "grade-7", slug: "7th" },
-  8: { label: "8th Year Basic Education", shortLabel: "8th Year", color: "grade-8", slug: "8th" },
-  9: { label: "9th Year Basic Education", shortLabel: "9th Year", color: "grade-9", slug: "9th" },
+export interface BlogPost {
+  id: string;
+  slug: string;
+  title: string;
+  category: string;
+  gradeOptional?: Grade;
+  content: string;
+  authorName: string;
+  publishDate: string;
+  seoTitle: string;
+  seoDescription: string;
+  ogImage: string;
+}
+
+export const GRADE_CONFIG: Record<Grade, { label: string; color: string; slug: string }> = {
+  5: { label: "5ème", color: "grade-5", slug: "5eme" },
+  6: { label: "6ème", color: "grade-6", slug: "6eme" },
+  7: { label: "7ème", color: "grade-7", slug: "7eme" },
+  8: { label: "8ème", color: "grade-8", slug: "8eme" },
+  9: { label: "9ème", color: "grade-9", slug: "9eme" },
 };

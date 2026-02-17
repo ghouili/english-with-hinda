@@ -8,9 +8,11 @@ import Index from "./pages/Index";
 import BooksIndex from "./pages/BooksIndex";
 import GradeHub from "./pages/GradeHub";
 import BookDetail from "./pages/BookDetail";
-import HowToOrder from "./pages/HowToOrder";
+import WhereToBuy from "./pages/WhereToBuy";
 import ResourcesIndex from "./pages/ResourcesIndex";
 import ResourceDetail from "./pages/ResourceDetail";
+import BlogIndex from "./pages/BlogIndex";
+import BlogPost from "./pages/BlogPost";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import { Privacy, Terms, Cookies } from "./pages/Legal";
@@ -27,16 +29,18 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/books" element={<BooksIndex />} />
-            <Route path="/books/:gradeSlug" element={<GradeHub />} />
-            <Route path="/book/:slug" element={<BookDetail />} />
-            <Route path="/how-to-order" element={<HowToOrder />} />
-            <Route path="/resources" element={<ResourcesIndex />} />
-            <Route path="/resources/:slug" element={<ResourceDetail />} />
-            <Route path="/about" element={<About />} />
+            <Route path="/livres" element={<BooksIndex />} />
+            <Route path="/livres/:gradeSlug" element={<GradeHub />} />
+            <Route path="/livre/:slug" element={<BookDetail />} />
+            <Route path="/ou-acheter" element={<WhereToBuy />} />
+            <Route path="/ressources" element={<ResourcesIndex />} />
+            <Route path="/ressources/:slug" element={<ResourceDetail />} />
+            <Route path="/blog" element={<BlogIndex />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/a-propos" element={<About />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/privacy" element={<Privacy />} />
-            <Route path="/terms" element={<Terms />} />
+            <Route path="/confidentialite" element={<Privacy />} />
+            <Route path="/conditions" element={<Terms />} />
             <Route path="/cookies" element={<Cookies />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
