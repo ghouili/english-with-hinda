@@ -1,28 +1,27 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X, BookOpen, MapPin, MessageCircle } from "lucide-react";
+import { Menu, X, BookOpen, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NavLink } from "@/components/NavLink";
 import { Grade, GRADE_CONFIG } from "@/lib/types";
 
 const NAV_ITEMS = [
-  { label: "Accueil", to: "/" },
-  { label: "Livres", to: "/livres" },
-  { label: "Ressources", to: "/ressources" },
-  { label: "Blog", to: "/blog" },
-  { label: "Où acheter", to: "/ou-acheter" },
-  { label: "À propos", to: "/a-propos" },
+  { label: "Home", to: "/" },
+  { label: "Books", to: "/books" },
+  { label: "Resources", to: "/resources" },
+  { label: "About", to: "/about" },
   { label: "Contact", to: "/contact" },
 ];
 
-const GRADES: Grade[] = [5, 6, 7, 8, 9];
+const GRADES: Grade[] = [4, 5, 6, 7, 8, 9];
 
 const GRADE_CHIP_CLASSES: Record<Grade, string> = {
-  5: "bg-grade-5/15 text-grade-5 hover:bg-grade-5/25",
-  6: "bg-grade-6/15 text-grade-6 hover:bg-grade-6/25",
-  7: "bg-grade-7/15 text-grade-7 hover:bg-grade-7/25",
-  8: "bg-grade-8/15 text-grade-8 hover:bg-grade-8/25",
-  9: "bg-grade-9/15 text-grade-9 hover:bg-grade-9/25",
+  4: "bg-grade-4/15 text-grade-4-foreground hover:bg-grade-4/25",
+  5: "bg-grade-5/15 text-grade-5-foreground hover:bg-grade-5/25",
+  6: "bg-grade-6/15 text-grade-6-foreground hover:bg-grade-6/25",
+  7: "bg-grade-7/15 text-grade-7-foreground hover:bg-grade-7/25",
+  8: "bg-grade-8/15 text-grade-8-foreground hover:bg-grade-8/25",
+  9: "bg-grade-9/15 text-grade-9-foreground hover:bg-grade-9/25",
 };
 
 export function Header() {
@@ -39,9 +38,9 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="border-b">
         <div className="container flex h-16 items-center justify-between">
-          <Link to="/" className="flex items-center gap-2 font-serif text-xl font-bold text-primary">
-            <BookOpen className="h-6 w-6" />
-            <span>English With Hinda</span>
+          <Link to="/" className="flex items-center gap-2 font-serif text-lg font-bold text-primary sm:text-xl">
+            <BookOpen className="h-5 w-5 sm:h-6 sm:w-6" />
+            <span>English With Henda</span>
           </Link>
 
           {/* Desktop nav */}
@@ -64,7 +63,7 @@ export function Header() {
             size="icon"
             className="md:hidden"
             onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label={mobileOpen ? "Fermer le menu" : "Ouvrir le menu"}
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
           >
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </Button>
@@ -79,7 +78,7 @@ export function Header() {
               {GRADES.map((g) => (
                 <Link
                   key={g}
-                  to={`/livres/${GRADE_CONFIG[g].slug}`}
+                  to={`/books/${GRADE_CONFIG[g].slug}`}
                   className={`rounded-full px-3 py-1 text-xs font-semibold transition-colors ${GRADE_CHIP_CLASSES[g]}`}
                 >
                   {GRADE_CONFIG[g].label}
@@ -87,9 +86,6 @@ export function Header() {
               ))}
             </div>
             <div className="flex items-center gap-2">
-              <Button asChild size="sm" variant="default" className="h-7 text-xs">
-                <Link to="/ou-acheter"><MapPin className="mr-1 h-3 w-3" /> Où acheter</Link>
-              </Button>
               <Button asChild size="sm" variant="outline" className="h-7 text-xs">
                 <a href="https://wa.me/21600000000" target="_blank" rel="noopener noreferrer">
                   <MessageCircle className="mr-1 h-3 w-3" /> WhatsApp
@@ -108,7 +104,7 @@ export function Header() {
             {GRADES.map((g) => (
               <Link
                 key={g}
-                to={`/livres/${GRADE_CONFIG[g].slug}`}
+                to={`/books/${GRADE_CONFIG[g].slug}`}
                 onClick={() => setMobileOpen(false)}
                 className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${GRADE_CHIP_CLASSES[g]}`}
               >

@@ -3,19 +3,20 @@ import { Layout } from "@/components/layout/Layout";
 import { SEOHead } from "@/components/SEOHead";
 import { GradeCard } from "@/components/GradeCard";
 import { BookCard } from "@/components/BookCard";
+import { ScrollReveal } from "@/components/ScrollReveal";
 import { Input } from "@/components/ui/input";
 import { books } from "@/data/books";
 import { Grade } from "@/lib/types";
 import { Search } from "lucide-react";
 
-const GRADES: Grade[] = [5, 6, 7, 8, 9];
+const GRADES: Grade[] = [4, 5, 6, 7, 8, 9];
 const SKILLS = ["grammar", "vocabulary", "reading", "writing", "listening"] as const;
 const SKILL_LABELS: Record<string, string> = {
-  grammar: "Grammaire",
-  vocabulary: "Vocabulaire",
-  reading: "Lecture",
-  writing: "Rédaction",
-  listening: "Écoute",
+  grammar: "Grammar",
+  vocabulary: "Vocabulary",
+  reading: "Reading",
+  writing: "Writing",
+  listening: "Listening",
 };
 
 export default function BooksIndex() {
@@ -38,47 +39,51 @@ export default function BooksIndex() {
   return (
     <Layout>
       <SEOHead
-        title="Livres d'anglais — English With Hinda"
-        description="Découvrez tous nos livres d'anglais pour les élèves tunisiens de la 5ème à la 9ème année."
+        title="Books — English With Henda"
+        description="Discover all our English books for Tunisian students from 4th to 9th year."
       />
 
       <section className="container py-12">
-        <h1 className="font-serif text-4xl font-bold mb-2">Nos livres</h1>
-        <p className="text-muted-foreground mb-8">Un livre adapté pour chaque niveau, de la 5ème à la 9ème année.</p>
+        <h1 className="font-serif text-3xl sm:text-4xl font-bold mb-2">Books</h1>
+        <p className="text-muted-foreground mb-8">One book for each school year — from 4th to 9th.</p>
 
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5 mb-10">
-          {GRADES.map((g) => (
-            <GradeCard key={g} grade={g} />
-          ))}
-        </div>
+        <ScrollReveal>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6 sm:gap-4 mb-10">
+            {GRADES.map((g) => (
+              <GradeCard key={g} grade={g} />
+            ))}
+          </div>
+        </ScrollReveal>
 
         {/* Search and filters */}
         <div className="space-y-4 mb-8">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input placeholder="Rechercher un livre…" className="pl-10" value={search} onChange={(e) => setSearch(e.target.value)} />
+            <Input placeholder="Search for a book…" className="pl-10" value={search} onChange={(e) => setSearch(e.target.value)} />
           </div>
           <div className="flex gap-2 flex-wrap">
-            <button onClick={() => setGradeFilter(null)} className={chipClass(!gradeFilter)}>Tous niveaux</button>
+            <button onClick={() => setGradeFilter(null)} className={chipClass(!gradeFilter)}>All levels</button>
             {GRADES.map((g) => (
-              <button key={g} onClick={() => setGradeFilter(g)} className={chipClass(gradeFilter === g)}>{g}ème</button>
+              <button key={g} onClick={() => setGradeFilter(g)} className={chipClass(gradeFilter === g)}>{g}th</button>
             ))}
           </div>
           <div className="flex gap-2 flex-wrap">
-            <button onClick={() => setSkillFilter(null)} className={chipClass(!skillFilter)}>Toutes compétences</button>
+            <button onClick={() => setSkillFilter(null)} className={chipClass(!skillFilter)}>All skills</button>
             {SKILLS.map((s) => (
               <button key={s} onClick={() => setSkillFilter(s)} className={chipClass(skillFilter === s)}>{SKILL_LABELS[s]}</button>
             ))}
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-          {filtered.map((book) => (
-            <BookCard key={book.id} book={book} showActions />
-          ))}
-        </div>
+        <ScrollReveal>
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
+            {filtered.map((book) => (
+              <BookCard key={book.id} book={book} showActions />
+            ))}
+          </div>
+        </ScrollReveal>
         {filtered.length === 0 && (
-          <p className="text-center text-muted-foreground py-12">Aucun livre ne correspond à votre recherche.</p>
+          <p className="text-center text-muted-foreground py-12">No books match your search.</p>
         )}
       </section>
     </Layout>

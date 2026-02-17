@@ -13,7 +13,7 @@ function LegalPage({ title, seoTitle, seoDescription, children }: LegalPageProps
     <Layout>
       <SEOHead title={seoTitle} description={seoDescription} />
       <section className="container py-12 max-w-3xl">
-        <h1 className="font-serif text-4xl font-bold mb-8">{title}</h1>
+        <h1 className="font-serif text-3xl sm:text-4xl font-bold mb-8">{title}</h1>
         <div className="prose prose-slate max-w-none text-muted-foreground space-y-4 text-sm leading-relaxed">
           {children}
         </div>
@@ -24,42 +24,42 @@ function LegalPage({ title, seoTitle, seoDescription, children }: LegalPageProps
 
 export function Privacy() {
   return (
-    <LegalPage title="Politique de confidentialité" seoTitle="Confidentialité — English With Hinda" seoDescription="Politique de confidentialité de English With Hinda.">
-      <p>English With Hinda s'engage à protéger la vie privée de ses visiteurs. Cette politique décrit les informations que nous collectons et comment nous les utilisons.</p>
-      <h2 className="font-serif text-xl font-bold mt-6">Données collectées</h2>
-      <p>Nous pouvons collecter votre nom, adresse e-mail et numéro de téléphone lorsque vous nous contactez via notre formulaire ou WhatsApp.</p>
-      <h2 className="font-serif text-xl font-bold mt-6">Utilisation des données</h2>
-      <p>Vos données sont utilisées uniquement pour répondre à vos demandes et vous informer de nos nouveautés si vous y avez consenti.</p>
+    <LegalPage title="Privacy Policy" seoTitle="Privacy — English With Henda" seoDescription="Privacy policy of English With Henda.">
+      <p>English With Henda is committed to protecting the privacy of its visitors. This policy describes the information we collect and how we use it.</p>
+      <h2 className="font-serif text-xl font-bold mt-6">Data collected</h2>
+      <p>We may collect your name, email address and phone number when you contact us via our form or WhatsApp.</p>
+      <h2 className="font-serif text-xl font-bold mt-6">Use of data</h2>
+      <p>Your data is used only to respond to your requests and to inform you of our news if you have consented.</p>
       <h2 className="font-serif text-xl font-bold mt-6">Contact</h2>
-      <p>Pour toute question : contact@englishwithhinda.com</p>
+      <p>For any questions: contact@englishwithhenda.com</p>
     </LegalPage>
   );
 }
 
 export function Terms() {
   return (
-    <LegalPage title="Conditions générales" seoTitle="Conditions — English With Hinda" seoDescription="Conditions générales d'utilisation de English With Hinda.">
-      <p>En utilisant ce site, vous acceptez les présentes conditions générales d'utilisation.</p>
-      <h2 className="font-serif text-xl font-bold mt-6">Propriété intellectuelle</h2>
-      <p>Tous les contenus de ce site (textes, images, logos) sont la propriété de English With Hinda et protégés par le droit d'auteur.</p>
-      <h2 className="font-serif text-xl font-bold mt-6">Responsabilité</h2>
-      <p>Nous nous efforçons de fournir des informations exactes mais ne pouvons garantir l'absence d'erreurs.</p>
+    <LegalPage title="Terms of Use" seoTitle="Terms — English With Henda" seoDescription="Terms of use of English With Henda.">
+      <p>By using this site, you agree to these terms of use.</p>
+      <h2 className="font-serif text-xl font-bold mt-6">Intellectual property</h2>
+      <p>All content on this site (text, images, logos) is the property of English With Henda and is protected by copyright.</p>
+      <h2 className="font-serif text-xl font-bold mt-6">Liability</h2>
+      <p>We strive to provide accurate information but cannot guarantee the absence of errors.</p>
       <h2 className="font-serif text-xl font-bold mt-6">Contact</h2>
-      <p>Pour toute question : contact@englishwithhinda.com</p>
+      <p>For any questions: contact@englishwithhenda.com</p>
     </LegalPage>
   );
 }
 
 export function Cookies() {
   return (
-    <LegalPage title="Politique des cookies" seoTitle="Cookies — English With Hinda" seoDescription="Politique des cookies de English With Hinda.">
-      <p>Ce site peut utiliser des cookies pour améliorer votre expérience de navigation.</p>
-      <h2 className="font-serif text-xl font-bold mt-6">Types de cookies</h2>
-      <p>Nous utilisons des cookies techniques nécessaires au fonctionnement du site et des cookies analytiques pour comprendre comment vous utilisez le site.</p>
-      <h2 className="font-serif text-xl font-bold mt-6">Gestion des cookies</h2>
-      <p>Vous pouvez désactiver les cookies dans les paramètres de votre navigateur.</p>
+    <LegalPage title="Cookie Policy" seoTitle="Cookies — English With Henda" seoDescription="Cookie policy of English With Henda.">
+      <p>This site may use cookies to improve your browsing experience.</p>
+      <h2 className="font-serif text-xl font-bold mt-6">Types of cookies</h2>
+      <p>We use technical cookies necessary for the site to function and analytical cookies to understand how you use the site.</p>
+      <h2 className="font-serif text-xl font-bold mt-6">Managing cookies</h2>
+      <p>You can disable cookies in your browser settings.</p>
       <h2 className="font-serif text-xl font-bold mt-6">Contact</h2>
-      <p>Pour toute question : contact@englishwithhinda.com</p>
+      <p>For any questions: contact@englishwithhenda.com</p>
     </LegalPage>
   );
 }

@@ -3,73 +3,82 @@ import { Layout } from "@/components/layout/Layout";
 import { SEOHead } from "@/components/SEOHead";
 import { GradeCard } from "@/components/GradeCard";
 import { BookCard } from "@/components/BookCard";
+import { ScrollReveal } from "@/components/ScrollReveal";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { books } from "@/data/books";
-import { stockists } from "@/data/stockists";
 import { Grade } from "@/lib/types";
-import { ArrowRight, BookOpen, Download, Star, MapPin, MessageCircle, CheckCircle } from "lucide-react";
+import { ArrowRight, BookOpen, Download, Star, MessageCircle, CheckCircle } from "lucide-react";
+import cover4th from "@/assets/covers/4th_year.png";
+import cover7th from "@/assets/covers/7th_year.png";
+import cover9th from "@/assets/covers/9th_year.png";
 
-const GRADES: Grade[] = [5, 6, 7, 8, 9];
+const GRADES: Grade[] = [4, 5, 6, 7, 8, 9];
 
 const TESTIMONIALS = [
-  { name: "Sana M.", role: "Mère d'élève, Tunis", text: "Mon fils a beaucoup progressé grâce aux livres de Hinda. Les exercices sont clairs et adaptés au programme tunisien." },
-  { name: "Ahmed B.", role: "Enseignant, Sfax", text: "J'utilise ces livres en classe. Mes élèves sont plus motivés et leurs résultats se sont nettement améliorés." },
-  { name: "Fatma K.", role: "Élève de 9ème, Sousse", text: "Les sujets type brevet m'ont vraiment aidée à me préparer. J'ai eu 18/20 au brevet d'anglais !" },
+  { name: "Sana M.", role: "Parent, Tunis", text: "My son has improved so much thanks to Henda's books. The exercises are clear and perfectly aligned with the Tunisian curriculum." },
+  { name: "Ahmed B.", role: "Teacher, Sfax", text: "I use these books in class. My students are more motivated and their results have noticeably improved." },
+  { name: "Fatma K.", role: "9th Year Student, Sousse", text: "The exam practice sections really helped me prepare. I scored 18/20 on my English exam!" },
 ];
 
 const TRUST_ITEMS = [
-  "Aligné programme officiel",
-  "Exercices corrigés",
-  "Méthode progressive",
-  "Ressources gratuites",
+  "Official program aligned",
+  "Corrected exercises",
+  "Progressive method",
+  "Free resources",
 ];
 
 const ORGANIZATION_SCHEMA = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "English With Hinda",
-  description: "Éditeur de livres d'anglais pour les élèves tunisiens de la 5ème à la 9ème année.",
-  url: "https://englishwithhinda.com",
+  name: "English With Henda",
+  description: "Publisher of English workbooks for Tunisian students from 4th to 9th year.",
+  url: "https://englishwithhenda.com",
   contactPoint: { "@type": "ContactPoint", contactType: "customer service", availableLanguage: ["French", "English"] },
 };
 
 export default function HomePage() {
-  const featuredBooks = books.slice(0, 4);
-  const topCities = [...new Set(stockists.map((s) => s.city))].slice(0, 5);
-  const stockistCount = stockists.length;
+  const featuredBooks = books.slice(0, 6);
 
   return (
     <Layout>
       <SEOHead
-        title="English With Hinda — Livres d'anglais pour élèves tunisiens"
-        description="Des livres d'anglais conçus pour les élèves tunisiens de la 5ème à la 9ème année. Grammaire, vocabulaire et préparation au brevet."
+        title="English With Henda — English Books for Tunisian Students"
+        description="English workbooks designed for Tunisian students from 4th to 9th year. Grammar, vocabulary and exam preparation."
         jsonLd={ORGANIZATION_SCHEMA}
       />
 
       {/* Hero */}
       <section className="relative overflow-hidden bg-primary text-primary-foreground">
         <div className="container py-16 md:py-24">
-          <div className="max-w-2xl">
-            <h1 className="font-serif text-4xl font-bold leading-tight md:text-5xl lg:text-6xl">
-              L'anglais, simplifié pour chaque élève tunisien
-            </h1>
-            <p className="mt-4 text-lg opacity-90 md:text-xl">
-              Livres conçus par des enseignants, adaptés au programme officiel tunisien, de la 5ème à la 9ème.
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button asChild size="lg" variant="secondary" className="font-semibold">
-                <Link to="/livres">
-                  <BookOpen className="mr-2 h-5 w-5" />
-                  Découvrir les livres
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 font-semibold">
-                <Link to="/ressources">
-                  <Download className="mr-2 h-5 w-5" />
-                  Ressources gratuites
-                </Link>
-              </Button>
+          <div className="grid gap-8 md:grid-cols-[1fr_auto] items-center">
+            <div className="max-w-2xl">
+              <h1 className="font-serif text-3xl font-bold leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
+                English, simplified for every Tunisian student
+              </h1>
+              <p className="mt-4 text-base opacity-90 sm:text-lg md:text-xl">
+                A complete book series from 4th Year Primary to 9th Year Basic Education — aligned with the official program, with clear practice and progress.
+              </p>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Button asChild size="lg" variant="secondary" className="font-semibold w-full sm:w-auto">
+                  <Link to="/books">
+                    <BookOpen className="mr-2 h-5 w-5" />
+                    Explore the books
+                  </Link>
+                </Button>
+                <Button asChild size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 font-semibold w-full sm:w-auto">
+                  <a href="https://wa.me/21600000000" target="_blank" rel="noopener noreferrer">
+                    <MessageCircle className="mr-2 h-5 w-5" />
+                    Contact us on WhatsApp
+                  </a>
+                </Button>
+              </div>
+            </div>
+            {/* Book covers preview */}
+            <div className="hidden md:flex items-end gap-3 pr-4">
+              <img src={cover4th} alt="4th Year book" className="h-48 rounded-lg shadow-xl -rotate-6 translate-y-2" />
+              <img src={cover7th} alt="7th Year book" className="h-56 rounded-lg shadow-xl z-10" />
+              <img src={cover9th} alt="9th Year book" className="h-48 rounded-lg shadow-xl rotate-6 translate-y-2" />
             </div>
           </div>
         </div>
@@ -80,10 +89,10 @@ export default function HomePage() {
       {/* Trust strip */}
       <section className="border-b bg-card">
         <div className="container py-4">
-          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 sm:gap-x-8">
             {TRUST_ITEMS.map((item) => (
-              <span key={item} className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
-                <CheckCircle className="h-4 w-4 text-grade-6" />
+              <span key={item} className="flex items-center gap-2 text-xs sm:text-sm font-medium text-muted-foreground">
+                <CheckCircle className="h-4 w-4 text-primary" />
                 {item}
               </span>
             ))}
@@ -92,97 +101,77 @@ export default function HomePage() {
       </section>
 
       {/* Grade cards */}
-      <section className="container py-16">
-        <h2 className="font-serif text-3xl font-bold text-center mb-2">Choisissez votre niveau</h2>
-        <p className="text-center text-muted-foreground mb-10">Un livre adapté pour chaque année scolaire</p>
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-          {GRADES.map((g) => (
-            <GradeCard key={g} grade={g} />
-          ))}
-        </div>
-      </section>
-
-      {/* Featured books */}
-      <section className="bg-muted/50 py-16">
-        <div className="container">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="font-serif text-3xl font-bold">Nos livres</h2>
-            <Button asChild variant="ghost">
-              <Link to="/livres" className="flex items-center gap-1">
-                Voir tout <ArrowRight className="h-4 w-4" />
-              </Link>
-            </Button>
-          </div>
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-            {featuredBooks.map((book) => (
-              <BookCard key={book.id} book={book} showActions />
+      <ScrollReveal>
+        <section className="container py-16">
+          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-center mb-2">Choose your level</h2>
+          <p className="text-center text-muted-foreground mb-10">One book adapted for each school year</p>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6 sm:gap-4">
+            {GRADES.map((g) => (
+              <GradeCard key={g} grade={g} />
             ))}
           </div>
-        </div>
-      </section>
+        </section>
+      </ScrollReveal>
+
+      {/* Featured books */}
+      <ScrollReveal>
+        <section className="bg-muted/50 py-16">
+          <div className="container">
+            <div className="flex items-center justify-between mb-8">
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold">Our books</h2>
+              <Button asChild variant="ghost">
+                <Link to="/books" className="flex items-center gap-1">
+                  View all <ArrowRight className="h-4 w-4" />
+                </Link>
+              </Button>
+            </div>
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-6">
+              {featuredBooks.map((book) => (
+                <BookCard key={book.id} book={book} showActions />
+              ))}
+            </div>
+          </div>
+        </section>
+      </ScrollReveal>
 
       {/* Testimonials */}
-      <section className="container py-16">
-        <h2 className="font-serif text-3xl font-bold text-center mb-10">Ce qu'ils en disent</h2>
-        <div className="grid gap-6 md:grid-cols-3">
-          {TESTIMONIALS.map((t, i) => (
-            <div key={i} className="rounded-xl border bg-card p-6 shadow-sm">
-              <div className="flex gap-1 mb-3">
-                {[...Array(5)].map((_, j) => (
-                  <Star key={j} className="h-4 w-4 fill-grade-7 text-grade-7" />
-                ))}
+      <ScrollReveal>
+        <section className="container py-16">
+          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-center mb-10">What they say</h2>
+          <div className="grid gap-4 sm:gap-6 md:grid-cols-3">
+            {TESTIMONIALS.map((t, i) => (
+              <div key={i} className="rounded-xl border bg-card p-5 sm:p-6 shadow-sm">
+                <div className="flex gap-1 mb-3">
+                  {[...Array(5)].map((_, j) => (
+                    <Star key={j} className="h-4 w-4 fill-grade-4 text-grade-4" />
+                  ))}
+                </div>
+                <p className="text-sm text-muted-foreground italic">"{t.text}"</p>
+                <div className="mt-4">
+                  <p className="font-semibold text-sm">{t.name}</p>
+                  <p className="text-xs text-muted-foreground">{t.role}</p>
+                </div>
               </div>
-              <p className="text-sm text-muted-foreground italic">"{t.text}"</p>
-              <div className="mt-4">
-                <p className="font-semibold text-sm">{t.name}</p>
-                <p className="text-xs text-muted-foreground">{t.role}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+            ))}
+          </div>
+        </section>
+      </ScrollReveal>
 
       {/* Newsletter */}
-      <section className="bg-secondary py-16">
-        <div className="container max-w-xl text-center">
-          <h2 className="font-serif text-3xl font-bold mb-3">Restez informé</h2>
-          <p className="text-muted-foreground mb-6">
-            Recevez nos ressources gratuites et nos nouveautés directement dans votre boîte mail.
-          </p>
-          <form className="flex gap-2" onSubmit={(e) => e.preventDefault()}>
-            <Input type="email" placeholder="Votre adresse e-mail" className="flex-1" />
-            <Button type="submit">S'inscrire</Button>
-          </form>
-        </div>
-      </section>
-
-      {/* Where to buy preview */}
-      <section className="container py-16">
-        <h2 className="font-serif text-3xl font-bold text-center mb-2">Où acheter nos livres</h2>
-        <p className="text-center text-muted-foreground mb-8">
-          Disponibles dans {stockistCount} librairies à travers la Tunisie
-        </p>
-        <div className="flex flex-wrap justify-center gap-3 mb-8">
-          {topCities.map((city) => (
-            <span key={city} className="flex items-center gap-1 rounded-full bg-muted px-4 py-2 text-sm font-medium">
-              <MapPin className="h-3.5 w-3.5 text-muted-foreground" />
-              {city}
-            </span>
-          ))}
-        </div>
-        <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-          <Button asChild variant="default">
-            <Link to="/ou-acheter">
-              Voir tous les points de vente <ArrowRight className="ml-1 h-4 w-4" />
-            </Link>
-          </Button>
-          <Button asChild variant="outline">
-            <a href="https://wa.me/21600000000?text=Bonjour%2C%20je%20souhaite%20commander%20un%20livre.%20Merci%20!" target="_blank" rel="noopener noreferrer">
-              <MessageCircle className="mr-2 h-4 w-4" /> Commander via WhatsApp
-            </a>
-          </Button>
-        </div>
-      </section>
+      <ScrollReveal>
+        <section className="bg-secondary py-16">
+          <div className="container max-w-xl text-center">
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold mb-3">Stay informed</h2>
+            <p className="text-muted-foreground mb-6">
+              Receive our free resources and latest news directly in your inbox.
+            </p>
+            <form className="flex flex-col gap-2 sm:flex-row" onSubmit={(e) => e.preventDefault()}>
+              <Input type="email" placeholder="Your email address" className="flex-1" />
+              <Button type="submit" className="w-full sm:w-auto">Subscribe</Button>
+            </form>
+          </div>
+        </section>
+      </ScrollReveal>
     </Layout>
   );
 }

@@ -1,4 +1,4 @@
-export type Grade = 5 | 6 | 7 | 8 | 9;
+export type Grade = 4 | 5 | 6 | 7 | 8 | 9;
 
 export interface Book {
   id: string;
@@ -6,7 +6,7 @@ export interface Book {
   title: string;
   subtitle: string;
   grade: Grade;
-  gradeLabelFr: string;
+  gradeLabel: string;
   coverImage: string;
   galleryImages: string[];
   descriptionShort: string;
@@ -66,9 +66,10 @@ export interface BlogPost {
 }
 
 export const GRADE_CONFIG: Record<Grade, { label: string; color: string; slug: string }> = {
-  5: { label: "5ème", color: "grade-5", slug: "5eme" },
-  6: { label: "6ème", color: "grade-6", slug: "6eme" },
-  7: { label: "7ème", color: "grade-7", slug: "7eme" },
-  8: { label: "8ème", color: "grade-8", slug: "8eme" },
-  9: { label: "9ème", color: "grade-9", slug: "9eme" },
+  4: { label: "4th Year", color: "grade-4", slug: "4th" },
+  5: { label: "5th Year", color: "grade-5", slug: "5th" },
+  6: { label: "6th Year", color: "grade-6", slug: "6th" },
+  7: { label: "7th Year", color: "grade-7", slug: "7th" },
+  8: { label: "8th Year", color: "grade-8", slug: "8th" },
+  9: { label: "9th Year", color: "grade-9", slug: "9th" },
 };
