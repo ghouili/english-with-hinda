@@ -54,23 +54,23 @@ export default function HomePage() {
           <div className="grid gap-8 md:grid-cols-[1fr_auto] items-center">
             <div className="max-w-2xl">
               <h1 className="font-serif text-3xl font-bold leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
-                English, simplified for every Tunisian student
+                English, made easy for every Tunisian student
               </h1>
               <p className="mt-4 text-base opacity-90 sm:text-lg md:text-xl">
-                A complete book series from 4th Year Primary to 9th Year Basic Education — aligned with the official program, with clear practice and progress.
+                Workbooks designed by teachers, aligned with the Tunisian curriculum — from 4th to 9th year.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Button asChild size="lg" variant="secondary" className="font-semibold w-full sm:w-auto">
                   <Link to="/books">
                     <BookOpen className="mr-2 h-5 w-5" />
-                    Explore the books
+                     Explore the books
                   </Link>
                 </Button>
                 <Button asChild size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 font-semibold w-full sm:w-auto">
-                  <a href="https://wa.me/21600000000" target="_blank" rel="noopener noreferrer">
-                    <MessageCircle className="mr-2 h-5 w-5" />
-                    Contact us on WhatsApp
-                  </a>
+                  <Link to="/resources">
+                    <Download className="mr-2 h-5 w-5" />
+                    Get free resources
+                  </Link>
                 </Button>
               </div>
             </div>
