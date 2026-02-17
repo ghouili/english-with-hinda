@@ -9,9 +9,9 @@ import { Grade, GRADE_CONFIG } from "@/lib/types";
 const ORG_SCHEMA = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "English With Henda",
+  name: "English With Hinda",
   description: "Publisher of English workbooks for Tunisian students.",
-  url: "https://englishwithhenda.com",
+  url: "https://englishwithhinda.com",
 };
 
 const GRADES: Grade[] = [4, 5, 6, 7, 8, 9];
@@ -20,7 +20,7 @@ const TIMELINE = [
   { year: "2008", label: "Started teaching English in Tunisia" },
   { year: "2015", label: "Specialized in exam preparation" },
   { year: "2020", label: "Created first teaching materials" },
-  { year: "2024", label: "Launched the English With Henda collection" },
+  { year: "2024", label: "Launched the English With Hinda collection" },
 ];
 
 const CREDENTIALS = [
@@ -42,8 +42,8 @@ export default function About() {
   return (
     <Layout>
       <SEOHead
-        title="About — English With Henda"
-        description="Discover Henda's story and her mission: making English accessible to every Tunisian student."
+        title="About — English With Hinda"
+        description="Discover Hinda's story and her mission: making English accessible to every Tunisian student."
         jsonLd={ORG_SCHEMA}
       />
 
@@ -55,7 +55,7 @@ export default function About() {
           <div className="flex flex-col sm:flex-row items-start gap-6 mb-12">
             <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground font-serif text-4xl font-bold">H</div>
             <div>
-              <h2 className="font-serif text-2xl font-bold">Henda Charbi</h2>
+              <h2 className="font-serif text-2xl font-bold">Hinda</h2>
               <p className="text-muted-foreground mt-1">English Teacher & Author</p>
               <div className="mt-3 space-y-1">
                 {CREDENTIALS.map((c, i) => (
@@ -72,10 +72,10 @@ export default function About() {
         <ScrollReveal>
           <div className="space-y-4 text-muted-foreground leading-relaxed mb-12">
             <p>
-              Passionate about teaching English for over 15 years, Henda has dedicated her career to helping Tunisian students master this essential language. Through her classroom experience, she identified the critical need for teaching materials adapted to the Tunisian context.
+              Passionate about teaching English for over 15 years, Hinda has dedicated her career to helping Tunisian students master this essential language. Through her classroom experience, she identified the critical need for teaching materials adapted to the Tunisian context.
             </p>
             <p>
-              This is how English With Henda was born: a collection of books designed by and for Tunisian students, from their first contact with English in 4th year through to exam success in 9th year.
+              This is how English With Hinda was born: a collection of books designed by and for Tunisian students, from their first contact with English in 4th year through to exam success in 9th year.
             </p>
           </div>
         </ScrollReveal>

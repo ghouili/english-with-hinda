@@ -55,8 +55,8 @@ export default function ResourceDetail() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://englishwithhenda.com/" },
-      { "@type": "ListItem", position: 2, name: "Resources", item: "https://englishwithhenda.com/resources" },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://englishwithhinda.com/" },
+      { "@type": "ListItem", position: 2, name: "Resources", item: "https://englishwithhinda.com/resources" },
       { "@type": "ListItem", position: 3, name: resource.title },
     ],
   };

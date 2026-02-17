@@ -29,7 +29,7 @@ export default function Contact() {
   return (
     <Layout>
       <SEOHead
-        title="Contact — English With Henda"
+        title="Contact — English With Hinda"
         description="Get in touch with us for any questions about our English books. Parents, teachers and distributors welcome."
       />
 
@@ -49,7 +49,7 @@ export default function Contact() {
               </div>
               <span className="text-sm font-medium">WhatsApp</span>
             </a>
-            <a href="mailto:contact@englishwithhenda.com" className="flex flex-col items-center gap-2 rounded-xl border bg-card p-4 hover:shadow-md transition-shadow text-center">
+            <a href="mailto:contact@englishwithhinda.com" className="flex flex-col items-center gap-2 rounded-xl border bg-card p-4 hover:shadow-md transition-shadow text-center">
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
                 <Mail className="h-5 w-5 text-primary" />
               </div>

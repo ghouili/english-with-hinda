@@ -54,7 +54,7 @@ export default function GradeHub() {
   return (
     <Layout>
       <SEOHead
-        title={`${config.label} English — English With Henda`}
+        title={`${config.label} English — English With Hinda`}
         description={`English books and resources for ${config.label} students in Tunisia. Complete program and exercises.`}
       />
 

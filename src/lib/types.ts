@@ -26,17 +26,6 @@ export interface Book {
   ogImage: string;
 }
 
-export interface Stockist {
-  id: string;
-  name: string;
-  city: string;
-  address: string;
-  phone: string;
-  mapUrl: string;
-  hours: string;
-  notes: string;
-}
-
 export interface Resource {
   id: string;
   slug: string;
@@ -51,19 +40,6 @@ export interface Resource {
   seoDescription: string;
 }
 
-export interface BlogPost {
-  id: string;
-  slug: string;
-  title: string;
-  category: string;
-  gradeOptional?: Grade;
-  content: string;
-  authorName: string;
-  publishDate: string;
-  seoTitle: string;
-  seoDescription: string;
-  ogImage: string;
-}
 
 export const GRADE_CONFIG: Record<Grade, { label: string; color: string; slug: string }> = {
   4: { label: "4th Year", color: "grade-4", slug: "4th" },

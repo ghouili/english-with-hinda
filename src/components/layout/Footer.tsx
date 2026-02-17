@@ -27,14 +27,14 @@ export function Footer() {
           <div>
             <Link to="/" className="flex items-center gap-2 font-serif text-lg font-bold">
               <BookOpen className="h-5 w-5" />
-              English With Henda
+              English With Hinda
             </Link>
             <p className="mt-3 text-sm opacity-80">
               English workbooks designed for Tunisian students from 4th to 9th year.
             </p>
             <div className="mt-4 flex flex-col gap-2 text-sm opacity-80">
-              <a href="mailto:contact@englishwithhenda.com" className="flex items-center gap-2 hover:opacity-100">
-                <Mail className="h-4 w-4" /> contact@englishwithhenda.com
+              <a href="mailto:contact@englishwithhinda.com" className="flex items-center gap-2 hover:opacity-100">
+                <Mail className="h-4 w-4" /> contact@englishwithhinda.com
               </a>
               <a href="tel:+21600000000" className="flex items-center gap-2 hover:opacity-100">
                 <Phone className="h-4 w-4" /> +216 00 000 000
@@ -80,7 +80,7 @@ export function Footer() {
         </div>
 
         <div className="mt-10 border-t border-primary-foreground/20 pt-6 text-center text-xs opacity-60">
-          © {new Date().getFullYear()} English With Henda. All rights reserved.
+          © {new Date().getFullYear()} English With Hinda. All rights reserved.
         </div>
       </div>
     </footer>

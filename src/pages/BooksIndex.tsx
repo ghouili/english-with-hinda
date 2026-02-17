@@ -39,7 +39,7 @@ export default function BooksIndex() {
   return (
     <Layout>
       <SEOHead
-        title="Books — English With Henda"
+        title="Books — English With Hinda"
         description="Discover all our English books for Tunisian students from 4th to 9th year."
       />
 
