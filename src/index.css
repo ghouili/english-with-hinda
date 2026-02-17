@@ -37,22 +37,22 @@
     --radius: 0.5rem;
 
     /* Grade color tokens — matched to book covers */
-    --grade-4: 47 85% 76%;
-    --grade-4-foreground: 220 45% 20%;
+    --grade-4: 90 50% 48%;
+    --grade-4-foreground: 0 0% 100%;
 
-    --grade-5: 49 95% 82%;
-    --grade-5-foreground: 220 45% 20%;
+    --grade-5: 49 87% 62%;
+    --grade-5-foreground: 0 0% 10%;
 
-    --grade-6: 340 55% 78%;
-    --grade-6-foreground: 220 45% 20%;
+    --grade-6: 268 38% 72%;
+    --grade-6-foreground: 0 0% 10%;
 
-    --grade-7: 207 25% 85%;
-    --grade-7-foreground: 220 45% 20%;
+    --grade-7: 207 50% 82%;
+    --grade-7-foreground: 210 60% 10%;
 
-    --grade-8: 7 90% 82%;
-    --grade-8-foreground: 220 45% 20%;
+    --grade-8: 1 72% 82%;
+    --grade-8-foreground: 210 60% 10%;
 
-    --grade-9: 234 55% 27%;
+    --grade-9: 220 72% 20%;
     --grade-9-foreground: 0 0% 100%;
 
     /* Brand accent */

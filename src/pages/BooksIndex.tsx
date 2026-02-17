@@ -44,7 +44,7 @@ export default function BooksIndex() {
       />
 
       <section className="container py-12">
-        <h1 className="font-serif text-3xl sm:text-4xl font-bold mb-2">Books</h1>
+        <h1 className="font-serif text-3xl sm:text-4xl font-bold mb-2">Our Books</h1>
         <p className="text-muted-foreground mb-8">One book for each school year — from 4th to 9th.</p>
 
         <ScrollReveal>
