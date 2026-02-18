@@ -15,6 +15,7 @@ const FOOTER_LINKS = {
   about: [
     { label: "About", to: "/about" },
     { label: "Contact", to: "/contact" },
+    { label: "Add Resource", to: "/add-resource" },
   ],
 };
 

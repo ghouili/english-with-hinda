@@ -1,11 +1,12 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { SEOHead } from "@/components/SEOHead";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { resources } from "@/data/resources";
+import { resources as staticResources } from "@/data/resources";
+import { getLocalResources } from "@/lib/resource-storage";
 import { Grade, GRADE_CONFIG } from "@/lib/types";
 import { Search, FileText, Headphones, BookOpen, ArrowRight } from "lucide-react";
 
@@ -42,9 +43,30 @@ export default function ResourcesIndex() {
   const [gradeFilter, setGradeFilter] = useState<Grade | null>(null);
   const [formatFilter, setFormatFilter] = useState<string | null>(null);
   const [skillFilter, setSkillFilter] = useState<string | null>(null);
+  const [localResources, setLocalResources] = useState<ReturnType<typeof getLocalResources>>([]);
+
+  useEffect(() => { setLocalResources(getLocalResources()); }, []);
+
+  // Merge static + localStorage resources
+  const allResources = useMemo(() => {
+    const fromLocal = localResources.map((lr) => ({
+      id: lr.id,
+      slug: lr.id,
+      title: lr.title,
+      grade: (Number(lr.level.replace(/\D/g, "")) || 5) as Grade,
+      skill: lr.skill,
+      format: lr.format as "pdf" | "audio" | "article",
+      summary: lr.description,
+      fileUrl: lr.url,
+      relatedBookIds: [],
+      seoTitle: lr.title,
+      seoDescription: lr.description,
+    }));
+    return [...staticResources, ...fromLocal];
+  }, [localResources]);
 
   const filtered = useMemo(() => {
-    return resources.filter((r) => {
+    return allResources.filter((r) => {
       if (gradeFilter && r.grade !== gradeFilter) return false;
       if (formatFilter && r.format !== formatFilter) return false;
       if (skillFilter && r.skill !== skillFilter) return false;
