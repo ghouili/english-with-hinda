@@ -7,13 +7,22 @@ import { ScrollReveal } from "@/components/ScrollReveal";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { books } from "@/data/books";
-import { Grade } from "@/lib/types";
-import { ArrowRight, BookOpen, Download, Star, MessageCircle, CheckCircle } from "lucide-react";
+import { Grade, GRADE_CONFIG } from "@/lib/types";
+import { ArrowRight, BookOpen, Download, Star, CheckCircle } from "lucide-react";
 import cover4th from "@/assets/covers/4th_year.png";
 import cover7th from "@/assets/covers/7th_year.png";
 import cover9th from "@/assets/covers/9th_year.png";
 
 const GRADES: Grade[] = [4, 5, 6, 7, 8, 9];
+
+const GRADE_CHIP_COLORS: Record<Grade, string> = {
+  4: "bg-grade-4 text-grade-4-foreground",
+  5: "bg-grade-5 text-grade-5-foreground",
+  6: "bg-grade-6 text-grade-6-foreground",
+  7: "bg-grade-7 text-grade-7-foreground",
+  8: "bg-grade-8 text-grade-8-foreground",
+  9: "bg-grade-9 text-grade-9-foreground",
+};
 
 const TESTIMONIALS = [
   { name: "Sana M.", role: "Parent, Tunis", text: "My son has improved so much thanks to Hinda's books. The exercises are clear and perfectly aligned with the Tunisian curriculum." },
@@ -22,10 +31,10 @@ const TESTIMONIALS = [
 ];
 
 const TRUST_ITEMS = [
-  "Official program aligned",
-  "Corrected exercises",
-  "Progressive method",
-  "Free resources",
+  "Aligned with the official program",
+  "Progressive practice",
+  "Clear grammar + writing guidance",
+  "Free resources included",
 ];
 
 const ORGANIZATION_SCHEMA = {
@@ -50,40 +59,58 @@ export default function HomePage() {
 
       {/* Hero */}
       <section className="relative overflow-hidden bg-primary text-primary-foreground">
-        <div className="container py-16 md:py-24">
+        {/* Subtle decorative shapes */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-primary-foreground/5" />
+          <div className="absolute -bottom-16 -left-16 h-56 w-56 rounded-full bg-primary-foreground/5" />
+          <div className="absolute top-1/2 left-1/3 h-40 w-40 rounded-full bg-primary-foreground/3" />
+        </div>
+
+        <div className="container relative py-16 md:py-24">
           <div className="grid gap-8 md:grid-cols-[1fr_auto] items-center">
             <div className="max-w-2xl">
               <h1 className="font-serif text-3xl font-bold leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
-                English, made easy for every Tunisian student
+                English, made simple for every Tunisian student
               </h1>
-              <p className="mt-4 text-base opacity-90 sm:text-lg md:text-xl">
-                Workbooks designed by teachers, aligned with the Tunisian curriculum — from 4th to 9th year.
+              <p className="mt-4 text-base opacity-90 sm:text-lg md:text-xl leading-relaxed">
+                Workbooks aligned with the official program from 4th to 9th year — clear lessons, smart practice, and exam-ready support.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Button asChild size="lg" variant="secondary" className="font-semibold w-full sm:w-auto">
+                <Button asChild size="lg" variant="secondary" className="font-semibold w-full sm:w-auto shadow-lg">
                   <Link to="/books">
                     <BookOpen className="mr-2 h-5 w-5" />
-                     Explore the books
+                    Explore Books
                   </Link>
                 </Button>
                 <Button asChild size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 font-semibold w-full sm:w-auto">
                   <Link to="/resources">
                     <Download className="mr-2 h-5 w-5" />
-                    Get free resources
+                    Browse Free Resources
                   </Link>
                 </Button>
               </div>
+
+              {/* Year chips */}
+              <div className="mt-8 flex flex-wrap gap-2">
+                {GRADES.map((g) => (
+                  <Link
+                    key={g}
+                    to={`/books/${GRADE_CONFIG[g].slug}`}
+                    className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-all hover:scale-105 shadow-sm ${GRADE_CHIP_COLORS[g]}`}
+                  >
+                    {GRADE_CONFIG[g].label}
+                  </Link>
+                ))}
+              </div>
             </div>
             {/* Book covers preview */}
-            <div className="hidden md:flex items-end gap-3 pr-4">
-              <img src={cover4th} alt="4th Year book" className="h-48 rounded-lg shadow-xl -rotate-6 translate-y-2" />
-              <img src={cover7th} alt="7th Year book" className="h-56 rounded-lg shadow-xl z-10" />
-              <img src={cover9th} alt="9th Year book" className="h-48 rounded-lg shadow-xl rotate-6 translate-y-2" />
+            <div className="hidden md:flex items-end gap-4 pr-4">
+              <img src={cover4th} alt="4th Year book" className="h-48 rounded-xl shadow-2xl -rotate-6 translate-y-2" />
+              <img src={cover7th} alt="7th Year book" className="h-56 rounded-xl shadow-2xl z-10" />
+              <img src={cover9th} alt="9th Year book" className="h-48 rounded-xl shadow-2xl rotate-6 translate-y-2" />
             </div>
           </div>
         </div>
-        <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-primary-foreground/5" />
-        <div className="absolute -bottom-10 -right-10 h-40 w-40 rounded-full bg-primary-foreground/5" />
       </section>
 
       {/* Trust strip */}

@@ -14,6 +14,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import { Privacy, Terms, Cookies } from "./pages/Legal";
 import NotFound from "./pages/NotFound";
+import AddResource from "./pages/AddResource";
 
 const queryClient = new QueryClient();
 
@@ -36,6 +37,7 @@ const App = () => (
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/cookies" element={<Cookies />} />
+            <Route path="/add-resource" element={<AddResource />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
