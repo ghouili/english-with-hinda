@@ -13,6 +13,7 @@ const NAV_ITEMS = [
   { label: "Resources", to: "/resources" },
   { label: "About", to: "/about" },
   { label: "Contact", to: "/contact" },
+  { label: "Login", to: "/login" },
 ];
 
 const GRADES: Grade[] = [4, 5, 6, 7, 8, 9];

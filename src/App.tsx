@@ -12,6 +12,7 @@ import ResourcesIndex from "./pages/ResourcesIndex";
 import ResourceDetail from "./pages/ResourceDetail";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import Login from "./pages/Login";
 import { Privacy, Terms, Cookies } from "./pages/Legal";
 import NotFound from "./pages/NotFound";
 import AddResource from "./pages/AddResource";
@@ -34,6 +35,7 @@ const App = () => (
             <Route path="/resources/:slug" element={<ResourceDetail />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/cookies" element={<Cookies />} />
