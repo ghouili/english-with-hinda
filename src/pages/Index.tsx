@@ -86,7 +86,7 @@ const TRUST_ITEMS = [
 
 type HeroVisualMode = "picture" | "cards";
 
-const HERO_VISUAL_MODE: HeroVisualMode = "picture";
+const HERO_VISUAL_MODE: HeroVisualMode = "cards";
 
 const ORGANIZATION_SCHEMA = {
   "@context": "https://schema.org",
