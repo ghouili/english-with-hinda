@@ -1,3 +1,4 @@
+import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { SEOHead } from "@/components/SEOHead";
@@ -8,10 +9,44 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { books } from "@/data/books";
 import { Grade, GRADE_CONFIG } from "@/lib/types";
-import { ArrowRight, BookOpen, Download, Star, CheckCircle } from "lucide-react";
+import {
+  ArrowRight,
+  BookOpen,
+  Download,
+  Star,
+  CheckCircle,
+  StarHalf,
+} from "lucide-react";
 import cover4th from "@/assets/covers/4th_year.png";
+import cover5th from "@/assets/covers/5th_year.png";
+import cover6th from "@/assets/covers/6th_year.png";
 import cover7th from "@/assets/covers/7th_year.png";
+import cover8th from "@/assets/covers/8th_year.png";
 import cover9th from "@/assets/covers/9th_year.png";
+import Heropic from "@/assets/covers/hero_pic.png";
+
+const HERO_COVERS = [
+  { id: "cover-4th", src: cover4th, alt: "4th Year Primary Education" },
+  { id: "cover-5th", src: cover5th, alt: "5th Year Primary Education" },
+  { id: "cover-6th", src: cover6th, alt: "6th Year Primary Education" },
+  { id: "cover-7th", src: cover7th, alt: "7th Year Basic Education" },
+  { id: "cover-8th", src: cover8th, alt: "8th Year Basic Education" },
+  { id: "cover-9th", src: cover9th, alt: "9th Year Basic Education" },
+];
+
+const CARD_STYLES: Record<number, string> = {
+  0: "z-30 translate-x-0 translate-y-0 scale-100 rotate-0 opacity-100 shadow-[0_20px_60px_rgba(0,0,0,0.4)]",
+  1: "z-20 translate-x-16 -translate-y-4 scale-[0.92] rotate-3 opacity-90 shadow-[0_12px_40px_rgba(0,0,0,0.3)]",
+  2: "z-10 -translate-x-14 translate-y-3 scale-[0.85] -rotate-3 opacity-75 shadow-[0_8px_24px_rgba(0,0,0,0.2)]",
+  3: "z-[5] translate-x-24 translate-y-6 scale-[0.78] rotate-6 opacity-50 shadow-lg",
+};
+
+const CARD_STYLES_MOBILE: Record<number, string> = {
+  0: "z-30 translate-x-0 translate-y-0 scale-100 rotate-0 opacity-100 shadow-[0_12px_40px_rgba(0,0,0,0.35)]",
+  1: "z-20 translate-x-10 -translate-y-2 scale-[0.90] rotate-2 opacity-85 shadow-[0_8px_24px_rgba(0,0,0,0.25)]",
+  2: "z-10 -translate-x-8 translate-y-2 scale-[0.82] -rotate-2 opacity-65 shadow-md",
+  3: "z-[5] translate-x-14 translate-y-4 scale-[0.75] rotate-4 opacity-40 shadow",
+};
 
 const GRADES: Grade[] = [4, 5, 6, 7, 8, 9];
 
@@ -25,9 +60,21 @@ const GRADE_CHIP_COLORS: Record<Grade, string> = {
 };
 
 const TESTIMONIALS = [
-  { name: "Sana M.", role: "Parent, Tunis", text: "My son has improved so much thanks to Hinda's books. The exercises are clear and perfectly aligned with the Tunisian curriculum." },
-  { name: "Ahmed B.", role: "Teacher, Sfax", text: "I use these books in class. My students are more motivated and their results have noticeably improved." },
-  { name: "Fatma K.", role: "9th Year Student, Sousse", text: "The exam practice sections really helped me prepare. I scored 18/20 on my English exam!" },
+  {
+    name: "Sana M.",
+    role: "Parent, Tunis",
+    text: "My son has improved so much thanks to Hinda's books. The exercises are clear and perfectly aligned with the Tunisian curriculum.",
+  },
+  {
+    name: "Ahmed B.",
+    role: "Teacher, Sfax",
+    text: "I use these books in class. My students are more motivated and their results have noticeably improved.",
+  },
+  {
+    name: "Fatma K.",
+    role: "9th Year Student, Sousse",
+    text: "The exam practice sections really helped me prepare. I scored 18/20 on my English exam!",
+  },
 ];
 
 const TRUST_ITEMS = [
@@ -37,14 +84,89 @@ const TRUST_ITEMS = [
   "Free resources included",
 ];
 
+type HeroVisualMode = "picture" | "cards";
+
+const HERO_VISUAL_MODE: HeroVisualMode = "picture";
+
 const ORGANIZATION_SCHEMA = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "English With Hinda",
-  description: "Publisher of English workbooks for Tunisian students from 4th to 9th year.",
+  description:
+    "Publisher of English workbooks for Tunisian students from 4th to 9th year.",
   url: "https://englishwithhinda.com",
-  contactPoint: { "@type": "ContactPoint", contactType: "customer service", availableLanguage: ["English"] },
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "customer service",
+    availableLanguage: ["English"],
+  },
 };
+
+function HeroBookShowcase() {
+  const [order, setOrder] = useState(HERO_COVERS);
+
+  const rotate = useCallback(() => {
+    setOrder((prev) => [...prev.slice(1), prev[0]]);
+  }, []);
+
+  useEffect(() => {
+    const id = setInterval(rotate, 2500);
+    return () => clearInterval(id);
+  }, [rotate]);
+
+  return (
+    <>
+      {/* Desktop */}
+      <div className="hidden md:flex items-center justify-center">
+        <div className="relative w-[340px] h-[400px] lg:w-[420px] lg:h-[500px]">
+          {order.map((cover, i) => {
+            const style =
+              i <= 3
+                ? CARD_STYLES[i]
+                : "z-0 scale-[0.7] opacity-0 pointer-events-none";
+            return (
+              <div
+                key={cover.id}
+                className={`absolute inset-0 m-auto w-[210px] h-[300px] lg:w-[250px] lg:h-[360px] rounded-2xl overflow-hidden transition-all duration-700 ease-in-out ${style}`}
+              >
+                <img
+                  src={cover.src}
+                  alt={cover.alt}
+                  className="h-full w-full object-contain drop-shadow-lg"
+                  draggable={false}
+                />
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      {/* Mobile */}
+      <div className="flex md:hidden items-center justify-center mt-8">
+        <div className="relative w-[220px] h-[220px]">
+          {order.map((cover, i) => {
+            const style =
+              i <= 3
+                ? CARD_STYLES_MOBILE[i]
+                : "z-0 scale-[0.7] opacity-0 pointer-events-none";
+            return (
+              <div
+                key={cover.id}
+                className={`absolute inset-0 m-auto w-[120px] h-[170px] rounded-xl overflow-hidden transition-all duration-700 ease-in-out ${style}`}
+              >
+                <img
+                  src={cover.src}
+                  alt={cover.alt}
+                  className="h-full w-full object-contain drop-shadow-md"
+                  draggable={false}
+                />
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </>
+  );
+}
 
 export default function HomePage() {
   const featuredBooks = books.slice(0, 6);
@@ -58,7 +180,7 @@ export default function HomePage() {
       />
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-primary text-primary-foreground">
+      <section className="relative overflow-hidden bg-primary text-primary-foreground min-h-[calc(100vh-4rem)] flex items-center">
         {/* Subtle decorative shapes */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-primary-foreground/5" />
@@ -66,49 +188,77 @@ export default function HomePage() {
           <div className="absolute top-1/2 left-1/3 h-40 w-40 rounded-full bg-primary-foreground/3" />
         </div>
 
-        <div className="container relative py-16 md:py-24">
-          <div className="grid gap-8 md:grid-cols-[1fr_auto] items-center">
-            <div className="max-w-2xl">
-              <h1 className="font-serif text-3xl font-bold leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
-                English, made simple for every Tunisian student
-              </h1>
-              <p className="mt-4 text-base opacity-90 sm:text-lg md:text-xl leading-relaxed">
-                Workbooks aligned with the official program from 4th to 9th year — clear lessons, smart practice, and exam-ready support.
-              </p>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Button asChild size="lg" variant="secondary" className="font-semibold w-full sm:w-auto shadow-lg">
-                  <Link to="/books">
-                    <BookOpen className="mr-2 h-5 w-5" />
-                    Explore Books
-                  </Link>
-                </Button>
-                <Button asChild size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 font-semibold w-full sm:w-auto">
-                  <Link to="/resources">
-                    <Download className="mr-2 h-5 w-5" />
-                    Browse Free Resources
-                  </Link>
-                </Button>
-              </div>
+        <div className="flex flex-col md:flex-row container relative py-12 md:py-16 gap-8 items-center">
+          <div className="w-full md:w-1/2 max-w-2xl">
+            <h1 className="font-serif text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
+              English, made simple for every Tunisian student
+            </h1>
+            <p className="mt-4 text-base opacity-90 sm:text-lg leading-relaxed">
+              Workbooks aligned with the official program from 4th to 9th year
+              — clear lessons, smart practice, and exam-ready support.
+            </p>
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+              <Button
+                asChild
+                size="lg"
+                variant="secondary"
+                className="font-semibold w-full sm:w-auto shadow-lg"
+              >
+                <Link to="/books">
+                  <BookOpen className="mr-2 h-5 w-5" />
+                  Explore Books
+                </Link>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 font-semibold w-full sm:w-auto"
+              >
+                <Link to="/resources">
+                  <Download className="mr-2 h-5 w-5" />
+                  Browse Free Resources
+                </Link>
+              </Button>
+            </div>
 
-              {/* Year chips */}
-              <div className="mt-8 flex flex-wrap gap-2">
-                {GRADES.map((g) => (
-                  <Link
-                    key={g}
-                    to={`/books/${GRADE_CONFIG[g].slug}`}
-                    className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-all hover:scale-105 shadow-sm ${GRADE_CHIP_COLORS[g]}`}
-                  >
-                    {GRADE_CONFIG[g].label}
-                  </Link>
-                ))}
-              </div>
+            {/* Year chips */}
+            <div className="mt-6 flex flex-wrap gap-2">
+              {GRADES.map((g) => (
+                <Link
+                  key={g}
+                  to={`/books/${GRADE_CONFIG[g].slug}`}
+                  className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-all hover:scale-105 shadow-sm ${GRADE_CHIP_COLORS[g]}`}
+                >
+                  {GRADE_CONFIG[g].label}
+                </Link>
+              ))}
             </div>
-            {/* Book covers preview */}
-            <div className="hidden md:flex items-end gap-4 pr-4">
-              <img src={cover4th} alt="4th Year book" className="h-48 rounded-xl shadow-2xl -rotate-6 translate-y-2" />
-              <img src={cover7th} alt="7th Year book" className="h-56 rounded-xl shadow-2xl z-10" />
-              <img src={cover9th} alt="9th Year book" className="h-48 rounded-xl shadow-2xl rotate-6 translate-y-2" />
-            </div>
+          </div>
+          
+          {/* Desktop: side by side */}
+          <div className="hidden md:flex w-1/2 items-center justify-center">
+            {HERO_VISUAL_MODE === "cards" ? (
+              <HeroBookShowcase />
+            ) : (
+              <img
+                src={Heropic}
+                alt="Learn English with Henda"
+                className="h-[360px] lg:h-[460px] w-auto max-w-full object-contain drop-shadow-2xl rounded-2xl"
+              />
+            )}
+          </div>
+          {/* Mobile: stacked */}
+          <div className="flex md:hidden items-center justify-center mt-6">
+            {HERO_VISUAL_MODE === "cards" ? (
+              <HeroBookShowcase />
+            ) : (
+              <img
+                src={Heropic}
+                alt="Learn English with Henda"
+                className="h-[180px] w-auto object-contain drop-shadow-xl rounded-xl"
+              />
+            )}
           </div>
         </div>
       </section>
@@ -118,7 +268,10 @@ export default function HomePage() {
         <div className="container py-4">
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 sm:gap-x-8">
             {TRUST_ITEMS.map((item) => (
-              <span key={item} className="flex items-center gap-2 text-xs sm:text-sm font-medium text-muted-foreground">
+              <span
+                key={item}
+                className="flex items-center gap-2 text-xs sm:text-sm font-medium text-muted-foreground"
+              >
                 <CheckCircle className="h-4 w-4 text-primary" />
                 {item}
               </span>
@@ -128,7 +281,7 @@ export default function HomePage() {
       </section>
 
       {/* Grade cards */}
-      <ScrollReveal>
+      {/* <ScrollReveal>
         <section className="container py-16">
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-center mb-2">Choose your level</h2>
           <p className="text-center text-muted-foreground mb-10">One book adapted for each school year</p>
@@ -138,21 +291,23 @@ export default function HomePage() {
             ))}
           </div>
         </section>
-      </ScrollReveal>
+      </ScrollReveal> */}
 
       {/* Featured books */}
       <ScrollReveal>
         <section className="bg-muted/50 py-16">
           <div className="container">
             <div className="flex items-center justify-between mb-8">
-              <h2 className="font-serif text-2xl sm:text-3xl font-bold">Our books</h2>
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold">
+                Our books
+              </h2>
               <Button asChild variant="ghost">
                 <Link to="/books" className="flex items-center gap-1">
                   View all <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
             </div>
-            <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-6">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-3">
               {featuredBooks.map((book) => (
                 <BookCard key={book.id} book={book} showActions />
               ))}
@@ -164,19 +319,37 @@ export default function HomePage() {
       {/* Testimonials */}
       <ScrollReveal>
         <section className="container py-16">
-          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-center mb-10">What they say</h2>
+          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-center mb-10">
+            What they say
+          </h2>
           <div className="grid gap-4 sm:gap-6 md:grid-cols-3">
             {TESTIMONIALS.map((t, i) => (
-              <div key={i} className="rounded-xl border bg-card p-5 sm:p-6 shadow-sm">
-                <div className="flex gap-1 mb-3">
-                  {[...Array(5)].map((_, j) => (
-                    <Star key={j} className="h-4 w-4 fill-grade-4 text-grade-4" />
-                  ))}
+              <div
+                key={i}
+                className="flex flex-col justify-between rounded-xl border bg-card p-5 sm:p-6 shadow-sm"
+              >
+                <div className="">
+                  <div className="flex gap-1 mb-3">
+                    {[...Array(4)].map((_, j) => (
+                      <Star
+                        key={j}
+                        className="h-4 w-4 fill-[#FDD663] text-[#FDD663]"
+                      />
+                    ))}
+                    {Math.random() < 0.5 ? (
+                      <Star className="h-4 w-4 fill-[#FDD663] text-[#FDD663]" />
+                    ) : (
+                      <StarHalf className="h-4 w-4 fill-[#FDD663] text-[#FDD663]" />
+                    )}
+                  </div>
+                  <p className="text-base text-muted-foreground italic">
+                    "{t.text}"
+                  </p>
                 </div>
-                <p className="text-sm text-muted-foreground italic">"{t.text}"</p>
+
                 <div className="mt-4">
-                  <p className="font-semibold text-sm">{t.name}</p>
-                  <p className="text-xs text-muted-foreground">{t.role}</p>
+                  <p className="font-semibold text-base">{t.name}</p>
+                  <p className="text-sm text-muted-foreground">{t.role}</p>
                 </div>
               </div>
             ))}
@@ -188,13 +361,24 @@ export default function HomePage() {
       <ScrollReveal>
         <section className="bg-secondary py-16">
           <div className="container max-w-xl text-center">
-            <h2 className="font-serif text-2xl sm:text-3xl font-bold mb-3">Stay informed</h2>
-            <p className="text-muted-foreground mb-6">
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold mb-3">
+              Stay informed
+            </h2>
+            <p className="text-base text-muted-foreground mb-6">
               Receive our free resources and latest news directly in your inbox.
             </p>
-            <form className="flex flex-col gap-2 sm:flex-row" onSubmit={(e) => e.preventDefault()}>
-              <Input type="email" placeholder="Your email address" className="flex-1" />
-              <Button type="submit" className="w-full sm:w-auto">Subscribe</Button>
+            <form
+              className="flex flex-col gap-2 sm:flex-row"
+              onSubmit={(e) => e.preventDefault()}
+            >
+              <Input
+                type="email"
+                placeholder="Your email address"
+                className="flex-1 text-base placeholder:text-base"
+              />
+              <Button type="submit" className="w-full text-base sm:w-auto">
+                Subscribe
+              </Button>
             </form>
           </div>
         </section>

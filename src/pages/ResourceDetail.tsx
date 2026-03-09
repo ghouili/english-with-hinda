@@ -141,7 +141,7 @@ export default function ResourceDetail() {
             <p className="text-sm text-muted-foreground mb-4">Contact us for any questions about our resources or books.</p>
             <div className="flex gap-3 justify-center flex-wrap">
               <Button asChild variant="outline" className="w-full sm:w-auto">
-                <a href="https://wa.me/21600000000" target="_blank" rel="noopener noreferrer">
+                <a href="https://wa.me/21692053416" target="_blank" rel="noopener noreferrer">
                   <MessageCircle className="mr-2 h-4 w-4" /> WhatsApp
                 </a>
               </Button>

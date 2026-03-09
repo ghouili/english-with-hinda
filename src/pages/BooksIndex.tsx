@@ -67,16 +67,16 @@ export default function BooksIndex() {
               <button key={g} onClick={() => setGradeFilter(g)} className={chipClass(gradeFilter === g)}>{g}th</button>
             ))}
           </div>
-          <div className="flex gap-2 flex-wrap">
+          {/* <div className="flex gap-2 flex-wrap">
             <button onClick={() => setSkillFilter(null)} className={chipClass(!skillFilter)}>All skills</button>
             {SKILLS.map((s) => (
               <button key={s} onClick={() => setSkillFilter(s)} className={chipClass(skillFilter === s)}>{SKILL_LABELS[s]}</button>
             ))}
-          </div>
+          </div> */}
         </div>
 
         <ScrollReveal>
-          <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3">
             {filtered.map((book) => (
               <BookCard key={book.id} book={book} showActions />
             ))}

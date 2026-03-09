@@ -5,6 +5,7 @@ import cover6th from "@/assets/covers/6th_year.png";
 import cover7th from "@/assets/covers/7th_year.png";
 import cover8th from "@/assets/covers/8th_year.png";
 import cover9th from "@/assets/covers/9th_year.png";
+import coverTEST from "@/assets/covers/cover-5eme.jpg";
 
 export const books: Book[] = [
   {

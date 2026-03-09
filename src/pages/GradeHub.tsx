@@ -101,7 +101,7 @@ export default function GradeHub() {
         <section className="bg-secondary py-12">
           <div className="container flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Button asChild className="w-full sm:w-auto">
-              <a href="https://wa.me/21600000000" target="_blank" rel="noopener noreferrer">
+              <a href="https://wa.me/21692053416" target="_blank" rel="noopener noreferrer">
                 <MessageCircle className="mr-2 h-4 w-4" /> Contact us on WhatsApp
               </a>
             </Button>

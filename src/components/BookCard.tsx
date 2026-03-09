@@ -37,15 +37,15 @@ export function BookCard({ book, showActions = false }: { book: Book; showAction
         <Badge className={`w-fit mb-2 ${GRADE_BADGE_CLASSES[book.grade]}`}>
           {config.label}
         </Badge>
-        <h3 className="font-serif text-base sm:text-lg font-semibold text-card-foreground">
+        <h3 className="font-serif text-lg font-semibold text-card-foreground">
           <Link to={`/book/${book.slug}`} className="hover:text-primary transition-colors">{book.title}</Link>
         </h3>
-        <p className="mt-1 text-xs sm:text-sm text-muted-foreground line-clamp-2">{book.descriptionShort}</p>
+        <p className="mt-1 text-base text-muted-foreground line-clamp-2">{book.descriptionShort}</p>
 
         {/* Skills chips */}
         <div className="mt-3 flex flex-wrap gap-1">
           {book.skills.slice(0, 3).map((skill) => (
-            <span key={skill} className="rounded-full bg-muted px-2 py-0.5 text-[10px] font-medium text-muted-foreground">
+            <span key={skill} className="rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">
               {SKILL_LABELS[skill] || skill}
             </span>
           ))}
@@ -57,8 +57,8 @@ export function BookCard({ book, showActions = false }: { book: Book; showAction
 
         {showActions && (
           <div className="mt-3 flex gap-2">
-            <Button asChild size="sm" className="flex-1 text-xs">
-              <Link to={`/book/${book.slug}`}>View book</Link>
+            <Button asChild size="sm" className="flex-1 text-sm">
+              <Link  to={`/book/${book.slug}`}>View book</Link>
             </Button>
           </div>
         )}

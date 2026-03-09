@@ -8,6 +8,7 @@ import { ScrollReveal } from "@/components/ScrollReveal";
 import { getBookBySlug, books } from "@/data/books";
 import { Grade, GRADE_CONFIG } from "@/lib/types";
 import { MessageCircle, BookOpen, Users, GraduationCap } from "lucide-react";
+import WahtsAppIcon from '../assets/icons/whatsappiconwhite.png';
 
 const GRADE_BADGE: Record<Grade, string> = {
   4: "bg-grade-4 text-grade-4-foreground",
@@ -94,11 +95,15 @@ export default function BookDetail() {
 
             <div className="mt-6 flex gap-3 flex-wrap">
               <Button asChild className="w-full sm:w-auto">
-                <a href={`https://wa.me/21600000000?text=${encodeURIComponent(book.whatsappInquiryTemplate)}`} target="_blank" rel="noopener noreferrer">
-                  <MessageCircle className="mr-2 h-4 w-4" /> Order on WhatsApp
+                <a href={`https://wa.me/21692053416?text=${encodeURIComponent(book.whatsappInquiryTemplate)}`} target="_blank" rel="noopener noreferrer">
+                  <img src={WahtsAppIcon} alt="WhatsApp" className="mr-2 h-5 w-5" />
+                  Order on WhatsApp
                 </a>
               </Button>
-              <Button asChild variant="outline" className="w-full sm:w-auto">
+              <Button asChild variant="outline" 
+              // className="w-full sm:w-auto"
+              className="border-primary text-primary hover:text-primary bg-transparent hover:bg-primary/10 font-semibold w-full sm:w-auto"
+              >
                 <Link to="/contact">Contact us</Link>
               </Button>
             </div>
@@ -114,8 +119,8 @@ export default function BookDetail() {
             <ol className="grid gap-2 sm:grid-cols-2 max-w-2xl">
               {book.tableOfContents.map((item, i) => (
                 <li key={i} className="flex items-center gap-3 rounded-lg border bg-card p-3">
-                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold shrink-0">{i + 1}</span>
-                  <span className="text-sm">{item}</span>
+                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm font-bold shrink-0">{i + 1}</span>
+                  <span className="text-base">{item}</span>
                 </li>
               ))}
             </ol>
@@ -135,8 +140,8 @@ export default function BookDetail() {
             ].map((p) => (
               <div key={p.title} className="rounded-xl border bg-card p-5 sm:p-6">
                 <p.icon className="h-8 w-8 text-primary mb-3" />
-                <h3 className="font-serif font-semibold">{p.title}</h3>
-                <p className="mt-1 text-sm text-muted-foreground">{p.desc}</p>
+                <h3 className="font-serif text-lg font-semibold">{p.title}</h3>
+                <p className="mt-1 text-base text-muted-foreground">{p.desc}</p>
               </div>
             ))}
           </div>

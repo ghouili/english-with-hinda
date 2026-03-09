@@ -31,7 +31,7 @@ export function Privacy() {
       <h2 className="font-serif text-xl font-bold mt-6">Use of data</h2>
       <p>Your data is used only to respond to your requests and to inform you of our news if you have consented.</p>
       <h2 className="font-serif text-xl font-bold mt-6">Contact</h2>
-      <p>For any questions: contact@englishwithhinda.com</p>
+      <p>For any questions: contact@learnenglish.com</p>
     </LegalPage>
   );
 }
@@ -45,7 +45,7 @@ export function Terms() {
       <h2 className="font-serif text-xl font-bold mt-6">Liability</h2>
       <p>We strive to provide accurate information but cannot guarantee the absence of errors.</p>
       <h2 className="font-serif text-xl font-bold mt-6">Contact</h2>
-      <p>For any questions: contact@englishwithhinda.com</p>
+      <p>For any questions: contact@learnenglish.com</p>
     </LegalPage>
   );
 }
@@ -59,7 +59,7 @@ export function Cookies() {
       <h2 className="font-serif text-xl font-bold mt-6">Managing cookies</h2>
       <p>You can disable cookies in your browser settings.</p>
       <h2 className="font-serif text-xl font-bold mt-6">Contact</h2>
-      <p>For any questions: contact@englishwithhinda.com</p>
+      <p>For any questions: contact@learnenglish.com</p>
     </LegalPage>
   );
 }
