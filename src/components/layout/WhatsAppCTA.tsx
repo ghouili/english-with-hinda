@@ -1,5 +1,5 @@
 import { MessageCircle } from "lucide-react";
-import WahtsAppIcon from '../../assets/icons/whatsappicon.png';
+import WahtsAppIcon from '../../assets/icons/whatsappiconwhite.png';
 
 const WHATSAPP_NUMBER = "21692053416";
 const WHATSAPP_MESSAGE = "Hello, I'd like to know more about your English books.";

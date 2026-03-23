@@ -97,26 +97,32 @@ export default function ResourcesIndex() {
 
         {/* Filters */}
         <div className="space-y-3 mb-8">
-          <div className="flex gap-2 flex-wrap items-center">
-            <span className="text-xs font-medium text-muted-foreground w-14">Level</span>
-            <button onClick={() => setGradeFilter(null)} className={chipClass(!gradeFilter)}>All</button>
-            {GRADES.map((g) => (
-              <button key={g} onClick={() => setGradeFilter(g)} className={chipClass(gradeFilter === g)}>{g}th</button>
-            ))}
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-medium text-muted-foreground w-14 shrink-0">Level</span>
+            <div className="flex gap-2 overflow-x-auto scrollbar-none pb-0.5">
+              <button onClick={() => setGradeFilter(null)} className={chipClass(!gradeFilter)}>All</button>
+              {GRADES.map((g) => (
+                <button key={g} onClick={() => setGradeFilter(g)} className={chipClass(gradeFilter === g) + " whitespace-nowrap"}>{g}th</button>
+              ))}
+            </div>
           </div>
-          <div className="flex gap-2 flex-wrap items-center">
-            <span className="text-xs font-medium text-muted-foreground w-14">Format</span>
-            <button onClick={() => setFormatFilter(null)} className={chipClass(!formatFilter)}>All</button>
-            {FORMATS.map((f) => (
-              <button key={f} onClick={() => setFormatFilter(f)} className={chipClass(formatFilter === f)}>{FORMAT_LABELS[f]}</button>
-            ))}
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-medium text-muted-foreground w-14 shrink-0">Format</span>
+            <div className="flex gap-2 overflow-x-auto scrollbar-none pb-0.5">
+              <button onClick={() => setFormatFilter(null)} className={chipClass(!formatFilter)}>All</button>
+              {FORMATS.map((f) => (
+                <button key={f} onClick={() => setFormatFilter(f)} className={chipClass(formatFilter === f) + " whitespace-nowrap"}>{FORMAT_LABELS[f]}</button>
+              ))}
+            </div>
           </div>
-          <div className="flex gap-2 flex-wrap items-center">
-            <span className="text-xs font-medium text-muted-foreground w-14">Skill</span>
-            <button onClick={() => setSkillFilter(null)} className={chipClass(!skillFilter)}>All</button>
-            {SKILLS.map((s) => (
-              <button key={s} onClick={() => setSkillFilter(s)} className={chipClass(skillFilter === s)}>{SKILL_LABELS[s]}</button>
-            ))}
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-medium text-muted-foreground w-14 shrink-0">Skill</span>
+            <div className="flex gap-2 overflow-x-auto scrollbar-none pb-0.5">
+              <button onClick={() => setSkillFilter(null)} className={chipClass(!skillFilter)}>All</button>
+              {SKILLS.map((s) => (
+                <button key={s} onClick={() => setSkillFilter(s)} className={chipClass(skillFilter === s) + " whitespace-nowrap"}>{SKILL_LABELS[s]}</button>
+              ))}
+            </div>
           </div>
         </div>
 

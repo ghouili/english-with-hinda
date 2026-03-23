@@ -117,8 +117,8 @@ function HeroBookShowcase() {
   return (
     <>
       {/* Desktop */}
-      <div className="hidden md:flex items-center justify-center">
-        <div className="relative w-[340px] h-[400px] lg:w-[420px] lg:h-[500px]">
+      <div className="hidden md:flex items-center justify-center ">
+        <div className="relative w-[340px] h-fit lg:w-[420px] lg:h-fit">
           {order.map((cover, i) => {
             const style =
               i <= 3
@@ -127,7 +127,7 @@ function HeroBookShowcase() {
             return (
               <div
                 key={cover.id}
-                className={`absolute inset-0 m-auto w-[210px] h-[300px] lg:w-[250px] lg:h-[360px] rounded-2xl overflow-hidden transition-all duration-700 ease-in-out ${style}`}
+                className={`absolute inset-0 m-auto w-[210px] h-fit lg:w-[250px] lg:h-fit overflow-hidden transition-all duration-700 ease-in-out ${style} `}
               >
                 <img
                   src={cover.src}
@@ -141,7 +141,8 @@ function HeroBookShowcase() {
         </div>
       </div>
       {/* Mobile */}
-      <div className="flex md:hidden items-center justify-center mt-8">
+      <div className="hidden items-center justify-center mt-8">
+      {/* <div className="flex md:hidden items-center justify-center mt-8"> */}
         <div className="relative w-[220px] h-[220px]">
           {order.map((cover, i) => {
             const style =
@@ -188,7 +189,7 @@ export default function HomePage() {
           <div className="absolute top-1/2 left-1/3 h-40 w-40 rounded-full bg-primary-foreground/3" />
         </div>
 
-        <div className="flex flex-col md:flex-row container relative py-12 md:py-16 gap-8 items-center">
+        <div className="flex flex-col md:flex-row container relative py-12 md:py-16 gap-0 md:gap-8 items-center">
           <div className="w-full md:w-1/2 max-w-2xl">
             <h1 className="font-serif text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
               English, made simple for every Tunisian student
@@ -237,7 +238,7 @@ export default function HomePage() {
           </div>
           
           {/* Desktop: side by side */}
-          <div className="hidden md:flex w-1/2 items-center justify-center">
+          <div className="hidden md:flex w-1/2 items-center justify-center ">
             {HERO_VISUAL_MODE === "cards" ? (
               <HeroBookShowcase />
             ) : (
@@ -307,7 +308,7 @@ export default function HomePage() {
                 </Link>
               </Button>
             </div>
-            <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-3 px-2 sm:px-0">
               {featuredBooks.map((book) => (
                 <BookCard key={book.id} book={book} showActions />
               ))}

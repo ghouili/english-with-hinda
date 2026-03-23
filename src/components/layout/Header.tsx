@@ -105,18 +105,20 @@ export function Header() {
               <Button
                 asChild
                 size="sm"
-                variant="outline"
+                variant="outlineW"
                 className="h-7 text-sm group"
               >
                 <a
                   href="https://wa.me/21692053416"
                   target="_blank"
                   rel="noopener noreferrer"
+                  // className="border-[#45BB76] group-hover:border-white bg-[#DEDEDE]"
                 >
                   {/* <MessageCircle className="mr-1 h-3 w-3" />  */}
-                  <img src={WahtsAppIconwhite} alt="WhatsApp" className="h-4 w-4 group-hover:hidden block" />
-                  <img src={WahtsAppIcon} alt="WhatsApp" className="h-4 w-4 group-hover:block hidden" />
-                  <p className="text-primary-foreground group-hover:text-[#45BB76]">WhatsApp</p>
+                  <img src={WahtsAppIconwhite} alt="WhatsApp" className="h-4 w-4 group-hover:block hidden " />
+                  <img src={WahtsAppIcon} alt="WhatsApp" className="h-4 w-4 group-hover:hidden block" />
+                  <p className=" ">WhatsApp</p>
+                  {/* <p className="text-primary-foreground text-[#45BB76] group-hover:text-white font-semibold">WhatsApp</p> */}
                 </a>
               </Button>
             </div>
@@ -126,7 +128,7 @@ export function Header() {
 
       {/* Mobile nav */}
       {mobileOpen && (
-        <nav className="md:hidden border-t bg-background px-4 pb-4">
+        <nav className="md:hidden border-t bg-background px-4 pb-4 border-b-2">
           {/* Grade quick-links */}
           <div className="flex gap-2 flex-wrap py-3 border-b mb-2">
             {GRADES.map((g) => (
