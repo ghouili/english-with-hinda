@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+﻿import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { SEOHead } from "@/components/SEOHead";
@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { books } from "@/data/books";
 import { Grade, GRADE_CONFIG } from "@/lib/types";
+import { useTranslation } from "react-i18next";
 import {
   ArrowRight,
   BookOpen,
@@ -59,42 +60,16 @@ const GRADE_CHIP_COLORS: Record<Grade, string> = {
   9: "bg-grade-9 text-grade-9-foreground",
 };
 
-const TESTIMONIALS = [
-  {
-    name: "Sana M.",
-    role: "Parent, Tunis",
-    text: "My son has improved so much thanks to Hinda's books. The exercises are clear and perfectly aligned with the Tunisian curriculum.",
-  },
-  {
-    name: "Ahmed B.",
-    role: "Teacher, Sfax",
-    text: "I use these books in class. My students are more motivated and their results have noticeably improved.",
-  },
-  {
-    name: "Fatma K.",
-    role: "9th Year Student, Sousse",
-    text: "The exam practice sections really helped me prepare. I scored 18/20 on my English exam!",
-  },
-];
-
-const TRUST_ITEMS = [
-  "Aligned with the official program",
-  "Progressive practice",
-  "Clear grammar + writing guidance",
-  "Free resources included",
-];
-
 type HeroVisualMode = "picture" | "cards";
-
 const HERO_VISUAL_MODE: HeroVisualMode = "cards";
 
 const ORGANIZATION_SCHEMA = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "English With Hinda",
+  name: "English With Henda",
   description:
     "Publisher of English workbooks for Tunisian students from 4th to 9th year.",
-  url: "https://englishwithhinda.com",
+  url: "https://englishwithhenda.com",
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "customer service",
@@ -142,7 +117,6 @@ function HeroBookShowcase() {
       </div>
       {/* Mobile */}
       <div className="hidden items-center justify-center mt-8">
-      {/* <div className="flex md:hidden items-center justify-center mt-8"> */}
         <div className="relative w-[220px] h-[220px]">
           {order.map((cover, i) => {
             const style =
@@ -171,11 +145,19 @@ function HeroBookShowcase() {
 
 export default function HomePage() {
   const featuredBooks = books.slice(0, 6);
+  const { t } = useTranslation();
+
+  const trustItems = t("home.trust.items", { returnObjects: true }) as string[];
+  const testimonials = t("home.testimonials.items", { returnObjects: true }) as {
+    name: string;
+    role: string;
+    text: string;
+  }[];
 
   return (
     <Layout>
       <SEOHead
-        title="English With Hinda — English Books for Tunisian Students"
+        title="English With Henda â€” English Books for Tunisian Students"
         description="English workbooks designed for Tunisian students from 4th to 9th year. Grammar, vocabulary and exam preparation."
         jsonLd={ORGANIZATION_SCHEMA}
       />
@@ -192,11 +174,10 @@ export default function HomePage() {
         <div className="flex flex-col md:flex-row container relative py-12 md:py-16 gap-0 md:gap-8 items-center">
           <div className="w-full md:w-1/2 max-w-2xl">
             <h1 className="font-serif text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
-              English, made simple for every Tunisian student
+              {t("home.hero.title")}
             </h1>
             <p className="mt-4 text-base opacity-90 sm:text-lg leading-relaxed">
-              Workbooks aligned with the official program from 4th to 9th year
-              — clear lessons, smart practice, and exam-ready support.
+              {t("home.hero.subtitle")}
             </p>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <Button
@@ -206,8 +187,8 @@ export default function HomePage() {
                 className="font-semibold w-full sm:w-auto shadow-lg"
               >
                 <Link to="/books">
-                  <BookOpen className="mr-2 h-5 w-5" />
-                  Explore Books
+                  <BookOpen className="me-2 h-5 w-5" />
+                  {t("home.hero.cta_primary")}
                 </Link>
               </Button>
               <Button
@@ -217,8 +198,8 @@ export default function HomePage() {
                 className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 font-semibold w-full sm:w-auto"
               >
                 <Link to="/resources">
-                  <Download className="mr-2 h-5 w-5" />
-                  Browse Free Resources
+                  <Download className="me-2 h-5 w-5" />
+                  {t("home.hero.cta_secondary")}
                 </Link>
               </Button>
             </div>
@@ -231,12 +212,12 @@ export default function HomePage() {
                   to={`/books/${GRADE_CONFIG[g].slug}`}
                   className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-all hover:scale-105 shadow-sm ${GRADE_CHIP_COLORS[g]}`}
                 >
-                  {GRADE_CONFIG[g].label}
+                  {t(`grades.${g}`)}
                 </Link>
               ))}
             </div>
           </div>
-          
+
           {/* Desktop: side by side */}
           <div className="hidden md:flex w-1/2 items-center justify-center ">
             {HERO_VISUAL_MODE === "cards" ? (
@@ -268,7 +249,7 @@ export default function HomePage() {
       <section className="border-b bg-card">
         <div className="container py-4">
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 sm:gap-x-8">
-            {TRUST_ITEMS.map((item) => (
+            {trustItems.map((item) => (
               <span
                 key={item}
                 className="flex items-center gap-2 text-xs sm:text-sm font-medium text-muted-foreground"
@@ -281,30 +262,17 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Grade cards */}
-      {/* <ScrollReveal>
-        <section className="container py-16">
-          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-center mb-2">Choose your level</h2>
-          <p className="text-center text-muted-foreground mb-10">One book adapted for each school year</p>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6 sm:gap-4">
-            {GRADES.map((g) => (
-              <GradeCard key={g} grade={g} />
-            ))}
-          </div>
-        </section>
-      </ScrollReveal> */}
-
       {/* Featured books */}
       <ScrollReveal>
         <section className="bg-muted/50 py-16">
           <div className="container">
             <div className="flex items-center justify-between mb-8">
               <h2 className="font-serif text-2xl sm:text-3xl font-bold">
-                Our books
+                {t("home.books.title")}
               </h2>
               <Button asChild variant="ghost">
                 <Link to="/books" className="flex items-center gap-1">
-                  View all <ArrowRight className="h-4 w-4" />
+                  {t("home.books.viewAll")} <ArrowRight className="h-4 w-4 ms-1" />
                 </Link>
               </Button>
             </div>
@@ -321,10 +289,10 @@ export default function HomePage() {
       <ScrollReveal>
         <section className="container py-16">
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-center mb-10">
-            What they say
+            {t("home.testimonials.title")}
           </h2>
           <div className="grid gap-4 sm:gap-6 md:grid-cols-3">
-            {TESTIMONIALS.map((t, i) => (
+            {testimonials.map((testimonial, i) => (
               <div
                 key={i}
                 className="flex flex-col justify-between rounded-xl border bg-card p-5 sm:p-6 shadow-sm"
@@ -337,20 +305,15 @@ export default function HomePage() {
                         className="h-4 w-4 fill-[#FDD663] text-[#FDD663]"
                       />
                     ))}
-                    {Math.random() < 0.5 ? (
-                      <Star className="h-4 w-4 fill-[#FDD663] text-[#FDD663]" />
-                    ) : (
-                      <StarHalf className="h-4 w-4 fill-[#FDD663] text-[#FDD663]" />
-                    )}
+                    <Star className="h-4 w-4 fill-[#FDD663] text-[#FDD663]" />
                   </div>
                   <p className="text-base text-muted-foreground italic">
-                    "{t.text}"
+                    &ldquo;{testimonial.text}&rdquo;
                   </p>
                 </div>
-
                 <div className="mt-4">
-                  <p className="font-semibold text-base">{t.name}</p>
-                  <p className="text-sm text-muted-foreground">{t.role}</p>
+                  <p className="font-semibold text-base">{testimonial.name}</p>
+                  <p className="text-sm text-muted-foreground">{testimonial.role}</p>
                 </div>
               </div>
             ))}
@@ -363,10 +326,10 @@ export default function HomePage() {
         <section className="bg-secondary py-16">
           <div className="container max-w-xl text-center">
             <h2 className="font-serif text-2xl sm:text-3xl font-bold mb-3">
-              Stay informed
+              {t("home.newsletter.title")}
             </h2>
             <p className="text-base text-muted-foreground mb-6">
-              Receive our free resources and latest news directly in your inbox.
+              {t("home.newsletter.subtitle")}
             </p>
             <form
               className="flex flex-col gap-2 sm:flex-row"
@@ -374,11 +337,11 @@ export default function HomePage() {
             >
               <Input
                 type="email"
-                placeholder="Your email address"
+                placeholder={t("home.newsletter.placeholder")}
                 className="flex-1 text-base placeholder:text-base"
               />
               <Button type="submit" className="w-full text-base sm:w-auto">
-                Subscribe
+                {t("home.newsletter.cta")}
               </Button>
             </form>
           </div>

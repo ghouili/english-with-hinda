@@ -1,21 +1,34 @@
+import { useTranslation } from "react-i18next";
 import { Layout } from "@/components/layout/Layout";
 import { SEOHead } from "@/components/SEOHead";
+
+interface Section {
+  title: string;
+  content: string;
+}
 
 interface LegalPageProps {
   title: string;
   seoTitle: string;
   seoDescription: string;
-  children: React.ReactNode;
+  intro: string;
+  sections: Section[];
 }
 
-function LegalPage({ title, seoTitle, seoDescription, children }: LegalPageProps) {
+function LegalPage({ title, seoTitle, seoDescription, intro, sections }: LegalPageProps) {
   return (
     <Layout>
       <SEOHead title={seoTitle} description={seoDescription} />
       <section className="container py-12 max-w-3xl">
         <h1 className="font-serif text-3xl sm:text-4xl font-bold mb-8">{title}</h1>
         <div className="prose prose-slate max-w-none text-muted-foreground space-y-4 text-sm leading-relaxed">
-          {children}
+          <p>{intro}</p>
+          {sections.map((s) => (
+            <div key={s.title}>
+              <h2 className="font-serif text-xl font-bold mt-6">{s.title}</h2>
+              <p>{s.content}</p>
+            </div>
+          ))}
         </div>
       </section>
     </Layout>
@@ -23,43 +36,43 @@ function LegalPage({ title, seoTitle, seoDescription, children }: LegalPageProps
 }
 
 export function Privacy() {
+  const { t } = useTranslation();
+  const sections = t("legal.privacy.sections", { returnObjects: true }) as Section[];
   return (
-    <LegalPage title="Privacy Policy" seoTitle="Privacy — English With Hinda" seoDescription="Privacy policy of English With Hinda.">
-      <p>English With Hinda is committed to protecting the privacy of its visitors. This policy describes the information we collect and how we use it.</p>
-      <h2 className="font-serif text-xl font-bold mt-6">Data collected</h2>
-      <p>We may collect your name, email address and phone number when you contact us via our form or WhatsApp.</p>
-      <h2 className="font-serif text-xl font-bold mt-6">Use of data</h2>
-      <p>Your data is used only to respond to your requests and to inform you of our news if you have consented.</p>
-      <h2 className="font-serif text-xl font-bold mt-6">Contact</h2>
-      <p>For any questions: contact@learnenglish.com</p>
-    </LegalPage>
+    <LegalPage
+      title={t("legal.privacy.title")}
+      seoTitle={t("legal.privacy.seoTitle")}
+      seoDescription={t("legal.privacy.seoDesc")}
+      intro={t("legal.privacy.intro")}
+      sections={sections}
+    />
   );
 }
 
 export function Terms() {
+  const { t } = useTranslation();
+  const sections = t("legal.terms.sections", { returnObjects: true }) as Section[];
   return (
-    <LegalPage title="Terms of Use" seoTitle="Terms — English With Hinda" seoDescription="Terms of use of English With Hinda.">
-      <p>By using this site, you agree to these terms of use.</p>
-      <h2 className="font-serif text-xl font-bold mt-6">Intellectual property</h2>
-      <p>All content on this site (text, images, logos) is the property of English With Hinda and is protected by copyright.</p>
-      <h2 className="font-serif text-xl font-bold mt-6">Liability</h2>
-      <p>We strive to provide accurate information but cannot guarantee the absence of errors.</p>
-      <h2 className="font-serif text-xl font-bold mt-6">Contact</h2>
-      <p>For any questions: contact@learnenglish.com</p>
-    </LegalPage>
+    <LegalPage
+      title={t("legal.terms.title")}
+      seoTitle={t("legal.terms.seoTitle")}
+      seoDescription={t("legal.terms.seoDesc")}
+      intro={t("legal.terms.intro")}
+      sections={sections}
+    />
   );
 }
 
 export function Cookies() {
+  const { t } = useTranslation();
+  const sections = t("legal.cookies.sections", { returnObjects: true }) as Section[];
   return (
-    <LegalPage title="Cookie Policy" seoTitle="Cookies — English With Hinda" seoDescription="Cookie policy of English With Hinda.">
-      <p>This site may use cookies to improve your browsing experience.</p>
-      <h2 className="font-serif text-xl font-bold mt-6">Types of cookies</h2>
-      <p>We use technical cookies necessary for the site to function and analytical cookies to understand how you use the site.</p>
-      <h2 className="font-serif text-xl font-bold mt-6">Managing cookies</h2>
-      <p>You can disable cookies in your browser settings.</p>
-      <h2 className="font-serif text-xl font-bold mt-6">Contact</h2>
-      <p>For any questions: contact@learnenglish.com</p>
-    </LegalPage>
+    <LegalPage
+      title={t("legal.cookies.title")}
+      seoTitle={t("legal.cookies.seoTitle")}
+      seoDescription={t("legal.cookies.seoDesc")}
+      intro={t("legal.cookies.intro")}
+      sections={sections}
+    />
   );
 }

@@ -1,25 +1,28 @@
-import { Link } from "react-router-dom";
-import { BookOpen, Mail, Phone } from "lucide-react";
-
-const FOOTER_LINKS = {
-  navigation: [
-    { label: "Home", to: "/" },
-    { label: "Books", to: "/books" },
-    { label: "Resources", to: "/resources" },
-  ],
-  legal: [
-    { label: "Privacy", to: "/privacy" },
-    { label: "Terms", to: "/terms" },
-    { label: "Cookies", to: "/cookies" },
-  ],
-  about: [
-    { label: "About", to: "/about" },
-    { label: "Contact", to: "/contact" },
-    { label: "Add Resource", to: "/add-resource" },
-  ],
-};
+﻿import { Link } from "react-router-dom";
+import { Mail, Phone } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export function Footer() {
+  const { t } = useTranslation();
+
+  const footerLinks = {
+    navigation: [
+      { label: t("footer.links.home"), to: "/" },
+      { label: t("footer.links.books"), to: "/books" },
+      { label: t("footer.links.resources"), to: "/resources" },
+    ],
+    legal: [
+      { label: t("footer.links.privacy"), to: "/privacy" },
+      { label: t("footer.links.terms"), to: "/terms" },
+      { label: t("footer.links.cookies"), to: "/cookies" },
+    ],
+    about: [
+      { label: t("footer.links.about"), to: "/about" },
+      { label: t("footer.links.contact"), to: "/contact" },
+      { label: t("footer.links.addResource"), to: "/add-resource" },
+    ],
+  };
+
   return (
     <footer className="border-t bg-primary text-primary-foreground">
       <div className="container py-12">
@@ -31,19 +34,16 @@ export function Footer() {
                 to="/"
                 className="flex items-center gap-2 font-serif text-lg font-bold"
               >
-                {/* <BookOpen className="h-5 w-5" />
-              English With Hinda */}
                 <img
                   src="/icon.png"
-                  alt="English With Hinda"
+                  alt="English With Henda"
                   className="h-48 w-auto"
                   srcSet=""
                 />
               </Link>
               <div className="mt-4 flex flex-col gap-2 text-sm opacity-80">
                 <p className="mt-3 text-[16px] opacity-80">
-                  English workbooks designed for Tunisian students from 4th to
-                  9th year.
+                  {t("footer.description")}
                 </p>
                 <a
                   href="mailto:contact@learnenglish.com"
@@ -64,10 +64,10 @@ export function Footer() {
           {/* Navigation */}
           <div className="">
             <h3 className="font-serif text-base font-bold uppercase tracking-wider opacity-70">
-              Navigation
+              {t("footer.navigation")}
             </h3>
             <ul className="mt-3 space-y-2">
-              {FOOTER_LINKS.navigation.map((l) => (
+              {footerLinks.navigation.map((l) => (
                 <li key={l.to}>
                   <Link
                     to={l.to}
@@ -83,10 +83,10 @@ export function Footer() {
           {/* About */}
           <div className="">
             <h3 className="font-serif text-base font-bold uppercase tracking-wider opacity-70">
-              About
+              {t("footer.about")}
             </h3>
             <ul className="mt-3 space-y-2">
-              {FOOTER_LINKS.about.map((l) => (
+              {footerLinks.about.map((l) => (
                 <li key={l.to}>
                   <Link
                     to={l.to}
@@ -102,10 +102,10 @@ export function Footer() {
           {/* Legal */}
           <div className="">
             <h3 className="font-serif text-base font-bold uppercase tracking-wider opacity-70">
-              Legal
+              {t("footer.legal")}
             </h3>
             <ul className="mt-3 space-y-2">
-              {FOOTER_LINKS.legal.map((l) => (
+              {footerLinks.legal.map((l) => (
                 <li key={l.to}>
                   <Link
                     to={l.to}
@@ -120,7 +120,7 @@ export function Footer() {
         </div>
 
         <div className="mt-10 border-t border-primary-foreground/20 pt-6 text-center text-[16px] opacity-60">
-          © {new Date().getFullYear()} English With Hinda. All rights reserved.
+          Â© {new Date().getFullYear()} English With Henda. {t("footer.copyright")}
         </div>
       </div>
     </footer>

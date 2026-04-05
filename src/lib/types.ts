@@ -24,6 +24,18 @@ export interface Book {
   seoTitle: string;
   seoDescription: string;
   ogImage: string;
+  translations?: {
+    ar?: {
+      title?: string;
+      subtitle?: string;
+      gradeLabel?: string;
+      descriptionShort?: string;
+      descriptionLong?: string;
+      tableOfContents?: string[];
+      availability?: string;
+      whatsappInquiryTemplate?: string;
+    };
+  };
 }
 
 export interface Resource {
@@ -38,6 +50,12 @@ export interface Resource {
   relatedBookIds: string[];
   seoTitle: string;
   seoDescription: string;
+  translations?: {
+    ar?: {
+      title?: string;
+      summary?: string;
+    };
+  };
 }
 
 

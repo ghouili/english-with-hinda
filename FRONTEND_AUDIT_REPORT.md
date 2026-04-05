@@ -1,7 +1,7 @@
 # FRONTEND AUDIT REPORT
 
 ## 1. Executive Summary
-- This frontend is a React + Vite marketing/catalog site for **English With Hinda**, focused on Tunisian school-grade English books (4th–9th year), with a static books/resources model and several marketing/informational pages.
+- This frontend is a React + Vite marketing/catalog site for **English With Henda**, focused on Tunisian school-grade English books (4th–9th year), with a static books/resources model and several marketing/informational pages.
 - Current maturity: **advanced prototype / pre-production**.
 - Main strengths:
   - Clear route structure and page coverage for core user journeys (`/`, `/books`, `/book/:slug`, `/resources`, `/resources/:slug`).

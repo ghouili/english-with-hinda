@@ -1,4 +1,5 @@
-import { useParams, Link } from "react-router-dom";
+﻿import { useParams, Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Layout } from "@/components/layout/Layout";
 import { SEOHead } from "@/components/SEOHead";
 import { Badge } from "@/components/ui/badge";
@@ -6,7 +7,8 @@ import { Button } from "@/components/ui/button";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { resources } from "@/data/resources";
 import { books } from "@/data/books";
-import { Grade, GRADE_CONFIG } from "@/lib/types";
+import { Grade } from "@/lib/types";
+import { localizeResource, localizeBook } from "@/lib/useLocalized";
 import { ArrowLeft, Download, Headphones, FileText, BookOpen, MessageCircle } from "lucide-react";
 
 const GRADE_BADGE: Record<Grade, string> = {
@@ -18,45 +20,42 @@ const GRADE_BADGE: Record<Grade, string> = {
   9: "bg-grade-9 text-grade-9-foreground",
 };
 
-const FORMAT_META = {
-  pdf: { icon: FileText, label: "PDF", action: "Download PDF" },
-  audio: { icon: Headphones, label: "Audio", action: "Listen to audio" },
-  article: { icon: BookOpen, label: "Article", action: "Read article" },
-};
-
-const SKILL_LABELS: Record<string, string> = {
-  grammar: "Grammar",
-  vocabulary: "Vocabulary",
-  reading: "Reading",
-  writing: "Writing",
-  listening: "Listening",
+const FORMAT_ICONS = {
+  pdf: FileText,
+  audio: Headphones,
+  article: BookOpen,
 };
 
 export default function ResourceDetail() {
+  const { t, i18n } = useTranslation();
   const { slug } = useParams<{ slug: string }>();
-  const resource = resources.find((r) => r.slug === slug);
+  const rawResource = resources.find((r) => r.slug === slug);
 
-  if (!resource) {
+  if (!rawResource) {
     return (
       <Layout>
         <div className="container py-24 text-center">
-          <h1 className="font-serif text-3xl font-bold">Resource not found</h1>
-          <Button asChild className="mt-4"><Link to="/resources">Back to resources</Link></Button>
+          <h1 className="font-serif text-3xl font-bold">{t("resourceDetail.notFound")}</h1>
+          <Button asChild className="mt-4"><Link to="/resources">{t("resourceDetail.backToResources")}</Link></Button>
         </div>
       </Layout>
     );
   }
 
-  const format = FORMAT_META[resource.format];
-  const FormatIcon = format.icon;
-  const relatedBooks = books.filter((b) => resource.relatedBookIds.includes(b.id));
+  const resource = localizeResource(rawResource, i18n.language);
+  const FormatIcon = FORMAT_ICONS[resource.format];
+  const formatLabel = t(`resourcesPage.formats.${resource.format}`);
+  const formatAction = t(`resourceDetail.formatActions.${resource.format}`);
+  const relatedBooks = books
+    .filter((b) => resource.relatedBookIds.includes(b.id))
+    .map((b) => localizeBook(b, i18n.language));
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://englishwithhinda.com/" },
-      { "@type": "ListItem", position: 2, name: "Resources", item: "https://englishwithhinda.com/resources" },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://englishwithhenda.com/" },
+      { "@type": "ListItem", position: 2, name: t("nav.resources"), item: "https://englishwithhenda.com/resources" },
       { "@type": "ListItem", position: 3, name: resource.title },
     ],
   };
@@ -71,14 +70,14 @@ export default function ResourceDetail() {
 
       <section className="container py-12 max-w-3xl">
         <Button asChild variant="ghost" size="sm" className="mb-6">
-          <Link to="/resources"><ArrowLeft className="mr-1 h-4 w-4" /> Back to resources</Link>
+          <Link to="/resources"><ArrowLeft className="me-1 h-4 w-4" /> {t("resourceDetail.backToResources")}</Link>
         </Button>
 
         {/* Badges */}
         <div className="flex gap-2 mb-4 flex-wrap">
-          <Badge className={GRADE_BADGE[resource.grade]}>{GRADE_CONFIG[resource.grade].label}</Badge>
-          <Badge variant="outline" className="capitalize">{format.label}</Badge>
-          <Badge variant="secondary">{SKILL_LABELS[resource.skill] || resource.skill}</Badge>
+          <Badge className={GRADE_BADGE[resource.grade]}>{t(`grades.${resource.grade}`)}</Badge>
+          <Badge variant="outline" className="capitalize">{formatLabel}</Badge>
+          <Badge variant="secondary">{t(`skills.${resource.skill}`)}</Badge>
         </div>
 
         <h1 className="font-serif text-2xl sm:text-3xl font-bold md:text-4xl">{resource.title}</h1>
@@ -91,7 +90,7 @@ export default function ResourceDetail() {
                 <FormatIcon className="h-6 w-6 text-primary" />
               </div>
               <div>
-                <h2 className="font-semibold mb-2">What the student will practice</h2>
+                <h2 className="font-semibold mb-2">{t("resourceDetail.practiceTitle")}</h2>
                 <p className="text-sm text-muted-foreground leading-relaxed">{resource.summary}</p>
               </div>
             </div>
@@ -102,7 +101,7 @@ export default function ResourceDetail() {
         <div className="mt-6">
           <Button asChild size="lg" className="w-full sm:w-auto">
             <a href={resource.fileUrl} target="_blank" rel="noopener noreferrer">
-              <Download className="mr-2 h-5 w-5" /> {format.action}
+              <Download className="me-2 h-5 w-5" /> {formatAction}
             </a>
           </Button>
         </div>
@@ -111,7 +110,7 @@ export default function ResourceDetail() {
         {relatedBooks.length > 0 && (
           <ScrollReveal>
             <div className="mt-12">
-              <h2 className="font-serif text-2xl font-bold mb-4">Related book(s)</h2>
+              <h2 className="font-serif text-2xl font-bold mb-4">{t("resourceDetail.relatedBooks")}</h2>
               <div className="space-y-3">
                 {relatedBooks.map((book) => (
                   <Link
@@ -123,7 +122,7 @@ export default function ResourceDetail() {
                       <img src={book.coverImage} alt={book.title} className="h-full w-full object-cover" loading="lazy" />
                     </div>
                     <div>
-                      <Badge className={`mb-1 ${GRADE_BADGE[book.grade]}`}>{GRADE_CONFIG[book.grade].label}</Badge>
+                      <Badge className={`mb-1 ${GRADE_BADGE[book.grade]}`}>{t(`grades.${book.grade}`)}</Badge>
                       <h3 className="font-serif font-semibold text-sm">{book.title}</h3>
                       <p className="text-xs text-muted-foreground mt-1">{book.descriptionShort}</p>
                     </div>
@@ -137,16 +136,16 @@ export default function ResourceDetail() {
         {/* CTA */}
         <ScrollReveal>
           <div className="mt-12 rounded-xl border bg-secondary p-6 text-center">
-            <h2 className="font-serif text-xl font-bold mb-2">Need help?</h2>
-            <p className="text-sm text-muted-foreground mb-4">Contact us for any questions about our resources or books.</p>
+            <h2 className="font-serif text-xl font-bold mb-2">{t("resourceDetail.needHelp")}</h2>
+            <p className="text-sm text-muted-foreground mb-4">{t("resourceDetail.needHelpDesc")}</p>
             <div className="flex gap-3 justify-center flex-wrap">
               <Button asChild variant="outline" className="w-full sm:w-auto">
                 <a href="https://wa.me/21692053416" target="_blank" rel="noopener noreferrer">
-                  <MessageCircle className="mr-2 h-4 w-4" /> WhatsApp
+                  <MessageCircle className="me-2 h-4 w-4" /> WhatsApp
                 </a>
               </Button>
               <Button asChild variant="ghost" className="w-full sm:w-auto">
-                <Link to="/contact">Contact us</Link>
+                <Link to="/contact">{t("bookDetail.contactUs")}</Link>
               </Button>
             </div>
           </div>

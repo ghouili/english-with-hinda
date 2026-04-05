@@ -10,16 +10,18 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { MessageCircle, Mail, Phone, Send, CheckCircle } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [consent, setConsent] = useState(false);
   const [error, setError] = useState("");
+  const { t } = useTranslation();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!consent) {
-      setError("Please accept the privacy policy.");
+      setError(t("contact.form.consentError"));
       return;
     }
     setError("");
@@ -29,15 +31,15 @@ export default function Contact() {
   return (
     <Layout>
       <SEOHead
-        title="Contact — English With Hinda"
+        title="Contact — English With Henda"
         description="Get in touch with us for any questions about our English books. Parents, teachers and distributors welcome."
       />
 
       <section className="container py-12 max-w-2xl">
         <ScrollReveal>
           <div className="text-center mb-10">
-            <h1 className="font-serif text-3xl sm:text-4xl font-bold mb-2">Contact</h1>
-            <p className="text-muted-foreground">Questions? We're here to help.</p>
+            <h1 className="font-serif text-3xl sm:text-4xl font-bold mb-2">{t("contact.title")}</h1>
+            <p className="text-muted-foreground">{t("contact.subtitle")}</p>
           </div>
         </ScrollReveal>
 
@@ -47,19 +49,19 @@ export default function Contact() {
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
                 <MessageCircle className="h-5 w-5 text-primary" />
               </div>
-              <span className="text-sm font-medium">WhatsApp</span>
+              <span className="text-sm font-medium">{t("contact.channels.whatsapp")}</span>
             </a>
             <a href="mailto:contact@learnenglish.com" className="flex flex-col items-center gap-2 rounded-xl border bg-card p-4 hover:shadow-md transition-shadow text-center">
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
                 <Mail className="h-5 w-5 text-primary" />
               </div>
-              <span className="text-sm font-medium">Email</span>
+              <span className="text-sm font-medium">{t("contact.channels.email")}</span>
             </a>
             <a href="tel:+21692053416" className="flex flex-col items-center gap-2 rounded-xl border bg-card p-4 hover:shadow-md transition-shadow text-center">
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
                 <Phone className="h-5 w-5 text-primary" />
               </div>
-              <span className="text-sm font-medium">Phone</span>
+              <span className="text-sm font-medium">{t("contact.channels.phone")}</span>
             </a>
           </div>
         </ScrollReveal>
@@ -72,38 +74,38 @@ export default function Contact() {
                   <CheckCircle className="h-8 w-8 text-primary" />
                 </div>
               </div>
-              <h2 className="font-serif text-2xl font-bold mb-2">Message sent!</h2>
-              <p className="text-muted-foreground mb-6">Thank you for reaching out. We'll get back to you as soon as possible.</p>
-              <Button variant="outline" onClick={() => setSubmitted(false)}>Send another message</Button>
+              <h2 className="font-serif text-2xl font-bold mb-2">{t("contact.success.title")}</h2>
+              <p className="text-muted-foreground mb-6">{t("contact.success.subtitle")}</p>
+              <Button variant="outline" onClick={() => setSubmitted(false)}>{t("contact.success.sendAnother")}</Button>
             </div>
           ) : (
             <form className="space-y-6 rounded-xl border bg-card p-6 sm:p-8 shadow-sm" onSubmit={handleSubmit}>
-              <h2 className="font-serif text-lg font-semibold">Send us a message</h2>
+              <h2 className="font-serif text-lg font-semibold">{t("contact.form.title")}</h2>
 
               <div className="grid gap-5 sm:grid-cols-2">
                 <div>
-                  <Label htmlFor="role">I am a…</Label>
+                  <Label htmlFor="role">{t("contact.form.role.label")}</Label>
                   <Select>
-                    <SelectTrigger className="mt-1.5"><SelectValue placeholder="Select…" /></SelectTrigger>
+                    <SelectTrigger className="mt-1.5"><SelectValue placeholder={t("contact.form.role.placeholder")} /></SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="parent">Parent</SelectItem>
-                      <SelectItem value="student">Student</SelectItem>
-                      <SelectItem value="teacher">Teacher</SelectItem>
-                      <SelectItem value="school">School</SelectItem>
-                      <SelectItem value="bookstore">Bookstore / Distributor</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
+                      <SelectItem value="parent">{t("contact.form.role.parent")}</SelectItem>
+                      <SelectItem value="student">{t("contact.form.role.student")}</SelectItem>
+                      <SelectItem value="teacher">{t("contact.form.role.teacher")}</SelectItem>
+                      <SelectItem value="school">{t("contact.form.role.school")}</SelectItem>
+                      <SelectItem value="bookstore">{t("contact.form.role.bookstore")}</SelectItem>
+                      <SelectItem value="other">{t("contact.form.role.other")}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div>
-                  <Label htmlFor="subject">Subject</Label>
+                  <Label htmlFor="subject">{t("contact.form.subject.label")}</Label>
                   <Select>
-                    <SelectTrigger className="mt-1.5"><SelectValue placeholder="Select…" /></SelectTrigger>
+                    <SelectTrigger className="mt-1.5"><SelectValue placeholder={t("contact.form.subject.placeholder")} /></SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="general">General question</SelectItem>
-                      <SelectItem value="order">Order</SelectItem>
-                      <SelectItem value="partnership">Partnership</SelectItem>
-                      <SelectItem value="support">Support</SelectItem>
+                      <SelectItem value="general">{t("contact.form.subject.general")}</SelectItem>
+                      <SelectItem value="order">{t("contact.form.subject.order")}</SelectItem>
+                      <SelectItem value="partnership">{t("contact.form.subject.partnership")}</SelectItem>
+                      <SelectItem value="support">{t("contact.form.subject.support")}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -111,35 +113,35 @@ export default function Contact() {
 
               <div className="grid gap-5 sm:grid-cols-2">
                 <div>
-                  <Label htmlFor="name">Full name</Label>
-                  <Input id="name" placeholder="Your full name" className="mt-1.5" required />
+                  <Label htmlFor="name">{t("contact.form.name.label")}</Label>
+                  <Input id="name" placeholder={t("contact.form.name.placeholder")} className="mt-1.5" required />
                 </div>
                 <div>
-                  <Label htmlFor="email">Email</Label>
-                  <Input id="email" type="email" placeholder="you@example.com" className="mt-1.5" required />
+                  <Label htmlFor="email">{t("contact.form.email.label")}</Label>
+                  <Input id="email" type="email" placeholder={t("contact.form.email.placeholder")} className="mt-1.5" required />
                 </div>
               </div>
 
               <div>
-                <Label htmlFor="phone">Phone (optional)</Label>
-                <Input id="phone" type="tel" placeholder="+216 XX XXX XXX" className="mt-1.5" />
+                <Label htmlFor="phone">{t("contact.form.phone.label")}</Label>
+                <Input id="phone" type="tel" placeholder={t("contact.form.phone.placeholder")} className="mt-1.5" />
               </div>
 
               <div>
-                <Label htmlFor="contact-method">Preferred contact method</Label>
+                <Label htmlFor="contact-method">{t("contact.form.contactMethod.label")}</Label>
                 <Select>
-                  <SelectTrigger className="mt-1.5"><SelectValue placeholder="Select…" /></SelectTrigger>
+                  <SelectTrigger className="mt-1.5"><SelectValue placeholder={t("contact.form.contactMethod.placeholder")} /></SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="whatsapp">WhatsApp</SelectItem>
-                    <SelectItem value="email">Email</SelectItem>
-                    <SelectItem value="phone">Phone</SelectItem>
+                    <SelectItem value="whatsapp">{t("contact.form.contactMethod.whatsapp")}</SelectItem>
+                    <SelectItem value="email">{t("contact.form.contactMethod.email")}</SelectItem>
+                    <SelectItem value="phone">{t("contact.form.contactMethod.phone")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               <div>
-                <Label htmlFor="message">Message</Label>
-                <Textarea id="message" placeholder="How can we help you?" className="mt-1.5" rows={5} required />
+                <Label htmlFor="message">{t("contact.form.message.label")}</Label>
+                <Textarea id="message" placeholder={t("contact.form.message.placeholder")} className="mt-1.5" rows={5} required />
               </div>
 
               {/* Honeypot */}
@@ -156,14 +158,14 @@ export default function Contact() {
                   className="mt-0.5"
                 />
                 <Label htmlFor="consent" className="text-xs text-muted-foreground leading-relaxed">
-                  I agree to the <Link to="/privacy" className="text-primary hover:underline">privacy policy</Link> and the processing of my data.
+                  {t("contact.form.consent")}
                 </Label>
               </div>
 
               {error && <p className="text-sm text-destructive">{error}</p>}
 
               <Button type="submit" className="w-full" size="lg">
-                <Send className="mr-2 h-4 w-4" /> Send message
+                <Send className="me-2 h-4 w-4" /> {t("contact.form.submit")}
               </Button>
             </form>
           )}

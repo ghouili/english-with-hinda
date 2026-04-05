@@ -1,5 +1,6 @@
-import { useState, useMemo, useEffect } from "react";
+﻿import { useState, useMemo, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Layout } from "@/components/layout/Layout";
 import { SEOHead } from "@/components/SEOHead";
 import { Badge } from "@/components/ui/badge";
@@ -7,7 +8,8 @@ import { Input } from "@/components/ui/input";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { resources as staticResources } from "@/data/resources";
 import { getLocalResources } from "@/lib/resource-storage";
-import { Grade, GRADE_CONFIG } from "@/lib/types";
+import { Grade } from "@/lib/types";
+import { localizeResource } from "@/lib/useLocalized";
 import { Search, FileText, Headphones, BookOpen, ArrowRight } from "lucide-react";
 
 const GRADES: Grade[] = [4, 5, 6, 7, 8, 9];
@@ -24,21 +26,8 @@ const GRADE_BADGE: Record<Grade, string> = {
   9: "bg-grade-9 text-grade-9-foreground",
 };
 
-const SKILL_LABELS: Record<string, string> = {
-  grammar: "Grammar",
-  vocabulary: "Vocabulary",
-  reading: "Reading",
-  writing: "Writing",
-  listening: "Listening",
-};
-
-const FORMAT_LABELS: Record<string, string> = {
-  pdf: "PDF",
-  audio: "Audio",
-  article: "Article",
-};
-
 export default function ResourcesIndex() {
+  const { t, i18n } = useTranslation();
   const [search, setSearch] = useState("");
   const [gradeFilter, setGradeFilter] = useState<Grade | null>(null);
   const [formatFilter, setFormatFilter] = useState<string | null>(null);
@@ -47,7 +36,6 @@ export default function ResourcesIndex() {
 
   useEffect(() => { setLocalResources(getLocalResources()); }, []);
 
-  // Merge static + localStorage resources
   const allResources = useMemo(() => {
     const fromLocal = localResources.map((lr) => ({
       id: lr.id,
@@ -72,8 +60,8 @@ export default function ResourcesIndex() {
       if (skillFilter && r.skill !== skillFilter) return false;
       if (search && !r.title.toLowerCase().includes(search.toLowerCase())) return false;
       return true;
-    });
-  }, [search, gradeFilter, formatFilter, skillFilter]);
+    }).map((r) => localizeResource(r, i18n.language));
+  }, [search, gradeFilter, formatFilter, skillFilter, i18n.language]);
 
   const chipClass = (active: boolean) =>
     `rounded-full px-3 py-1 text-sm font-medium transition-colors ${active ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:bg-accent"}`;
@@ -81,46 +69,46 @@ export default function ResourcesIndex() {
   return (
     <Layout>
       <SEOHead
-        title="Free Resources — English With Hinda"
-        description="Free worksheets, exercises and audio to practice English. From 4th to 9th year."
+        title={t("resourcesPage.title") + " â€” English With Henda"}
+        description={t("resourcesPage.subtitle")}
       />
 
       <section className="container py-12">
-        <h1 className="font-serif text-3xl sm:text-4xl font-bold mb-2">Free Resources</h1>
-        <p className="text-muted-foreground mb-8">Revision sheets, exercises and audio to complement our books.</p>
+        <h1 className="font-serif text-3xl sm:text-4xl font-bold mb-2">{t("resourcesPage.title")}</h1>
+        <p className="text-muted-foreground mb-8">{t("resourcesPage.subtitle")}</p>
 
         {/* Search */}
         <div className="relative mb-6">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input placeholder="Search for a resource…" className="pl-10" value={search} onChange={(e) => setSearch(e.target.value)} />
+          <Search className="absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Input placeholder={t("resourcesPage.search")} className="ps-10" value={search} onChange={(e) => setSearch(e.target.value)} />
         </div>
 
         {/* Filters */}
         <div className="space-y-3 mb-8">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-medium text-muted-foreground w-14 shrink-0">Level</span>
+            <span className="text-xs font-medium text-muted-foreground w-14 shrink-0">{t("resourcesPage.levelLabel")}</span>
             <div className="flex gap-2 overflow-x-auto scrollbar-none pb-0.5">
-              <button onClick={() => setGradeFilter(null)} className={chipClass(!gradeFilter)}>All</button>
+              <button onClick={() => setGradeFilter(null)} className={chipClass(!gradeFilter)}>{t("resourcesPage.allLevels")}</button>
               {GRADES.map((g) => (
-                <button key={g} onClick={() => setGradeFilter(g)} className={chipClass(gradeFilter === g) + " whitespace-nowrap"}>{g}th</button>
+                <button key={g} onClick={() => setGradeFilter(g)} className={chipClass(gradeFilter === g) + " whitespace-nowrap"}>{t(`grades.${g}`)}</button>
               ))}
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-medium text-muted-foreground w-14 shrink-0">Format</span>
+            <span className="text-xs font-medium text-muted-foreground w-14 shrink-0">{t("resourcesPage.formatLabel")}</span>
             <div className="flex gap-2 overflow-x-auto scrollbar-none pb-0.5">
-              <button onClick={() => setFormatFilter(null)} className={chipClass(!formatFilter)}>All</button>
+              <button onClick={() => setFormatFilter(null)} className={chipClass(!formatFilter)}>{t("resourcesPage.allFormats")}</button>
               {FORMATS.map((f) => (
-                <button key={f} onClick={() => setFormatFilter(f)} className={chipClass(formatFilter === f) + " whitespace-nowrap"}>{FORMAT_LABELS[f]}</button>
+                <button key={f} onClick={() => setFormatFilter(f)} className={chipClass(formatFilter === f) + " whitespace-nowrap"}>{t(`resourcesPage.formats.${f}`)}</button>
               ))}
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-medium text-muted-foreground w-14 shrink-0">Skill</span>
+            <span className="text-xs font-medium text-muted-foreground w-14 shrink-0">{t("resourcesPage.skillLabel")}</span>
             <div className="flex gap-2 overflow-x-auto scrollbar-none pb-0.5">
-              <button onClick={() => setSkillFilter(null)} className={chipClass(!skillFilter)}>All</button>
+              <button onClick={() => setSkillFilter(null)} className={chipClass(!skillFilter)}>{t("resourcesPage.allSkills")}</button>
               {SKILLS.map((s) => (
-                <button key={s} onClick={() => setSkillFilter(s)} className={chipClass(skillFilter === s) + " whitespace-nowrap"}>{SKILL_LABELS[s]}</button>
+                <button key={s} onClick={() => setSkillFilter(s)} className={chipClass(skillFilter === s) + " whitespace-nowrap"}>{t(`skills.${s}`)}</button>
               ))}
             </div>
           </div>
@@ -137,9 +125,9 @@ export default function ResourcesIndex() {
                   className="group rounded-xl border bg-card p-5 shadow-sm hover:shadow-md transition-shadow"
                 >
                   <div className="flex items-center gap-2 mb-3 flex-wrap">
-                    <Badge className={GRADE_BADGE[r.grade]}>{GRADE_CONFIG[r.grade].label}</Badge>
-                    <Badge variant="outline" className="capitalize">{FORMAT_LABELS[r.format]}</Badge>
-                    <Badge variant="secondary">{SKILL_LABELS[r.skill]}</Badge>
+                    <Badge className={GRADE_BADGE[r.grade]}>{t(`grades.${r.grade}`)}</Badge>
+                    <Badge variant="outline" className="capitalize">{t(`resourcesPage.formats.${r.format}`)}</Badge>
+                    <Badge variant="secondary">{t(`skills.${r.skill}`)}</Badge>
                   </div>
                   <div className="flex items-start gap-3">
                     <Icon className="h-5 w-5 mt-0.5 text-muted-foreground shrink-0" />
@@ -149,7 +137,7 @@ export default function ResourcesIndex() {
                     </div>
                   </div>
                   <span className="mt-3 flex items-center gap-1 text-xs font-medium text-primary">
-                    View resource <ArrowRight className="h-3 w-3" />
+                    {t("resourcesPage.viewResource")} <ArrowRight className="h-3 w-3" />
                   </span>
                 </Link>
               );
@@ -157,7 +145,7 @@ export default function ResourcesIndex() {
           </div>
         </ScrollReveal>
         {filtered.length === 0 && (
-          <p className="text-center text-muted-foreground py-12">No resources found.</p>
+          <p className="text-center text-muted-foreground py-12">{t("resourcesPage.noResults")}</p>
         )}
       </section>
     </Layout>

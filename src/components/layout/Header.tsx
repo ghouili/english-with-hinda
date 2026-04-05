@@ -1,20 +1,13 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X, BookOpen, MessageCircle } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NavLink } from "@/components/NavLink";
 import { Grade, GRADE_CONFIG } from "@/lib/types";
+import { useTranslation } from "react-i18next";
+import { useLanguage } from "@/contexts/LanguageContext";
 import WahtsAppIcon from "../../assets/icons/whatsappicon.png";
 import WahtsAppIconwhite from "../../assets/icons/whatsappiconwhite.png";
-
-const NAV_ITEMS = [
-  { label: "Home", to: "/" },
-  { label: "Books", to: "/books" },
-  { label: "Resources", to: "/resources" },
-  { label: "About", to: "/about" },
-  { label: "Contact", to: "/contact" },
-  // { label: "Login", to: "/login" },
-];
 
 const GRADES: Grade[] = [4, 5, 6, 7, 8, 9];
 
@@ -30,6 +23,16 @@ const GRADE_CHIP_CLASSES: Record<Grade, string> = {
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { t } = useTranslation();
+  const { lang, toggleLang } = useLanguage();
+
+  const NAV_ITEMS = [
+    { label: t("nav.home"), to: "/" },
+    { label: t("nav.books"), to: "/books" },
+    { label: t("nav.resources"), to: "/resources" },
+    { label: t("nav.about"), to: "/about" },
+    { label: t("nav.contact"), to: "/contact" },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80);
@@ -46,10 +49,10 @@ export function Header() {
             className="flex items-center gap-2 font-serif text-lg font-bold text-primary sm:text-xl h-full"
           >
             {/* <BookOpen className="h-5 w-5 sm:h-6 sm:w-6" />
-            <span>English With Hinda</span> */}
+            <span>English With Henda</span> */}
             <img
               src="/logo.png"
-              alt="English With Hinda"
+              alt="English With Henda"
               className="h-full w-auto"
               srcSet=""
             />
@@ -67,22 +70,40 @@ export function Header() {
                 {item.label}
               </NavLink>
             ))}
+            {/* Language switcher */}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={toggleLang}
+              className="ms-2 font-semibold text-sm"
+            >
+              {lang === "ar" ? "English" : "عربي"}
+            </Button>
           </nav>
 
           {/* Mobile toggle */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
-          >
-            {mobileOpen ? (
-              <X className="h-5 w-5" />
-            ) : (
-              <Menu className="h-5 w-5" />
-            )}
-          </Button>
+          <div className="flex items-center gap-2 md:hidden">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={toggleLang}
+              className="font-semibold text-xs h-8 px-2"
+            >
+              {lang === "ar" ? "EN" : "عر"}
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            >
+              {mobileOpen ? (
+                <X className="h-5 w-5" />
+              ) : (
+                <Menu className="h-5 w-5" />
+              )}
+            </Button>
+          </div>
         </div>
       </div>
 
@@ -97,7 +118,7 @@ export function Header() {
                   to={`/books/${GRADE_CONFIG[g].slug}`}
                   className={`rounded-full px-3 py-1 text-xs font-semibold transition-colors ${GRADE_CHIP_CLASSES[g]}`}
                 >
-                  {GRADE_CONFIG[g].label}
+                  {t(`grades.${g}`)}
                 </Link>
               ))}
             </div>
@@ -138,7 +159,7 @@ export function Header() {
                 onClick={() => setMobileOpen(false)}
                 className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${GRADE_CHIP_CLASSES[g]}`}
               >
-                {GRADE_CONFIG[g].label}
+                {t(`grades.${g}`)}
               </Link>
             ))}
           </div>

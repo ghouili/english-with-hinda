@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
-import { Book, Grade, GRADE_CONFIG } from "@/lib/types";
+import { useTranslation } from "react-i18next";
+import { Book, Grade } from "@/lib/types";
+import { useLocalizedBook } from "@/lib/useLocalized";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
@@ -12,30 +14,24 @@ const GRADE_BADGE_CLASSES: Record<Grade, string> = {
   9: "bg-grade-9 text-grade-9-foreground hover:bg-grade-9/90",
 };
 
-const SKILL_LABELS: Record<string, string> = {
-  grammar: "Grammar",
-  vocabulary: "Vocabulary",
-  reading: "Reading",
-  writing: "Writing",
-  listening: "Listening",
-};
-
-export function BookCard({ book, showActions = false }: { book: Book; showActions?: boolean }) {
-  const config = GRADE_CONFIG[book.grade];
+export function BookCard({ book: rawBook, showActions = false }: { book: Book; showActions?: boolean }) {
+  const { t } = useTranslation();
+  const book = useLocalizedBook(rawBook);
+  const gradeLabel = t(`grades.${book.grade}`);
 
   return (
     <div className="group flex flex-col overflow-hidden rounded-xl border bg-card shadow-sm transition-all hover:shadow-lg hover:-translate-y-1">
       <Link to={`/book/${book.slug}`} className="aspect-[3/4] bg-muted flex items-center justify-center overflow-hidden">
         <img
           src={book.coverImage}
-          alt={`Cover — ${book.title} ${config.label}`}
+          alt={`Cover — ${book.title} ${gradeLabel}`}
           className="h-full w-full object-cover transition-transform group-hover:scale-105"
           loading="lazy"
         />
       </Link>
       <div className="flex flex-1 flex-col p-3 sm:p-4">
         <Badge className={`w-fit mb-2 ${GRADE_BADGE_CLASSES[book.grade]}`}>
-          {config.label}
+          {gradeLabel}
         </Badge>
         <h3 className="font-serif text-lg font-semibold text-card-foreground">
           <Link to={`/book/${book.slug}`} className="hover:text-primary transition-colors">{book.title}</Link>
@@ -46,7 +42,7 @@ export function BookCard({ book, showActions = false }: { book: Book; showAction
         <div className="mt-3 flex flex-wrap gap-1">
           {book.skills.slice(0, 3).map((skill) => (
             <span key={skill} className="rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">
-              {SKILL_LABELS[skill] || skill}
+              {t(`skills.${skill}`)}
             </span>
           ))}
         </div>
@@ -58,7 +54,7 @@ export function BookCard({ book, showActions = false }: { book: Book; showAction
         {showActions && (
           <div className="mt-3 flex gap-2">
             <Button asChild size="sm" className="flex-1 text-sm">
-              <Link  to={`/book/${book.slug}`}>View book</Link>
+              <Link to={`/book/${book.slug}`}>{t("bookDetail.learnMore")}</Link>
             </Button>
           </div>
         )}

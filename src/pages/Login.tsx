@@ -18,8 +18,8 @@ export default function Login() {
   return (
     <>
       <SEOHead
-        title="Login — English With Hinda"
-        description="Sign in to your English With Hinda account to access your learning resources."
+        title="Login — English With Henda"
+        description="Sign in to your English With Henda account to access your learning resources."
       />
 
       <section className="relative overflow-hidden bg-gradient-to-b from-background via-muted/40 to-background min-h-[calc(100vh-4rem)] flex items-center">
