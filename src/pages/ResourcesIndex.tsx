@@ -69,7 +69,7 @@ export default function ResourcesIndex() {
   return (
     <Layout>
       <SEOHead
-        title={t("resourcesPage.title") + " â€” English With Henda"}
+        title={t("resourcesPage.title") + " — English With Henda"}
         description={t("resourcesPage.subtitle")}
       />
 

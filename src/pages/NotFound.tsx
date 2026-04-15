@@ -17,7 +17,7 @@ const NotFound = () => {
   return (
     <Layout>
       <SEOHead
-        title={t("notFound.error") + " â€” English With Henda"}
+        title={t("notFound.error") + " — English With Henda"}
         description={t("notFound.title")}
       />
 

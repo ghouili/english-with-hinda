@@ -14,6 +14,8 @@ import {
 import { Grade, GRADE_CONFIG } from "@/lib/types";
 import { useTranslation } from "react-i18next";
 
+import HendaPic from "../assets/picture/henda.jpeg";
+
 const ORG_SCHEMA = {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -27,7 +29,9 @@ const GRADES: Grade[] = [4, 5, 6, 7, 8, 9];
 export default function About() {
   const { t } = useTranslation();
 
-  const credentials = t("about.credentials", { returnObjects: true }) as string[];
+  const credentials = t("about.credentials", {
+    returnObjects: true,
+  }) as string[];
   const timeline = t("about.journey.timeline", { returnObjects: true }) as {
     year: string;
     label: string;
@@ -38,9 +42,27 @@ export default function About() {
   }[];
 
   const methodItems = [
-    { icon: Heart, ...t("about.method.mission", { returnObjects: true }) as { title: string; desc: string } },
-    { icon: BookOpen, ...t("about.method.ourBooks", { returnObjects: true }) as { title: string; desc: string } },
-    { icon: Award, ...t("about.method.commitment", { returnObjects: true }) as { title: string; desc: string } },
+    {
+      icon: Heart,
+      ...(t("about.method.mission", { returnObjects: true }) as {
+        title: string;
+        desc: string;
+      }),
+    },
+    {
+      icon: BookOpen,
+      ...(t("about.method.ourBooks", { returnObjects: true }) as {
+        title: string;
+        desc: string;
+      }),
+    },
+    {
+      icon: Award,
+      ...(t("about.method.commitment", { returnObjects: true }) as {
+        title: string;
+        desc: string;
+      }),
+    },
   ];
 
   const insideBooksIcons = [BookOpen, CheckCircle, GraduationCap, Users];
@@ -48,7 +70,7 @@ export default function About() {
   return (
     <Layout>
       <SEOHead
-        title="About â€” English With Henda"
+        title="About — English With Henda"
         description="Discover Henda's story and her mission: making English accessible to every Tunisian student."
         jsonLd={ORG_SCHEMA}
       />
@@ -61,8 +83,12 @@ export default function About() {
         {/* Bio */}
         <ScrollReveal>
           <div className="flex flex-col sm:flex-row items-start gap-6 mb-12">
-            <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground font-serif text-4xl font-bold">
-              H
+            <div className="flex h-28 w-28 shrink-0 items-center justify-center rounded-full bg-transparent text-primary-foreground font-serif text-4xl font-bold">
+              <img
+                src={HendaPic}
+                alt="Henda"
+                className="h-28 w-28 rounded-full object-cover"
+              />
             </div>
             <div>
               <h2 className="font-serif text-2xl font-bold">Henda</h2>
@@ -109,13 +135,19 @@ export default function About() {
         {/* Teaching approach */}
         <ScrollReveal>
           <div className="mb-12">
-            <h2 className="font-serif text-2xl font-bold mb-2">{t("about.method.title")}</h2>
-            <p className="text-muted-foreground text-base mb-6">{t("about.method.subtitle")}</p>
+            <h2 className="font-serif text-2xl font-bold mb-2">
+              {t("about.method.title")}
+            </h2>
+            <p className="text-muted-foreground text-base mb-6">
+              {t("about.method.subtitle")}
+            </p>
             <div className="grid gap-4 sm:grid-cols-3">
               {methodItems.map((item) => (
                 <div key={item.title} className="rounded-xl border bg-card p-5">
                   <item.icon className="h-8 w-8 text-primary mb-3" />
-                  <h3 className="font-serif text-lg font-semibold mb-1">{item.title}</h3>
+                  <h3 className="font-serif text-lg font-semibold mb-1">
+                    {item.title}
+                  </h3>
                   <p className="text-base text-muted-foreground">{item.desc}</p>
                 </div>
               ))}
@@ -126,7 +158,9 @@ export default function About() {
         {/* Inside the books */}
         <ScrollReveal>
           <div className="mb-12">
-            <h2 className="font-serif text-2xl font-bold mb-6">{t("about.insideBooks.title")}</h2>
+            <h2 className="font-serif text-2xl font-bold mb-6">
+              {t("about.insideBooks.title")}
+            </h2>
             <div className="grid gap-4 sm:grid-cols-2">
               {insideItems.map((item, idx) => {
                 const Icon = insideBooksIcons[idx];
@@ -138,7 +172,9 @@ export default function About() {
                     <Icon className="h-6 w-6 text-primary shrink-0 mt-0.5" />
                     <div>
                       <h3 className="font-semibold text-base">{item.title}</h3>
-                      <p className="text-base text-muted-foreground mt-1">{item.desc}</p>
+                      <p className="text-base text-muted-foreground mt-1">
+                        {item.desc}
+                      </p>
                     </div>
                   </div>
                 );
@@ -150,8 +186,12 @@ export default function About() {
         {/* CTA to grade hubs */}
         <ScrollReveal>
           <div className="rounded-xl bg-secondary p-6 sm:p-8 text-center">
-            <h2 className="font-serif text-2xl font-bold mb-3">{t("about.chooseLevel.title")}</h2>
-            <p className="text-muted-foreground mb-6">{t("about.chooseLevel.subtitle")}</p>
+            <h2 className="font-serif text-2xl font-bold mb-3">
+              {t("about.chooseLevel.title")}
+            </h2>
+            <p className="text-muted-foreground mb-6">
+              {t("about.chooseLevel.subtitle")}
+            </p>
             <div className="flex flex-wrap justify-center gap-3">
               {GRADES.map((g) => (
                 <Button
@@ -160,7 +200,9 @@ export default function About() {
                   variant="outline"
                   className="border-primary text-primary hover:text-primary bg-transparent hover:bg-primary/10 font-semibold w-full sm:w-auto"
                 >
-                  <Link to={`/books/${GRADE_CONFIG[g].slug}`}>{t(`grades.${g}`)}</Link>
+                  <Link to={`/books/${GRADE_CONFIG[g].slug}`}>
+                    {t(`grades.${g}`)}
+                  </Link>
                 </Button>
               ))}
             </div>

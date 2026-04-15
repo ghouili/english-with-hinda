@@ -157,7 +157,7 @@ export default function HomePage() {
   return (
     <Layout>
       <SEOHead
-        title="English With Henda â€” English Books for Tunisian Students"
+        title="English With Henda — English Books for Tunisian Students"
         description="English workbooks designed for Tunisian students from 4th to 9th year. Grammar, vocabulary and exam preparation."
         jsonLd={ORGANIZATION_SCHEMA}
       />

@@ -120,7 +120,7 @@ export function Footer() {
         </div>
 
         <div className="mt-10 border-t border-primary-foreground/20 pt-6 text-center text-[16px] opacity-60">
-          Â© {new Date().getFullYear()} English With Henda. {t("footer.copyright")}
+          © {new Date().getFullYear()} English With Henda. {t("footer.copyright")}
         </div>
       </div>
     </footer>

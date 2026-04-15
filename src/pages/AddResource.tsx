@@ -153,7 +153,7 @@ export default function AddResource() {
 
   return (
     <Layout>
-      <SEOHead title={t(editingId ? "addResource.editTitle" : "addResource.addTitle") + " â€” English With Henda"} description={t("addResource.addSubtitle")} />
+      <SEOHead title={t(editingId ? "addResource.editTitle" : "addResource.addTitle") + " — English With Henda"} description={t("addResource.addSubtitle")} />
 
       <section className="container py-12 max-w-2xl">
         <ScrollReveal>
@@ -283,7 +283,7 @@ export default function AddResource() {
                   <Icon className="h-5 w-5 mt-0.5 text-muted-foreground shrink-0" />
                   <div>
                     <h3 className="font-semibold text-sm">{form.title}</h3>
-                    <p className="mt-1 text-xs text-muted-foreground line-clamp-2">{form.description || "â€”"}</p>
+                    <p className="mt-1 text-xs text-muted-foreground line-clamp-2">{form.description || "—"}</p>
                   </div>
                 </div>
               </div>
