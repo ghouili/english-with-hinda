@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Plus, Trash2, Eye, EyeOff, FileText, Headphones, BookOpen, CheckCircle, AlertCircle } from "lucide-react";
+import { Plus, Trash2, Eye, EyeOff, Headphones, CheckCircle, AlertCircle } from "lucide-react";
 
 const STORAGE_KEY = "ewh_resources_v1";
 
@@ -43,9 +43,9 @@ function saveResources(items: LocalResource[]) {
 }
 
 const LEVELS = ["4th", "5th", "6th", "7th", "8th", "9th"];
-const FORMATS = ["PDF", "Audio", "Article"];
+const FORMATS = ["Audio"];
 const SKILLS = ["Grammar", "Vocabulary", "Reading", "Writing", "Listening"];
-const FORMAT_ICONS = { PDF: FileText, Audio: Headphones, Article: BookOpen };
+const FORMAT_ICONS = { Audio: Headphones };
 
 const LEVEL_BADGE: Record<string, string> = {
   "4th": "bg-grade-4 text-grade-4-foreground",

@@ -30,7 +30,7 @@ export const books: Book[] = [
     whatsappInquiryTemplate: "Hello, I'd like to order Learn English with Henda — 4th Year. Thank you!",
     translations: {
       ar: {
-        title: "تعلّم الإنجليزية مع هندة",
+        title: "Learn English with Henda",
         subtitle: "المستوى: السنة الرابعة ابتدائي",
         gradeLabel: "السنة الرابعة",
         descriptionShort: "دليل شامل لبداية تعلّم الإنجليزية — يغطّي جميع الدروس وقواعد اللغة وأنشطة القراءة والكتابة.",
@@ -66,7 +66,7 @@ export const books: Book[] = [
     whatsappInquiryTemplate: "Hello, I'd like to order Learn English with Henda — 5th Year. Thank you!",
     translations: {
       ar: {
-        title: "تعلّم الإنجليزية مع هندة",
+        title: "Learn English with Henda",
         subtitle: "المستوى: السنة الخامسة ابتدائي",
         gradeLabel: "السنة الخامسة",
         descriptionShort: "بنِّ أسسك في الإنجليزية بقواعد اللغة والاستماع والقراءة والكتابة والتحضير للامتحانات.",
@@ -102,7 +102,7 @@ export const books: Book[] = [
     whatsappInquiryTemplate: "Hello, I'd like to order Learn English with Henda — 6th Year. Thank you!",
     translations: {
       ar: {
-        title: "تعلّم الإنجليزية مع هندة",
+        title: "Learn English with Henda",
         subtitle: "المستوى: السنة السادسة ابتدائي",
         gradeLabel: "السنة السادسة",
         descriptionShort: "تحضير إنجليزي كامل للسنة السادسة — جميع الدروس والقواعد والاستماع والقراءة والكتابة والامتحانات.",
@@ -138,7 +138,7 @@ export const books: Book[] = [
     whatsappInquiryTemplate: "Hello, I'd like to order Learn English with Henda — 7th Year. Thank you!",
     translations: {
       ar: {
-        title: "تعلّم الإنجليزية مع هندة",
+        title: "Learn English with Henda",
         subtitle: "المستوى: السنة السابعة أساسي",
         gradeLabel: "السنة السابعة",
         descriptionShort: "إتقان الإنجليزية المتوسطة بمراجعات الوحدات وقواعد اللغة والقراءة والكتابة والتحضير للامتحانات.",
@@ -174,7 +174,7 @@ export const books: Book[] = [
     whatsappInquiryTemplate: "Hello, I'd like to order Learn English with Henda — 8th Year. Thank you!",
     translations: {
       ar: {
-        title: "تعلّم الإنجليزية مع هندة",
+        title: "Learn English with Henda",
         subtitle: "المستوى: السنة الثامنة أساسي",
         gradeLabel: "السنة الثامنة",
         descriptionShort: "تحضير متقدّم مع مراجعات الوحدات والقواعد والاستماع والقراءة والكتابة والامتحانات.",
@@ -210,7 +210,7 @@ export const books: Book[] = [
     whatsappInquiryTemplate: "Hello, I'd like to order Learn English with Henda — 9th Year. Thank you!",
     translations: {
       ar: {
-        title: "تعلّم الإنجليزية مع هندة",
+        title: "Learn English with Henda",
         subtitle: "المستوى: السنة التاسعة أساسي",
         gradeLabel: "السنة التاسعة",
         descriptionShort: "التحضير الأمثل للامتحانات — جميع الدروس ومراجعات الوحدات والقواعد والاستماع والقراءة والكتابة والامتحانات.",

@@ -9,7 +9,7 @@ import { resources } from "@/data/resources";
 import { books } from "@/data/books";
 import { Grade } from "@/lib/types";
 import { localizeResource, localizeBook } from "@/lib/useLocalized";
-import { ArrowLeft, Download, Headphones, FileText, BookOpen, MessageCircle } from "lucide-react";
+import { ArrowLeft, Headphones, MessageCircle } from "lucide-react";
 
 const GRADE_BADGE: Record<Grade, string> = {
   4: "bg-grade-4 text-grade-4-foreground",
@@ -21,9 +21,7 @@ const GRADE_BADGE: Record<Grade, string> = {
 };
 
 const FORMAT_ICONS = {
-  pdf: FileText,
   audio: Headphones,
-  article: BookOpen,
 };
 
 export default function ResourceDetail() {
@@ -44,8 +42,6 @@ export default function ResourceDetail() {
 
   const resource = localizeResource(rawResource, i18n.language);
   const FormatIcon = FORMAT_ICONS[resource.format];
-  const formatLabel = t(`resourcesPage.formats.${resource.format}`);
-  const formatAction = t(`resourceDetail.formatActions.${resource.format}`);
   const relatedBooks = books
     .filter((b) => resource.relatedBookIds.includes(b.id))
     .map((b) => localizeBook(b, i18n.language));
@@ -76,7 +72,6 @@ export default function ResourceDetail() {
         {/* Badges */}
         <div className="flex gap-2 mb-4 flex-wrap">
           <Badge className={GRADE_BADGE[resource.grade]}>{t(`grades.${resource.grade}`)}</Badge>
-          <Badge variant="outline" className="capitalize">{formatLabel}</Badge>
           <Badge variant="secondary">{t(`skills.${resource.skill}`)}</Badge>
         </div>
 
@@ -97,14 +92,28 @@ export default function ResourceDetail() {
           </div>
         </ScrollReveal>
 
-        {/* Action */}
-        <div className="mt-6">
-          <Button asChild size="lg" className="w-full sm:w-auto">
-            <a href={resource.fileUrl} target="_blank" rel="noopener noreferrer">
-              <Download className="me-2 h-5 w-5" /> {formatAction}
-            </a>
-          </Button>
-        </div>
+        {/* Audio player */}
+        <ScrollReveal>
+          <div className="mt-6 rounded-xl border bg-card p-6">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                <Headphones className="h-5 w-5 text-primary" />
+              </div>
+              <h2 className="font-semibold">{t("resourceDetail.formatActions.audio")}</h2>
+            </div>
+            {resource.fileUrl && resource.fileUrl !== "#" ? (
+              <audio
+                controls
+                className="w-full rounded-lg"
+                src={resource.fileUrl}
+              >
+                {t("resourceDetail.audioNotSupported")}
+              </audio>
+            ) : (
+              <p className="text-sm text-muted-foreground italic">{t("resourceDetail.audioComingSoon")}</p>
+            )}
+          </div>
+        </ScrollReveal>
 
         {/* Related books */}
         {relatedBooks.length > 0 && (

@@ -44,7 +44,7 @@ export interface Resource {
   title: string;
   grade: Grade;
   skill: string;
-  format: "pdf" | "audio" | "article";
+  format: "audio";
   summary: string;
   fileUrl: string;
   relatedBookIds: string[];

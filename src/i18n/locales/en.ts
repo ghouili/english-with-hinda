@@ -64,7 +64,9 @@ const en = {
     hero: {
       title: "Companion Workbooks in English — Over 20 Years of Teaching Experience",
       subtitle:
-        "I am delighted to present my companion workbooks in English, the fruit of over twenty years of teaching experience, designed to guide students step by step through the official curriculum. These books stand out for their carefully structured lessons, covering a wide range of activities in comprehension (reading and listening), grammar, vocabulary, and written expression. They also provide comprehensive practice to help learners build their skills and prepare confidently and successfully for their exams.",
+        "I am delighted to present my companion workbooks in English, the fruit of over twenty years of teaching experience, designed to guide students step by step through the official curriculum.",
+      // subtitle:
+      //   "I am delighted to present my companion workbooks in English, the fruit of over twenty years of teaching experience, designed to guide students step by step through the official curriculum. These books stand out for their carefully structured lessons, covering a wide range of activities in comprehension (reading and listening), grammar, vocabulary, and written expression. They also provide comprehensive practice to help learners build their skills and prepare confidently and successfully for their exams.",
       cta_primary: "Discover our books",
       cta_secondary: "Free resources",
     },
@@ -199,21 +201,17 @@ const en = {
   // Resources page
   resourcesPage: {
     title: "Free Resources",
-    subtitle: "Revision sheets, exercises and audio to complement our books.",
+    subtitle: "Audio lessons and exercises to complement our books.",
     search: "Search for a resource…",
     levelLabel: "Level",
-    formatLabel: "Format",
     skillLabel: "Skill",
     allLevels: "All levels",
-    allFormats: "All formats",
     allSkills: "All skills",
     noResults: "No resources match your search.",
     download: "Download",
     viewResource: "View resource",
     formats: {
-      pdf: "PDF",
       audio: "Audio",
-      article: "Article",
     },
   },
 
@@ -227,10 +225,10 @@ const en = {
     needHelp: "Need help?",
     needHelpDesc: "Contact us for any questions about our resources or books.",
     formatActions: {
-      pdf: "Download PDF",
       audio: "Listen to audio",
-      article: "Read article",
     },
+    audioNotSupported: "Your browser does not support the audio element.",
+    audioComingSoon: "Audio coming soon.",
   },
 
   // About page

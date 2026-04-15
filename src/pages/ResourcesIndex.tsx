@@ -10,11 +10,10 @@ import { resources as staticResources } from "@/data/resources";
 import { getLocalResources } from "@/lib/resource-storage";
 import { Grade } from "@/lib/types";
 import { localizeResource } from "@/lib/useLocalized";
-import { Search, FileText, Headphones, BookOpen, ArrowRight } from "lucide-react";
+import { Search, Headphones, ArrowRight } from "lucide-react";
 
 const GRADES: Grade[] = [4, 5, 6, 7, 8, 9];
-const FORMAT_ICONS = { pdf: FileText, audio: Headphones, article: BookOpen };
-const FORMATS = ["pdf", "audio", "article"] as const;
+const FORMAT_ICON = Headphones;
 const SKILLS = ["grammar", "vocabulary", "reading", "writing", "listening"] as const;
 
 const GRADE_BADGE: Record<Grade, string> = {
@@ -30,7 +29,6 @@ export default function ResourcesIndex() {
   const { t, i18n } = useTranslation();
   const [search, setSearch] = useState("");
   const [gradeFilter, setGradeFilter] = useState<Grade | null>(null);
-  const [formatFilter, setFormatFilter] = useState<string | null>(null);
   const [skillFilter, setSkillFilter] = useState<string | null>(null);
   const [localResources, setLocalResources] = useState<ReturnType<typeof getLocalResources>>([]);
 
@@ -43,7 +41,7 @@ export default function ResourcesIndex() {
       title: lr.title,
       grade: (Number(lr.level.replace(/\D/g, "")) || 5) as Grade,
       skill: lr.skill,
-      format: lr.format as "pdf" | "audio" | "article",
+      format: "audio" as const,
       summary: lr.description,
       fileUrl: lr.url,
       relatedBookIds: [],
@@ -56,12 +54,11 @@ export default function ResourcesIndex() {
   const filtered = useMemo(() => {
     return allResources.filter((r) => {
       if (gradeFilter && r.grade !== gradeFilter) return false;
-      if (formatFilter && r.format !== formatFilter) return false;
       if (skillFilter && r.skill !== skillFilter) return false;
       if (search && !r.title.toLowerCase().includes(search.toLowerCase())) return false;
       return true;
     }).map((r) => localizeResource(r, i18n.language));
-  }, [search, gradeFilter, formatFilter, skillFilter, i18n.language]);
+  }, [search, gradeFilter, skillFilter, i18n.language]);
 
   const chipClass = (active: boolean) =>
     `rounded-full px-3 py-1 text-sm font-medium transition-colors ${active ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:bg-accent"}`;
@@ -95,15 +92,6 @@ export default function ResourcesIndex() {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-medium text-muted-foreground w-14 shrink-0">{t("resourcesPage.formatLabel")}</span>
-            <div className="flex gap-2 overflow-x-auto scrollbar-none pb-0.5">
-              <button onClick={() => setFormatFilter(null)} className={chipClass(!formatFilter)}>{t("resourcesPage.allFormats")}</button>
-              {FORMATS.map((f) => (
-                <button key={f} onClick={() => setFormatFilter(f)} className={chipClass(formatFilter === f) + " whitespace-nowrap"}>{t(`resourcesPage.formats.${f}`)}</button>
-              ))}
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
             <span className="text-xs font-medium text-muted-foreground w-14 shrink-0">{t("resourcesPage.skillLabel")}</span>
             <div className="flex gap-2 overflow-x-auto scrollbar-none pb-0.5">
               <button onClick={() => setSkillFilter(null)} className={chipClass(!skillFilter)}>{t("resourcesPage.allSkills")}</button>
@@ -117,7 +105,7 @@ export default function ResourcesIndex() {
         <ScrollReveal>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {filtered.map((r) => {
-              const Icon = FORMAT_ICONS[r.format];
+              const Icon = FORMAT_ICON;
               return (
                 <Link
                   key={r.id}
@@ -126,7 +114,6 @@ export default function ResourcesIndex() {
                 >
                   <div className="flex items-center gap-2 mb-3 flex-wrap">
                     <Badge className={GRADE_BADGE[r.grade]}>{t(`grades.${r.grade}`)}</Badge>
-                    <Badge variant="outline" className="capitalize">{t(`resourcesPage.formats.${r.format}`)}</Badge>
                     <Badge variant="secondary">{t(`skills.${r.skill}`)}</Badge>
                   </div>
                   <div className="flex items-start gap-3">
