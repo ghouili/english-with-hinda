@@ -51,7 +51,7 @@ export function Header() {
             {/* <BookOpen className="h-5 w-5 sm:h-6 sm:w-6" />
             <span>English With Henda</span> */}
             <img
-              src="/logo.png"
+              src="/new-logo.png"
               alt="English With Henda"
               className="h-full w-auto"
               srcSet=""

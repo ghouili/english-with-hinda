@@ -35,7 +35,7 @@ export function Footer() {
                 className="flex items-center gap-2 font-serif text-lg font-bold"
               >
                 <img
-                  src="/icon.png"
+                  src="/new-icon.png"
                   alt="English With Henda"
                   className="h-48 w-auto"
                   srcSet=""
