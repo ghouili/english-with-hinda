@@ -53,10 +53,10 @@ export function Footer() {
                 </a> */}
                 <a
                   href="tel:+21692053416"
-                  className="flex items-center gap-2 hover:opacity-100 "
+                  className="flex items-center gap-2 hover:opacity-100  "
                   
                 >
-                  <Phone className="h-4 w-4" /> +216 92 053 416
+                  <Phone className="h-4 w-4 rtl:flex-row-reverse" /> <span dir="ltr" className="rtl:text-right">+216 92 053 416</span>
                 </a>
               </div>
             </div>
