@@ -322,7 +322,7 @@ export default function HomePage() {
       </ScrollReveal>
 
       {/* Newsletter */}
-      <ScrollReveal>
+      {/* <ScrollReveal>
         <section className="bg-secondary py-16">
           <div className="container max-w-xl text-center">
             <h2 className="font-serif text-2xl sm:text-3xl font-bold mb-3">
@@ -346,7 +346,7 @@ export default function HomePage() {
             </form>
           </div>
         </section>
-      </ScrollReveal>
+      </ScrollReveal> */}
     </Layout>
   );
 }

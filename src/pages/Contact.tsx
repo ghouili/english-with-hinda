@@ -44,19 +44,19 @@ export default function Contact() {
         </ScrollReveal>
 
         <ScrollReveal>
-          <div className="grid grid-cols-3 gap-3 mb-10">
+          <div className="grid grid-cols-2 gap-3 mb-10">
             <a href="https://wa.me/21692053416" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 rounded-xl border bg-card p-4 hover:shadow-md transition-shadow text-center">
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
                 <MessageCircle className="h-5 w-5 text-primary" />
               </div>
               <span className="text-sm font-medium">{t("contact.channels.whatsapp")}</span>
             </a>
-            <a href="mailto:contact@learnenglish.com" className="flex flex-col items-center gap-2 rounded-xl border bg-card p-4 hover:shadow-md transition-shadow text-center">
+            {/* <a href="mailto:contact@learnenglish.com" className="flex flex-col items-center gap-2 rounded-xl border bg-card p-4 hover:shadow-md transition-shadow text-center">
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
                 <Mail className="h-5 w-5 text-primary" />
               </div>
               <span className="text-sm font-medium">{t("contact.channels.email")}</span>
-            </a>
+            </a> */}
             <a href="tel:+21692053416" className="flex flex-col items-center gap-2 rounded-xl border bg-card p-4 hover:shadow-md transition-shadow text-center">
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
                 <Phone className="h-5 w-5 text-primary" />

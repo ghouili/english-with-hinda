@@ -91,7 +91,7 @@ export default function About() {
               />
             </div>
             <div>
-              <h2 className="font-serif text-2xl font-bold">Henda</h2>
+              <h2 className="font-serif text-2xl font-bold">Henda Gharbi</h2>
               <p className="text-muted-foreground mt-1">{t("about.teacher")}</p>
               <div className="mt-3 space-y-1">
                 {credentials.map((c, i) => (
@@ -185,7 +185,7 @@ export default function About() {
 
         {/* CTA to grade hubs */}
         <ScrollReveal>
-          <div className="rounded-xl bg-secondary p-6 sm:p-8 text-center">
+          <div className="rounded-xl bg-white p-6 sm:p-8 text-center">
             <h2 className="font-serif text-2xl font-bold mb-3">
               {t("about.chooseLevel.title")}
             </h2>
@@ -198,7 +198,7 @@ export default function About() {
                   key={g}
                   asChild
                   variant="outline"
-                  className="border-primary text-primary hover:text-primary bg-transparent hover:bg-primary/10 font-semibold w-full sm:w-auto"
+                  className="border-gray-700 text-gray-700 hover:text-gray-700 bg-transparent hover:bg-gray-100 font-semibold w-full sm:w-auto"
                 >
                   <Link to={`/books/${GRADE_CONFIG[g].slug}`}>
                     {t(`grades.${g}`)}

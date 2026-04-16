@@ -45,15 +45,16 @@ export function Footer() {
                 <p className="mt-3 text-[16px] opacity-80">
                   {t("footer.description")}
                 </p>
-                <a
+                {/* <a
                   href="mailto:contact@learnenglish.com"
                   className="flex items-center gap-2 hover:opacity-100"
                 >
                   <Mail className="h-4 w-4" /> contact@learnenglish.com
-                </a>
+                </a> */}
                 <a
                   href="tel:+21692053416"
-                  className="flex items-center gap-2 hover:opacity-100"
+                  className="flex items-center gap-2 hover:opacity-100 "
+                  
                 >
                   <Phone className="h-4 w-4" /> +216 92 053 416
                 </a>
