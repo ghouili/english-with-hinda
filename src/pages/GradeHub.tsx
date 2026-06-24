@@ -9,6 +9,7 @@ import { Grade, GRADE_CONFIG } from "@/lib/types";
 import { ArrowLeft, ArrowRight, MessageCircle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { whatsappUrl } from "@/lib/site";
 
 const GRADE_BG: Record<Grade, string> = {
   4: "bg-grade-4 text-grade-4-foreground",
@@ -97,7 +98,7 @@ export default function GradeHub() {
         <section className="bg-secondary py-12">
           <div className="container flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Button asChild className="w-full sm:w-auto">
-              <a href="https://wa.me/21692053416" target="_blank" rel="noopener noreferrer">
+              <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer">
                 <MessageCircle className="me-2 h-4 w-4" /> {t("gradeHub.contactWhatsApp")}
               </a>
             </Button>

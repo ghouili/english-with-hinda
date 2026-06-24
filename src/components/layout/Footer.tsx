@@ -1,6 +1,7 @@
 ﻿import { Link } from "react-router-dom";
-import { Mail, Phone } from "lucide-react";
+import { Phone } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { SITE } from "@/lib/site";
 
 export function Footer() {
   const { t } = useTranslation();
@@ -19,7 +20,6 @@ export function Footer() {
     about: [
       { label: t("footer.links.about"), to: "/about" },
       { label: t("footer.links.contact"), to: "/contact" },
-      { label: t("footer.links.addResource"), to: "/add-resource" },
     ],
   };
 
@@ -37,8 +37,7 @@ export function Footer() {
                 <img
                   src="/new-icon.png"
                   alt="English With Henda"
-                  className="h-48 w-auto"
-                  srcSet=""
+                  className="h-20 w-auto sm:h-24"
                 />
               </Link>
               <div className="mt-4 flex flex-col gap-2 text-sm opacity-80">
@@ -52,11 +51,10 @@ export function Footer() {
                   <Mail className="h-4 w-4" /> contact@learnenglish.com
                 </a> */}
                 <a
-                  href="tel:+21692053416"
-                  className="flex items-center gap-2 hover:opacity-100  "
-                  
+                  href={`tel:${SITE.phoneTel}`}
+                  className="flex items-center gap-2 hover:opacity-100"
                 >
-                  <Phone className="h-4 w-4 rtl:flex-row-reverse" /> <span dir="ltr" className="rtl:text-right">+216 92 053 416</span>
+                  <Phone className="h-4 w-4 rtl:flex-row-reverse" /> <span dir="ltr" className="rtl:text-right">{SITE.phoneDisplay}</span>
                 </a>
               </div>
             </div>

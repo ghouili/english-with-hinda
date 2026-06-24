@@ -14,7 +14,9 @@ import {
 import { Grade, GRADE_CONFIG } from "@/lib/types";
 import { useTranslation } from "react-i18next";
 
-import HendaPic from "../assets/picture/henda.jpeg";
+import { mediaUrl } from "@/lib/api";
+
+const HendaPic = mediaUrl("pictures/henda.jpeg");
 
 const ORG_SCHEMA = {
   "@context": "https://schema.org",

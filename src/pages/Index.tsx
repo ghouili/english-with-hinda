@@ -18,22 +18,18 @@ import {
   CheckCircle,
   StarHalf,
 } from "lucide-react";
-import cover4th from "@/assets/covers/4th_year.png";
-import cover5th from "@/assets/covers/5th_year.png";
-import cover6th from "@/assets/covers/6th_year.png";
-import cover7th from "@/assets/covers/7th_year.png";
-import cover8th from "@/assets/covers/8th_year.png";
-import cover9th from "@/assets/covers/9th_year.png";
-import Heropic from "@/assets/covers/hero_pic.png";
+import { mediaUrl } from "@/lib/api";
 
 const HERO_COVERS = [
-  { id: "cover-4th", src: cover4th, alt: "4th Year Primary Education" },
-  { id: "cover-5th", src: cover5th, alt: "5th Year Primary Education" },
-  { id: "cover-6th", src: cover6th, alt: "6th Year Primary Education" },
-  { id: "cover-7th", src: cover7th, alt: "7th Year Basic Education" },
-  { id: "cover-8th", src: cover8th, alt: "8th Year Basic Education" },
-  { id: "cover-9th", src: cover9th, alt: "9th Year Basic Education" },
+  { id: "cover-4th", src: mediaUrl("covers/4th_year.webp"), alt: "4th Year Primary Education" },
+  { id: "cover-5th", src: mediaUrl("covers/5th_year.webp"), alt: "5th Year Primary Education" },
+  { id: "cover-6th", src: mediaUrl("covers/6th_year.webp"), alt: "6th Year Primary Education" },
+  { id: "cover-7th", src: mediaUrl("covers/7th_year.webp"), alt: "7th Year Basic Education" },
+  { id: "cover-8th", src: mediaUrl("covers/8th_year.webp"), alt: "8th Year Basic Education" },
+  { id: "cover-9th", src: mediaUrl("covers/9th_year.webp"), alt: "9th Year Basic Education" },
 ];
+
+const Heropic = mediaUrl("covers/hero_pic.webp");
 
 const CARD_STYLES: Record<number, string> = {
   0: "z-30 translate-x-0 translate-y-0 scale-100 rotate-0 opacity-100 shadow-[0_20px_60px_rgba(0,0,0,0.4)]",

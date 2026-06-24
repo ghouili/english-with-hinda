@@ -9,8 +9,11 @@ import { getBookBySlug, books } from "@/data/books";
 import { Grade } from "@/lib/types";
 import { useLocalizedBook } from "@/lib/useLocalized";
 import { MessageCircle, BookOpen, Users, GraduationCap } from "lucide-react";
-import WahtsAppIcon from '../assets/icons/whatsappiconwhite.png';
+import { mediaUrl } from "@/lib/api";
+import { whatsappUrl } from "@/lib/site";
 import { useTranslation } from "react-i18next";
+
+const WahtsAppIcon = mediaUrl("icons/whatsappiconwhite.png");
 
 const GRADE_BADGE: Record<Grade, string> = {
   4: "bg-grade-4 text-grade-4-foreground",
@@ -99,7 +102,7 @@ export default function BookDetail() {
 
             <div className="mt-6 flex gap-3 flex-wrap">
               <Button asChild className="w-full sm:w-auto">
-                <a href={`https://wa.me/21692053416?text=${encodeURIComponent(book.whatsappInquiryTemplate)}`} target="_blank" rel="noopener noreferrer">
+                <a href={whatsappUrl(book.whatsappInquiryTemplate)} target="_blank" rel="noopener noreferrer">
                   <img src={WahtsAppIcon} alt="WhatsApp" className="me-2 h-5 w-5" />
                   {t("bookDetail.orderWhatsApp")}
                 </a>

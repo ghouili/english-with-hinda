@@ -1,11 +1,7 @@
 import { Book } from "@/lib/types";
-import cover4th from "@/assets/covers/4th_year.png";
-import cover5th from "@/assets/covers/5th_year.png";
-import cover6th from "@/assets/covers/6th_year.png";
-import cover7th from "@/assets/covers/7th_year.png";
-import cover8th from "@/assets/covers/8th_year.png";
-import cover9th from "@/assets/covers/9th_year.png";
-import coverTEST from "@/assets/covers/cover-5eme.jpg";
+import { mediaUrl } from "@/lib/api";
+
+const cover = (file: string) => mediaUrl(`covers/${file}`);
 
 export const books: Book[] = [
   {
@@ -15,7 +11,7 @@ export const books: Book[] = [
     subtitle: "Level: 4th Year Primary Education",
     grade: 4,
     gradeLabel: "4th Year",
-    coverImage: cover4th,
+    coverImage: cover("4th_year.webp"),
     galleryImages: [],
     descriptionShort: "A complete guide to start learning English — covering all lessons, grammar rules, reading and writing activities.",
     descriptionLong: "This book is designed for 4th year primary students beginning their English journey. It covers all lessons from the official Tunisian program, with clear grammar rules, engaging reading comprehension activities, writing exercises, and exam preparation. A perfect companion for the school year.",
@@ -42,16 +38,16 @@ export const books: Book[] = [
     },
     seoTitle: "Learn English with Henda — 4th Year Primary",
     seoDescription: "English workbook for 4th year primary students in Tunisia. Grammar, reading, writing and exam preparation.",
-    ogImage: cover4th,
+    ogImage: cover("4th_year.png"),
   },
   {
     id: "learn-english-with-henda-5th",
-    slug: "learn-english-with-Henda-5th",
+    slug: "learn-english-with-henda-5th",
     title: "Learn English with Henda",
     subtitle: "Level: 5th Year Primary Education",
     grade: 5,
     gradeLabel: "5th Year",
-    coverImage: cover5th,
+    coverImage: cover("5th_year.webp"),
     galleryImages: [],
     descriptionShort: "Build on your English foundations with grammar, listening, reading, writing activities and exam practice.",
     descriptionLong: "Designed for 5th year primary students, this book builds upon the foundations of English with comprehensive grammar rules, listening and reading comprehension activities, structured writing exercises, and thorough exam preparation aligned with the official Tunisian program.",
@@ -78,16 +74,16 @@ export const books: Book[] = [
     },
     seoTitle: "Learn English with Henda — 5th Year Primary",
     seoDescription: "English workbook for 5th year primary students in Tunisia. Grammar, listening, reading, writing and exams.",
-    ogImage: cover5th,
+    ogImage: cover("5th_year.png"),
   },
   {
-    id: "learn-english-with-Henda-6th",
+    id: "learn-english-with-henda-6th",
     slug: "learn-english-with-henda-6th",
     title: "Learn English with Henda",
     subtitle: "Level: 6th Year Primary Education",
     grade: 6,
     gradeLabel: "6th Year",
-    coverImage: cover6th,
+    coverImage: cover("6th_year.webp"),
     galleryImages: [],
     descriptionShort: "Complete English preparation for 6th year — all lessons, grammar, listening, reading, writing and exams.",
     descriptionLong: "This comprehensive workbook covers everything a 6th year primary student needs to excel in English. From grammar rules and listening comprehension to reading and writing activities, plus full exam preparation — all aligned with the official Tunisian curriculum.",
@@ -114,7 +110,7 @@ export const books: Book[] = [
     },
     seoTitle: "Learn English with Henda — 6th Year Primary",
     seoDescription: "English workbook for 6th year primary students in Tunisia. Full program coverage with grammar, listening, reading, writing and exams.",
-    ogImage: cover6th,
+    ogImage: cover("6th_year.png"),
   },
   {
     id: "learn-english-with-henda-7th",
@@ -123,7 +119,7 @@ export const books: Book[] = [
     subtitle: "Level: 7th Form Basic Education",
     grade: 7,
     gradeLabel: "7th Year",
-    coverImage: cover7th,
+    coverImage: cover("7th_year.webp"),
     galleryImages: [],
     descriptionShort: "Master intermediate English with module reviews, grammar, reading, writing activities and exam prep.",
     descriptionLong: "Tailored for 7th form basic education students, this book provides thorough coverage of all lessons with a review section for each module. It includes grammar rules, reading comprehension activities, structured writing exercises, and exam preparation aligned with the official program.",
@@ -150,7 +146,7 @@ export const books: Book[] = [
     },
     seoTitle: "Learn English with Henda — 7th Form Basic Education",
     seoDescription: "English workbook for 7th form basic education in Tunisia. Module reviews, grammar, reading, writing and exams.",
-    ogImage: cover7th,
+    ogImage: cover("7th_year.png"),
   },
   {
     id: "learn-english-with-henda-8th",
@@ -159,7 +155,7 @@ export const books: Book[] = [
     subtitle: "Level: 8th Year Basic Education",
     grade: 8,
     gradeLabel: "8th Year",
-    coverImage: cover8th,
+    coverImage: cover("8th_year.webp"),
     galleryImages: [],
     descriptionShort: "Advanced English preparation with module reviews, grammar, listening, reading, writing and exam practice.",
     descriptionLong: "This workbook prepares 8th year basic education students for academic success in English. With comprehensive lesson coverage, module-by-module reviews, grammar rules, listening and reading comprehension, writing activities, and thorough exam preparation.",
@@ -186,7 +182,7 @@ export const books: Book[] = [
     },
     seoTitle: "Learn English with Henda — 8th Year Basic Education",
     seoDescription: "English workbook for 8th year basic education in Tunisia. Complete program with listening, reading, writing and exams.",
-    ogImage: cover8th,
+    ogImage: cover("8th_year.png"),
   },
   {
     id: "learn-english-with-henda-9th",
@@ -195,7 +191,7 @@ export const books: Book[] = [
     subtitle: "Level: 9th Year Basic Education",
     grade: 9,
     gradeLabel: "9th Year",
-    coverImage: cover9th,
+    coverImage: cover("9th_year.webp"),
     galleryImages: [],
     descriptionShort: "The ultimate exam preparation — all lessons, module reviews, grammar, listening, reading, writing and exams.",
     descriptionLong: "The definitive workbook for 9th year basic education students preparing for their final exams. Covers all lessons with detailed module reviews, grammar rules, listening and reading comprehension activities, writing exercises, and comprehensive exam preparation aligned with the official Tunisian program.",
@@ -222,7 +218,7 @@ export const books: Book[] = [
     },
     seoTitle: "Learn English with Henda — 9th Year Basic Education",
     seoDescription: "English workbook for 9th year basic education in Tunisia. Complete exam preparation with all skills covered.",
-    ogImage: cover9th,
+    ogImage: cover("9th_year.png"),
   },
 ];
 

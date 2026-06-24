@@ -1,13 +1,17 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NavLink } from "@/components/NavLink";
 import { Grade, GRADE_CONFIG } from "@/lib/types";
 import { useTranslation } from "react-i18next";
 import { useLanguage } from "@/contexts/LanguageContext";
-import WahtsAppIcon from "../../assets/icons/whatsappicon.png";
-import WahtsAppIconwhite from "../../assets/icons/whatsappiconwhite.png";
+import { useAuth } from "@/contexts/AuthContext";
+import { mediaUrl } from "@/lib/api";
+import { whatsappUrl } from "@/lib/site";
+
+const WhatsAppIcon = mediaUrl("icons/whatsappicon.png");
+const WhatsAppIconWhite = mediaUrl("icons/whatsappiconwhite.png");
 
 const GRADES: Grade[] = [4, 5, 6, 7, 8, 9];
 
@@ -25,6 +29,7 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const { t } = useTranslation();
   const { lang, toggleLang } = useLanguage();
+  const { isAdmin } = useAuth();
 
   const NAV_ITEMS = [
     { label: t("nav.home"), to: "/" },
@@ -48,13 +53,10 @@ export function Header() {
             to="/"
             className="flex items-center gap-2 font-serif text-lg font-bold text-primary sm:text-xl h-full"
           >
-            {/* <BookOpen className="h-5 w-5 sm:h-6 sm:w-6" />
-            <span>English With Henda</span> */}
             <img
               src="/new-logo.png"
               alt="English With Henda"
               className="h-full w-auto"
-              srcSet=""
             />
           </Link>
 
@@ -70,7 +72,16 @@ export function Header() {
                 {item.label}
               </NavLink>
             ))}
-            {/* Language switcher */}
+            {isAdmin && (
+              <NavLink
+                to="/admin"
+                className="px-3 py-2 text-base font-medium text-foreground/80 rounded-md transition-colors hover:text-foreground hover:bg-accent flex items-center gap-1"
+                activeClassName="text-foreground bg-accent"
+              >
+                <ShieldCheck className="h-4 w-4" />
+                Admin
+              </NavLink>
+            )}
             <Button
               variant="outline"
               size="sm"
@@ -97,11 +108,7 @@ export function Header() {
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
             >
-              {mobileOpen ? (
-                <X className="h-5 w-5" />
-              ) : (
-                <Menu className="h-5 w-5" />
-              )}
+              {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
           </div>
         </div>
@@ -123,23 +130,15 @@ export function Header() {
               ))}
             </div>
             <div className="flex items-center gap-2">
-              <Button
-                asChild
-                size="sm"
-                variant="outlineW"
-                className="h-7 text-sm group"
-              >
+              <Button asChild size="sm" variant="outlineW" className="h-7 text-sm group">
                 <a
-                  href="https://wa.me/21692053416"
+                  href={whatsappUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  // className="border-[#45BB76] group-hover:border-white bg-[#DEDEDE]"
                 >
-                  {/* <MessageCircle className="mr-1 h-3 w-3" />  */}
-                  <img src={WahtsAppIconwhite} alt="WhatsApp" className="h-4 w-4 group-hover:block hidden " />
-                  <img src={WahtsAppIcon} alt="WhatsApp" className="h-4 w-4 group-hover:hidden block" />
-                  <p className=" ">WhatsApp</p>
-                  {/* <p className="text-primary-foreground text-[#45BB76] group-hover:text-white font-semibold">WhatsApp</p> */}
+                  <img src={WhatsAppIconWhite} alt="" aria-hidden="true" className="h-4 w-4 group-hover:block hidden" />
+                  <img src={WhatsAppIcon} alt="" aria-hidden="true" className="h-4 w-4 group-hover:hidden block" />
+                  <p>WhatsApp</p>
                 </a>
               </Button>
             </div>
@@ -150,7 +149,6 @@ export function Header() {
       {/* Mobile nav */}
       {mobileOpen && (
         <nav className="md:hidden border-t bg-background px-4 pb-4 border-b-2">
-          {/* Grade quick-links */}
           <div className="flex gap-2 flex-wrap py-3 border-b mb-2">
             {GRADES.map((g) => (
               <Link
@@ -174,6 +172,16 @@ export function Header() {
               {item.label}
             </NavLink>
           ))}
+          {isAdmin && (
+            <NavLink
+              to="/admin"
+              className="flex items-center gap-1.5 px-3 py-3 text-sm font-medium text-muted-foreground rounded-md transition-colors hover:text-foreground hover:bg-accent"
+              activeClassName="text-foreground bg-accent"
+              onClick={() => setMobileOpen(false)}
+            >
+              <ShieldCheck className="h-4 w-4" /> Admin
+            </NavLink>
+          )}
         </nav>
       )}
     </header>

@@ -11,6 +11,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { MessageCircle, Mail, Phone, Send, CheckCircle } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { whatsappUrl, SITE } from "@/lib/site";
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
@@ -18,13 +19,32 @@ export default function Contact() {
   const [error, setError] = useState("");
   const { t } = useTranslation();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const data = new FormData(e.currentTarget);
+
+    // Honeypot — real users never fill this hidden field.
+    if (data.get("website")) return;
+
     if (!consent) {
       setError(t("contact.form.consentError"));
       return;
     }
     setError("");
+
+    const get = (k: string) => ((data.get(k) as string | null) ?? "").trim();
+    const tLabel = (group: string, val: string) => (val ? t(`contact.form.${group}.${val}`) : "");
+
+    const lines: string[] = [`Name: ${get("name")}`];
+    if (get("role")) lines.push(`Role: ${tLabel("role", get("role"))}`);
+    if (get("subject")) lines.push(`Subject: ${tLabel("subject", get("subject"))}`);
+    if (get("email")) lines.push(`Email: ${get("email")}`);
+    if (get("phone")) lines.push(`Phone: ${get("phone")}`);
+    if (get("contactMethod")) lines.push(`Preferred contact: ${tLabel("contactMethod", get("contactMethod"))}`);
+    lines.push("", "Message:", get("message"));
+
+    const message = `New inquiry from englishwithhenda.com\n\n${lines.join("\n")}`;
+    window.open(whatsappUrl(message), "_blank", "noopener,noreferrer");
     setSubmitted(true);
   };
 
@@ -45,7 +65,7 @@ export default function Contact() {
 
         <ScrollReveal>
           <div className="grid grid-cols-2 gap-3 mb-10">
-            <a href="https://wa.me/21692053416" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 rounded-xl border bg-card p-4 hover:shadow-md transition-shadow text-center">
+            <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 rounded-xl border bg-card p-4 hover:shadow-md transition-shadow text-center">
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
                 <MessageCircle className="h-5 w-5 text-primary" />
               </div>
@@ -57,7 +77,7 @@ export default function Contact() {
               </div>
               <span className="text-sm font-medium">{t("contact.channels.email")}</span>
             </a> */}
-            <a href="tel:+21692053416" className="flex flex-col items-center gap-2 rounded-xl border bg-card p-4 hover:shadow-md transition-shadow text-center">
+            <a href={`tel:${SITE.phoneTel}`} className="flex flex-col items-center gap-2 rounded-xl border bg-card p-4 hover:shadow-md transition-shadow text-center">
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
                 <Phone className="h-5 w-5 text-primary" />
               </div>
@@ -85,7 +105,7 @@ export default function Contact() {
               <div className="grid gap-5 sm:grid-cols-2">
                 <div>
                   <Label htmlFor="role">{t("contact.form.role.label")}</Label>
-                  <Select>
+                  <Select name="role">
                     <SelectTrigger className="mt-1.5"><SelectValue placeholder={t("contact.form.role.placeholder")} /></SelectTrigger>
                     <SelectContent>
                       <SelectItem value="parent">{t("contact.form.role.parent")}</SelectItem>
@@ -99,7 +119,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <Label htmlFor="subject">{t("contact.form.subject.label")}</Label>
-                  <Select>
+                  <Select name="subject">
                     <SelectTrigger className="mt-1.5"><SelectValue placeholder={t("contact.form.subject.placeholder")} /></SelectTrigger>
                     <SelectContent>
                       <SelectItem value="general">{t("contact.form.subject.general")}</SelectItem>
@@ -114,22 +134,22 @@ export default function Contact() {
               <div className="grid gap-5 sm:grid-cols-2">
                 <div>
                   <Label htmlFor="name">{t("contact.form.name.label")}</Label>
-                  <Input id="name" placeholder={t("contact.form.name.placeholder")} className="mt-1.5" required />
+                  <Input id="name" name="name" placeholder={t("contact.form.name.placeholder")} className="mt-1.5" required />
                 </div>
                 <div>
                   <Label htmlFor="email">{t("contact.form.email.label")}</Label>
-                  <Input id="email" type="email" placeholder={t("contact.form.email.placeholder")} className="mt-1.5" required />
+                  <Input id="email" name="email" type="email" placeholder={t("contact.form.email.placeholder")} className="mt-1.5" required />
                 </div>
               </div>
 
               <div>
                 <Label htmlFor="phone">{t("contact.form.phone.label")}</Label>
-                <Input id="phone" type="tel" placeholder={t("contact.form.phone.placeholder")} className="mt-1.5" />
+                <Input id="phone" name="phone" type="tel" placeholder={t("contact.form.phone.placeholder")} className="mt-1.5" />
               </div>
 
               <div>
                 <Label htmlFor="contact-method">{t("contact.form.contactMethod.label")}</Label>
-                <Select>
+                <Select name="contactMethod">
                   <SelectTrigger className="mt-1.5"><SelectValue placeholder={t("contact.form.contactMethod.placeholder")} /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="whatsapp">{t("contact.form.contactMethod.whatsapp")}</SelectItem>
@@ -141,7 +161,7 @@ export default function Contact() {
 
               <div>
                 <Label htmlFor="message">{t("contact.form.message.label")}</Label>
-                <Textarea id="message" placeholder={t("contact.form.message.placeholder")} className="mt-1.5" rows={5} required />
+                <Textarea id="message" name="message" placeholder={t("contact.form.message.placeholder")} className="mt-1.5" rows={5} required />
               </div>
 
               {/* Honeypot */}

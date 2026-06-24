@@ -38,24 +38,22 @@ export interface Book {
   };
 }
 
+export interface ResourceAudio {
+  fileName: string;
+  originalName: string;
+  url: string;
+}
+
 export interface Resource {
   id: string;
   slug: string;
   title: string;
   grade: Grade;
-  skill: string;
   format: "audio";
   summary: string;
-  fileUrl: string;
+  pageNumber?: number | null;
+  audios: ResourceAudio[];
   relatedBookIds: string[];
-  seoTitle: string;
-  seoDescription: string;
-  translations?: {
-    ar?: {
-      title?: string;
-      summary?: string;
-    };
-  };
 }
 
 

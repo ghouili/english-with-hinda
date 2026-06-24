@@ -8,30 +8,32 @@ on:
 
 jobs:
   # ----------------------------
-  # OPTIONAL: tests (commented)
-  # Uncomment if you actually have tests configured.
+  # Quality gate: lint + build must pass before deploying.
   # ----------------------------
-  # test:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v4
-  #
-  #     - name: Setup Node.js
-  #       uses: actions/setup-node@v4
-  #       with:
-  #         node-version: 20
-  #         cache: npm
-  #
-  #     - name: Install dependencies
-  #       run: npm ci
-  #
-  #     - name: Run unit tests
-  #       run: npm test
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
 
   deploy:
-    # If you enable tests above, uncomment this:
-    # needs: test
+    # Only deploy if the quality gate passed.
+    needs: quality
 
     runs-on: ubuntu-latest
     environment: deploy
