@@ -68,7 +68,7 @@ const en = {
       // subtitle:
       //   "I am delighted to present my companion workbooks in English, the fruit of over twenty years of teaching experience, designed to guide students step by step through the official curriculum. These books stand out for their carefully structured lessons, covering a wide range of activities in comprehension (reading and listening), grammar, vocabulary, and written expression. They also provide comprehensive practice to help learners build their skills and prepare confidently and successfully for their exams.",
       cta_primary: "Discover our books",
-      cta_secondary: "Free resources",
+      cta_secondary: "How the audio works",
     },
     trust: {
       title: "Why trust us?",
@@ -212,6 +212,20 @@ const en = {
     viewResource: "View resource",
     formats: {
       audio: "Audio",
+    },
+    locked: {
+      badge: "Unlocked by QR",
+      headline: "Your audio lessons live inside the books",
+      body: "Every English With Henda workbook comes with its own listening practice. Scan the QR code printed next to an exercise and its audio opens instantly on your phone — no account, no searching, and nothing to pay.",
+      steps: {
+        title: "How it works",
+        one: "Find a listening exercise marked with a QR code in your workbook.",
+        two: "Scan the code with your phone's camera.",
+        three: "Press play, then listen and practise as many times as you like.",
+      },
+      ctaHelp: "Can't find a code, or need a hand getting started?",
+      whatsappCta: "Message us on WhatsApp",
+      contactCta: "Contact us",
     },
   },
 

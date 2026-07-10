@@ -13,7 +13,7 @@ import { useTranslation } from "react-i18next";
 import {
   ArrowRight,
   BookOpen,
-  Download,
+  QrCode,
   Star,
   CheckCircle,
   StarHalf,
@@ -194,7 +194,7 @@ export default function HomePage() {
                 className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 font-semibold w-full sm:w-auto"
               >
                 <Link to="/resources">
-                  <Download className="me-2 h-5 w-5" />
+                  <QrCode className="me-2 h-5 w-5" />
                   {t("home.hero.cta_secondary")}
                 </Link>
               </Button>

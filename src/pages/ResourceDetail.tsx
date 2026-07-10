@@ -104,6 +104,7 @@ export default function ResourceDetail() {
         title={`${title} — English With Henda`}
         description={summary}
         jsonLd={breadcrumbSchema}
+        noindex
       />
 
       <section className="container py-12 max-w-3xl">
