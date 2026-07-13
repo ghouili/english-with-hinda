@@ -47,6 +47,8 @@ import {
   Download,
   Copy,
   Check,
+  KeyRound,
+  RefreshCw,
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import {
@@ -54,6 +56,8 @@ import {
   createResource,
   updateResource,
   deleteResource,
+  fetchAccessKey,
+  rotateAccessKey,
 } from "@/lib/api";
 
 const GRADES = [4, 5, 6, 7, 8, 9] as const;
@@ -134,6 +138,10 @@ export default function Admin() {
 
   const [toast, setToast] = useState("");
 
+  const [accessKey, setAccessKey] = useState("");
+  const [accessCopied, setAccessCopied] = useState(false);
+  const [rotating, setRotating] = useState(false);
+
   const load = async () => {
     setLoading(true);
     setError("");
@@ -149,12 +157,49 @@ export default function Admin() {
 
   useEffect(() => { load(); }, []);
 
+  useEffect(() => {
+    if (!token) return;
+    fetchAccessKey(token).then((d) => setAccessKey(d.key)).catch(() => {});
+  }, [token]);
+
   const showToast = (msg: string) => {
     setToast(msg);
     setTimeout(() => setToast(""), 3000);
   };
 
   const resourceUrl = (slug: string) => `https://learnenglish.tn/resources/${slug}`;
+
+  const accessUrl = accessKey ? `${window.location.origin}/?key=${accessKey}` : "";
+
+  const downloadCanvasPng = (id: string, filename: string) => {
+    const canvas = document.getElementById(id) as HTMLCanvasElement | null;
+    if (!canvas) return;
+    const link = document.createElement("a");
+    link.href = canvas.toDataURL("image/png");
+    link.download = filename;
+    link.click();
+  };
+
+  const copyAccessUrl = async () => {
+    await navigator.clipboard.writeText(accessUrl);
+    setAccessCopied(true);
+    setTimeout(() => setAccessCopied(false), 2000);
+  };
+
+  const handleRotate = async () => {
+    if (!token) return;
+    if (!window.confirm("Rotate the access key? All previously shared links and QR codes will stop working.")) return;
+    setRotating(true);
+    try {
+      const d = await rotateAccessKey(token);
+      setAccessKey(d.key);
+      showToast("Access key rotated — re-share the new link/QR.");
+    } catch {
+      showToast("Failed to rotate the access key.");
+    } finally {
+      setRotating(false);
+    }
+  };
 
   const downloadQR = useCallback((slug: string) => {
     const canvas = document.getElementById("qr-canvas") as HTMLCanvasElement | null;
@@ -342,6 +387,70 @@ export default function Admin() {
                 <p className="text-sm text-muted-foreground">No audio yet</p>
               </div>
             </div>
+          </div>
+
+          {/* Site access */}
+          <div className="rounded-xl border bg-card p-5 shadow-sm mb-8">
+            <div className="flex items-start justify-between gap-4 flex-wrap">
+              <div className="flex items-center gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+                  <KeyRound className="h-5 w-5" />
+                </div>
+                <div>
+                  <h2 className="font-serif text-lg font-bold">Site access</h2>
+                  <p className="text-xs text-muted-foreground">
+                    The site is private — share this link or QR so people can get in.
+                  </p>
+                </div>
+              </div>
+              <Button variant="outline" size="sm" onClick={handleRotate} disabled={rotating || !accessKey}>
+                <RefreshCw className="me-1.5 h-3.5 w-3.5" /> {rotating ? "Rotating…" : "Rotate key"}
+              </Button>
+            </div>
+
+            {accessKey ? (
+              <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center">
+                <div className="w-fit shrink-0 rounded-xl border bg-white p-3 shadow-sm">
+                  <QRCodeCanvas
+                    id="access-qr-canvas"
+                    value={accessUrl}
+                    size={132}
+                    marginSize={2}
+                    level="H"
+                    fgColor="#000000"
+                    bgColor="transparent"
+                  />
+                </div>
+                <div className="min-w-0 flex-1 space-y-3">
+                  <div>
+                    <label className="text-xs font-medium text-muted-foreground">Shareable link</label>
+                    <Input
+                      readOnly
+                      value={accessUrl}
+                      onFocus={(e) => e.currentTarget.select()}
+                      className="mt-1 font-mono text-xs"
+                    />
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    <Button size="sm" onClick={copyAccessUrl}>
+                      {accessCopied ? (
+                        <><Check className="me-1.5 h-4 w-4 text-green-500" /> Copied!</>
+                      ) : (
+                        <><Copy className="me-1.5 h-4 w-4" /> Copy link</>
+                      )}
+                    </Button>
+                    <Button size="sm" variant="outline" onClick={() => downloadCanvasPng("access-qr-canvas", "site-access-qr.png")}>
+                      <Download className="me-1.5 h-4 w-4" /> Download QR
+                    </Button>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    Anyone who opens this link or scans the QR unlocks the whole site on their device. Rotate the key to revoke every shared link.
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <p className="mt-4 text-sm text-muted-foreground">Loading access link…</p>
+            )}
           </div>
 
           {/* Resource list header */}

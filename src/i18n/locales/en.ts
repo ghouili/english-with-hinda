@@ -510,6 +510,16 @@ const en = {
     message: "Hello, I'd like to know more about your English books.",
   },
 
+  // Site access gate
+  access: {
+    title: "This site is private",
+    body: "Open it from the link or QR code you were given. If you have an access code, enter it below.",
+    placeholder: "Access code",
+    submit: "Unlock",
+    checking: "Checking…",
+    invalid: "That access code isn't valid.",
+  },
+
   // Common
   common: {
     backToBooks: "Back to books",

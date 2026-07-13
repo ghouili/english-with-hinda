@@ -69,3 +69,35 @@ export async function deleteResource(id: string, token: string) {
   }
   return res.json();
 }
+
+// ── Site access (invite-only gate) ──────────────────────────────────────────
+
+export async function submitAccessKey(key: string) {
+  const res = await fetch(apiUrl('access'), {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ key }),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error || 'Invalid access key.');
+  }
+  return res.json() as Promise<{ token: string; expiresAt: number }>;
+}
+
+export async function fetchAccessKey(token: string) {
+  const res = await fetch(apiUrl('access/key'), {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!res.ok) throw new Error('Failed to load access key.');
+  return res.json() as Promise<{ key: string }>;
+}
+
+export async function rotateAccessKey(token: string) {
+  const res = await fetch(apiUrl('access/rotate'), {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!res.ok) throw new Error('Failed to rotate access key.');
+  return res.json() as Promise<{ key: string }>;
+}

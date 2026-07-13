@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
+import { AccessGate } from "@/components/AccessGate";
 import { ReactNode, Suspense, lazy } from "react";
 import Index from "./pages/Index";
 
@@ -52,8 +53,9 @@ const App = () => (
             <Toaster />
             <Sonner />
             <BrowserRouter>
-              <Suspense fallback={<RouteFallback />}>
-                <Routes>
+              <AccessGate>
+                <Suspense fallback={<RouteFallback />}>
+                  <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/books" element={<BooksIndex />} />
                   <Route path="/books/:gradeSlug" element={<GradeHub />} />
@@ -78,7 +80,8 @@ const App = () => (
                   <Route path="/add-resource" element={<Navigate to="/admin" replace />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
-              </Suspense>
+                </Suspense>
+              </AccessGate>
             </BrowserRouter>
           </TooltipProvider>
         </LanguageProvider>
