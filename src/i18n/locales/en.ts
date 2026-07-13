@@ -68,7 +68,7 @@ const en = {
       // subtitle:
       //   "I am delighted to present my companion workbooks in English, the fruit of over twenty years of teaching experience, designed to guide students step by step through the official curriculum. These books stand out for their carefully structured lessons, covering a wide range of activities in comprehension (reading and listening), grammar, vocabulary, and written expression. They also provide comprehensive practice to help learners build their skills and prepare confidently and successfully for their exams.",
       cta_primary: "Discover our books",
-      cta_secondary: "How the audio works",
+      cta_secondary: "Free resources",
     },
     trust: {
       title: "Why trust us?",

@@ -1,139 +1,174 @@
+import { useState, useMemo, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { motion, useReducedMotion } from "framer-motion";
-import { QRCodeSVG } from "qrcode.react";
 import { Layout } from "@/components/layout/Layout";
 import { SEOHead } from "@/components/SEOHead";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Skeleton } from "@/components/ui/skeleton";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { Button } from "@/components/ui/button";
-import { whatsappUrl } from "@/lib/site";
-import { QrCode, ScanLine, BookMarked, PlayCircle, MessageCircle } from "lucide-react";
+import { Grade } from "@/lib/types";
+import { fetchResources } from "@/lib/api";
+import { Search, Headphones, ArrowRight, BookOpen } from "lucide-react";
 
-const NAVY = "#1b2233"; // --foreground, for crisp QR modules on a light card
+const GRADES: Grade[] = [4, 5, 6, 7, 8, 9];
 
-const STEPS = [
-  { key: "one", Icon: BookMarked },
-  { key: "two", Icon: ScanLine },
-  { key: "three", Icon: PlayCircle },
-] as const;
-
-const EASE_OUT = [0.22, 1, 0.36, 1] as const;
-const fadeUp = {
-  hidden: { opacity: 0, y: 18 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE_OUT } },
+const GRADE_BADGE: Record<Grade, string> = {
+  4: "bg-grade-4 text-grade-4-foreground",
+  5: "bg-grade-5 text-grade-5-foreground",
+  6: "bg-grade-6 text-grade-6-foreground",
+  7: "bg-grade-7 text-grade-7-foreground",
+  8: "bg-grade-8 text-grade-8-foreground",
+  9: "bg-grade-9 text-grade-9-foreground",
 };
+
+interface ApiResource {
+  id: string;
+  slug: string;
+  title: string;
+  grade: Grade;
+  format: string;
+  summary: string;
+  pageNumber?: number | null;
+}
 
 export default function ResourcesIndex() {
   const { t } = useTranslation();
-  const reduce = useReducedMotion();
+  const [resources, setResources] = useState<ApiResource[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
+  const [search, setSearch] = useState("");
+  const [gradeFilter, setGradeFilter] = useState<Grade | null>(null);
+
+  useEffect(() => {
+    fetchResources()
+      .then(setResources)
+      .catch(() => setLoadError(true))
+      .finally(() => setLoading(false));
+  }, []);
+
+  const filtered = useMemo(() => {
+    return resources.filter((r) => {
+      if (gradeFilter && r.grade !== gradeFilter) return false;
+      if (search && !r.title.toLowerCase().includes(search.toLowerCase())) return false;
+      return true;
+    });
+  }, [resources, search, gradeFilter]);
+
+  const chipClass = (active: boolean) =>
+    `rounded-full px-3 py-1 text-sm font-medium transition-colors ${
+      active
+        ? "bg-primary text-primary-foreground"
+        : "bg-muted text-muted-foreground hover:bg-accent"
+    }`;
 
   return (
     <Layout>
       <SEOHead
         title={t("resourcesPage.title") + " — English With Henda"}
-        description={t("resourcesPage.locked.body")}
+        description={t("resourcesPage.subtitle")}
       />
 
-      <section className="container max-w-4xl py-16 sm:py-24">
-        {/* Hero */}
-        <motion.div
-          className="flex flex-col items-center text-center"
-          initial={reduce ? false : "hidden"}
-          animate="visible"
-          variants={{ visible: { transition: { staggerChildren: 0.09, delayChildren: 0.05 } } }}
-        >
-          <motion.span
-            variants={fadeUp}
-            className="inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground shadow-sm"
-          >
-            <QrCode className="h-3.5 w-3.5" /> {t("resourcesPage.locked.badge")}
-          </motion.span>
+      <section className="container py-12">
+        <h1 className="font-serif text-3xl sm:text-4xl font-bold mb-2">
+          {t("resourcesPage.title")}
+        </h1>
+        <p className="text-muted-foreground mb-8">{t("resourcesPage.subtitle")}</p>
 
-          {/* Animated QR "scan frame" — the page's visual metaphor */}
-          <motion.div variants={fadeUp} className="relative mt-8" aria-hidden="true">
-            <div className="relative rounded-3xl bg-card p-6 shadow-[0_20px_50px_-20px_rgba(27,34,51,0.35)] ring-1 ring-border/70">
-              <div className="relative overflow-hidden rounded-lg">
-                <QRCodeSVG value={whatsappUrl()} size={150} level="M" fgColor={NAVY} bgColor="transparent" />
-                {!reduce && (
-                  <motion.div
-                    className="pointer-events-none absolute inset-x-0 top-0 h-10 bg-gradient-to-b from-primary/0 via-primary/70 to-primary/0"
-                    animate={{ y: [0, 110, 0] }}
-                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                  />
-                )}
-              </div>
-              {/* Viewfinder corner brackets (SVG overlay) */}
-              <svg
-                aria-hidden="true"
-                viewBox="0 0 100 100"
-                preserveAspectRatio="none"
-                fill="none"
-                className="pointer-events-none absolute inset-2 text-foreground/30"
-              >
-                <path d="M2 16 V2 H16" stroke="currentColor" strokeWidth={2} strokeLinecap="round" vectorEffect="non-scaling-stroke" />
-                <path d="M84 2 H98 V16" stroke="currentColor" strokeWidth={2} strokeLinecap="round" vectorEffect="non-scaling-stroke" />
-                <path d="M98 84 V98 H84" stroke="currentColor" strokeWidth={2} strokeLinecap="round" vectorEffect="non-scaling-stroke" />
-                <path d="M16 98 H2 V84" stroke="currentColor" strokeWidth={2} strokeLinecap="round" vectorEffect="non-scaling-stroke" />
-              </svg>
+        {/* Search */}
+        <div className="relative mb-6">
+          <Search className="absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            placeholder={t("resourcesPage.search")}
+            className="ps-10"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+
+        {/* Filters */}
+        <div className="space-y-3 mb-8">
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-medium text-muted-foreground w-14 shrink-0">
+              {t("resourcesPage.levelLabel")}
+            </span>
+            <div className="flex gap-2 overflow-x-auto scrollbar-none pb-0.5">
+              <button onClick={() => setGradeFilter(null)} className={chipClass(!gradeFilter)}>
+                {t("resourcesPage.allLevels")}
+              </button>
+              {GRADES.map((g) => (
+                <button
+                  key={g}
+                  onClick={() => setGradeFilter(g)}
+                  className={chipClass(gradeFilter === g) + " whitespace-nowrap"}
+                >
+                  {t(`grades.${g}`)}
+                </button>
+              ))}
             </div>
-          </motion.div>
+          </div>
+        </div>
 
-          <motion.h1
-            variants={fadeUp}
-            className="mt-8 font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-balance"
-          >
-            {t("resourcesPage.locked.headline")}
-          </motion.h1>
-
-          <motion.p
-            variants={fadeUp}
-            className="mx-auto mt-4 max-w-xl text-muted-foreground leading-relaxed text-pretty"
-          >
-            {t("resourcesPage.locked.body")}
-          </motion.p>
-
-          <motion.div variants={fadeUp} className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <Button asChild size="lg" className="bg-[#25D366] text-white shadow-sm hover:bg-[#1eb959]">
-              <a href={whatsappUrl(t("whatsapp.message"))} target="_blank" rel="noopener noreferrer">
-                <MessageCircle className="me-2 h-5 w-5" /> {t("resourcesPage.locked.whatsappCta")}
-              </a>
-            </Button>
-            <Button asChild size="lg" variant="outline">
-              <Link to="/contact">{t("resourcesPage.locked.contactCta")}</Link>
-            </Button>
-          </motion.div>
-
-          <motion.p variants={fadeUp} className="mt-3 text-xs text-muted-foreground">
-            {t("resourcesPage.locked.ctaHelp")}
-          </motion.p>
-        </motion.div>
-
-        {/* How it works */}
-        <ScrollReveal className="mt-20 sm:mt-28">
-          <h2 className="text-center font-serif text-2xl font-bold">
-            {t("resourcesPage.locked.steps.title")}
-          </h2>
-          <ol className="relative mt-10 grid gap-10 sm:grid-cols-3 sm:gap-6">
-            {/* Connecting line (desktop) */}
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-x-[18%] top-8 hidden border-t-2 border-dashed border-border sm:block"
-            />
-            {STEPS.map(({ key, Icon }, i) => (
-              <li key={key} className="relative z-10 flex flex-col items-center text-center">
-                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-sm ring-4 ring-background">
-                  <Icon className="h-7 w-7" />
+        {loading && (
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {[...Array(6)].map((_, i) => (
+              <div key={i} className="rounded-xl border bg-card p-5 shadow-sm">
+                <div className="flex gap-2 mb-3">
+                  <Skeleton className="h-5 w-14 rounded-full" />
+                  <Skeleton className="h-5 w-16 rounded-full" />
                 </div>
-                <span className="mt-4 text-xs font-bold uppercase tracking-wide text-primary-foreground/60">
-                  {i + 1}
-                </span>
-                <p className="mt-1 max-w-[16rem] text-sm text-muted-foreground leading-relaxed">
-                  {t(`resourcesPage.locked.steps.${key}`)}
-                </p>
-              </li>
+                <Skeleton className="h-4 w-3/4 mb-2" />
+                <Skeleton className="h-3 w-full" />
+                <Skeleton className="mt-1 h-3 w-2/3" />
+              </div>
             ))}
-          </ol>
-        </ScrollReveal>
+          </div>
+        )}
+
+        {!loading && loadError && (
+          <p className="text-center text-muted-foreground py-12">
+            Could not load resources. Please try again later.
+          </p>
+        )}
+
+        {!loading && !loadError && (
+          <ScrollReveal>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {filtered.map((r) => (
+                <Link
+                  key={r.id}
+                  to={`/resources/${r.slug}`}
+                  className="group rounded-xl border bg-card p-5 shadow-sm hover:shadow-md transition-shadow"
+                >
+                  <div className="flex items-center gap-2 mb-3 flex-wrap">
+                    <Badge className={GRADE_BADGE[r.grade]}>{t(`grades.${r.grade}`)}</Badge>
+                    {r.pageNumber != null && (
+                      <Badge variant="secondary" className="gap-1">
+                        <BookOpen className="h-3 w-3" /> Page {r.pageNumber}
+                      </Badge>
+                    )}
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <Headphones className="h-5 w-5 mt-0.5 text-muted-foreground shrink-0" />
+                    <div>
+                      <h3 className="font-semibold text-sm group-hover:text-primary transition-colors">
+                        {r.title}
+                      </h3>
+                      <p className="mt-1 text-xs text-muted-foreground line-clamp-2">{r.summary}</p>
+                    </div>
+                  </div>
+                  <span className="mt-3 flex items-center gap-1 text-xs font-medium text-primary">
+                    {t("resourcesPage.viewResource")} <ArrowRight className="h-3 w-3" />
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </ScrollReveal>
+        )}
+
+        {!loading && !loadError && filtered.length === 0 && (
+          <p className="text-center text-muted-foreground py-12">{t("resourcesPage.noResults")}</p>
+        )}
       </section>
     </Layout>
   );
